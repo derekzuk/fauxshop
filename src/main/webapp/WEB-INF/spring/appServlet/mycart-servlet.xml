@@ -111,4 +111,89 @@
 		- Free</value> <value>Expedited Shipping (3 days) - $19.95</value> <value>Overnight 
 		Shipping - $59.95</value> </util:list> -->
 
+
+
+	<!-- I'd prefer if this didn't have to be here, but we'll keep it for now. -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/fauxleather" />
+		<property name="username" value="root" />
+		<property name="password" value="pass" />
+	</bean>
+
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.journaldev.spring.model.Account</value>
+				<value>com.journaldev.spring.model.Cart</value>
+				<value>com.journaldev.spring.model.Inventory</value>
+				<value>com.journaldev.spring.model.Person</value>
+				<value>com.journaldev.spring.model.TransactionLog
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="accountDAO" class="com.journaldev.spring.dao.AccountDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="accountService"
+		class="com.journaldev.spring.service.AccountServiceImpl">
+		<property name="accountDAO" ref="accountDAO"></property>
+	</bean>
+	<bean id="cartDAO" class="com.journaldev.spring.dao.CartDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="cartService"
+		class="com.journaldev.spring.service.CartServiceImpl">
+		<property name="cartDAO" ref="cartDAO"></property>
+	</bean>
+	<bean id="inventoryDAO" class="com.journaldev.spring.dao.InventoryDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="inventoryService"
+		class="com.journaldev.spring.service.InventoryServiceImpl">
+		<property name="inventoryDAO" ref="inventoryDAO"></property>
+	</bean>
+	<bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="personService"
+		class="com.journaldev.spring.service.PersonServiceImpl">
+		<property name="personDAO" ref="personDAO"></property>
+	</bean>
+	<bean id="transactionDAO"
+		class="com.journaldev.spring.dao.TransactionDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="transactionService"
+		class="com.journaldev.spring.service.TransactionServiceImpl">
+		<property name="transactionDAO" ref="transactionDAO"></property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
 </beans>
