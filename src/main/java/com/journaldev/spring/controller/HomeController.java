@@ -47,9 +47,9 @@ public class HomeController {
 		return "employee";
 	}
 	
-	@RequestMapping(value="/login")
+	@RequestMapping(value="/loginsecurity")
 	public String login(HttpServletRequest request, Model model){
-		return "login";
+		return "loginsecurity";
 	}
 	
 	@RequestMapping(value="/logout")

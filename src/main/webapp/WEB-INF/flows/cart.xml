@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+		
+	<var name="cart" class="com.journaldev.spring.model.Cart"/>
+	<var name="transactionLog" class="com.journaldev.spring.model.TransactionLog"/>
+	
+	<!-- By default, the first state is the start state. -->
+	<view-state id="cart" view="cart">
+		<transition on="next" to="loginCart"/>
+		<transition on="continueShopping" to="categoriesExit"/>
+	</view-state>	
+	
+	<subflow-state id="loginCart" subflow="login">
+	<!-- Transitions must be the names of end states in the subflow? -->
+		<transition on="exitHome" to="shipping"/>
+	</subflow-state>	
+	
+	<view-state id="shipping" view="shipping">
+		<transition on="next" to="payment"/>
+	</view-state>
+	
+	<view-state id="payment" view="payment">
+		<transition on="proceedToCheckout" to="createTransaction"/>
+	</view-state>	
+	
+	<!-- The addTransaction method will have to pull the cart for this specific user -->
+	<action-state id="createTransaction">
+		<evaluate expression="transactionService.addTransaction(transactionLog)"/>
+		<transition to="invoice"/>
+	</action-state>
+		
+	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
+	<!-- See also http://jira.springframework.org/browse/SWF-588 -->
+	<!-- View applies only when directly called; calling flows ignore it? -->
+	<end-state id="invoice" view="externalRedirect:contextRelative:/invoice"/>	
+	<end-state id="categoriesExit" view="externalRedirect:contextRelative:/categories"/>
+</flow>

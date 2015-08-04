@@ -20,15 +20,15 @@
 	<http authentication-manager-ref="jdbc-auth"
 		access-decision-manager-ref="accessDecisionManager">	
 		<intercept-url pattern="/emp/**" access="Admin" />
-		<form-login login-page="/login" authentication-failure-url="/denied"
+		<form-login login-page="/loginsecurity" authentication-failure-url="/denied"
 			username-parameter="username" password-parameter="password"
 			default-target-url="/home" />
-		<logout invalidate-session="true" logout-success-url="/login"
+		<logout invalidate-session="true" logout-success-url="/loginsecurity"
 			logout-url="/j_spring_security_logout" />
 		<access-denied-handler error-page="/denied"/>
-		<session-management invalid-session-url="/login">
+		<session-management invalid-session-url="/loginsecurity">
 			<concurrency-control max-sessions="1"
-				expired-url="/login" />
+				expired-url="/loginsecurity" />
 		</session-management>
 	</http>
 

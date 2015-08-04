@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+		
+	<var name="accountCredentials" class="com.journaldev.spring.model.Account"/>
+	
+	<!-- By default, the first state is the start state. -->
+	<view-state id="login" view="login">
+		<transition on="submitRegistration" to="registration"/>
+		<transition on="logIn" to="exitHome"/>
+	</view-state>
+	
+	<view-state id="registration" view="account" model="accountCredentials">
+		<transition on="cancel" to="exitHome"/>
+		<transition on="login2register" to="newRegistration"/>
+	</view-state>
+	
+	<action-state id="newRegistration">
+		<evaluate expression="accountService.addAccount(accountCredentials)"/>
+		<transition to="exitHome"/>
+	</action-state>
+	
+	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
+	<!-- See also http://jira.springframework.org/browse/SWF-588 -->
+	<!-- View applies only when directly called; calling flows ignore it? -->
+	<end-state id="exitHome" view="externalRedirect:contextRelative:/index"/>
+
+</flow>

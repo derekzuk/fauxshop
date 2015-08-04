@@ -16,7 +16,7 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
-	
+
 	<session-config>
 		<session-timeout>15</session-timeout>
 	</session-config>
@@ -26,12 +26,11 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- Spring MVC - START -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -44,11 +43,26 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<!-- Spring MVC - END -->
+
+	<!-- Spring MVC front controller. Automatically loads mycart-servlet.xml 
+		based on servlet name. -->
+	<servlet>
+		<servlet-name>mycart</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>mycart</param-name>
+			<param-value>/WEB-INF/spring/appServlet/mycart-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mycart</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>

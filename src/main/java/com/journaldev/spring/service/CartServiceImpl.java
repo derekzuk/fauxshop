@@ -1,0 +1,50 @@
+package com.journaldev.spring.service;
+ 
+import java.util.List;
+ 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+ 
+import com.journaldev.spring.dao.CartDAO;
+import com.journaldev.spring.model.Cart;
+ 
+@Service
+public class CartServiceImpl implements CartService {
+     
+    private CartDAO cartDAO;
+    
+    public void setCartDAO(CartDAO cartDAO) {
+        this.cartDAO = cartDAO;
+    }
+ 
+    /*@Override*/
+    @Transactional
+    public void addCart(Cart c) {
+        this.cartDAO.addCart(c);
+    }
+ 
+    /*@Override*/
+    @Transactional
+    public void updateCart(Cart c) {
+        this.cartDAO.updateCart(c);
+    }
+ 
+    /*@Override*/
+    @Transactional
+    public List<Cart> listCarts() {
+        return this.cartDAO.listCarts();
+    }
+ 
+    /*@Override*/
+    @Transactional
+    public Cart getCartById(int id) {
+        return this.cartDAO.getCartById(id);
+    }
+ 
+    /*@Override*/
+    @Transactional
+    public void removeCart(int id) {
+        this.cartDAO.removeCart(id);
+    }
+ 
+}
