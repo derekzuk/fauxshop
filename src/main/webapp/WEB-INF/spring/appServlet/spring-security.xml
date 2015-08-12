@@ -72,4 +72,5 @@
 		class="org.springframework.jndi.JndiObjectFactoryBean">
 		<beans:property name="jndiName" value="java:comp/env/jdbc/fauxleather" />
 	</beans:bean>
+	
 </beans:beans>
