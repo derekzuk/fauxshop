@@ -81,6 +81,7 @@
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
+					<p>Current User: ${currentUser.userLogin}</p>
 					</c:when>
 					<c:otherwise>										
                   	<p>Welcome, <a href="login">log in</a></p>

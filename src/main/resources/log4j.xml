@@ -10,32 +10,45 @@
 		</layout>
 	</appender>
 	
+    <appender name="app" class="org.apache.log4j.FileAppender">
+        <param name="File" value="C:/tools/apache-tomcat-7.0.62/logs/SpringMVCSecurityLog.log" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+          <param name="ConversionPattern" value="%t %-5p %c{2} - %m%n"/>
+        </layout>           
+     </appender>	
+
 	<!-- Application Loggers -->
-	<logger name="com.journaldev.spring">
-		<level value="info" />
+	<logger name="com.spring">
+		<level value="debug" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
-	
+
+	<logger name="org.hibernate">
+		<level value="all" />
+	</logger>
+
 	<logger name="org.springframework.beans">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
+		<appender-ref ref="app" />
 	</root>
-	
+
 </log4j:configuration>

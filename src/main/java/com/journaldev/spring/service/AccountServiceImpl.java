@@ -42,6 +42,12 @@ public class AccountServiceImpl implements AccountService {
     public Account getAccountById(int id) {
         return this.accountDAO.getAccountById(id);
     }
+    
+    /*@Override*/
+    @Transactional
+    public Account getAccountByName(String name) {
+        return this.accountDAO.getAccountByName(name);
+    }    
  
     /*@Override*/
     @Transactional

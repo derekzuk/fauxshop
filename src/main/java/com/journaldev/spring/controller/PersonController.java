@@ -1,7 +1,11 @@
 package com.journaldev.spring.controller;
  
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,29 +15,47 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 import com.journaldev.spring.model.Person;
 import com.journaldev.spring.service.PersonService;
-
 import com.journaldev.spring.model.Inventory;
 import com.journaldev.spring.service.InventoryService;
+import com.journaldev.spring.model.Account;
+import com.journaldev.spring.service.AccountService;
  
 @Controller
 public class PersonController {
      
     private PersonService personService;
     private InventoryService inventoryService;
+    private AccountService accountService;
     
     @Autowired(required=true)
     @Qualifier(value="inventoryService")
     public void setInventoryService(InventoryService is){
         this.inventoryService = is;
-    }    
+    }   
+    
+    @Autowired(required=true)
+    @Qualifier(value="accountService")
+    public void setAccountService(AccountService as){
+        this.accountService = as;
+    }      
     
     /*Maps to welcome page*/
     @RequestMapping(value={"/", "index"}, method = RequestMethod.GET)
     public String listWelcomePage(Model model) {
-        model.addAttribute("inventory", new Inventory());
-        model.addAttribute("listInventory", this.inventoryService.listInventory());
-        model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));        
-        return "index";
+    	model.addAttribute("inventory", new Inventory());
+    	model.addAttribute("listInventory", this.inventoryService.listInventory());
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));  
+
+    	// If no user is logged in, then the view will display accordingly.
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}
+    	return "index";
     }
     
     @RequestMapping(value = "/about", method = RequestMethod.GET)

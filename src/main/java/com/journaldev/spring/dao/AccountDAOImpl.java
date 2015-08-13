@@ -3,6 +3,8 @@ package com.journaldev.spring.dao;
 import java.util.List;
  
 
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
+
 import com.journaldev.spring.model.Account;
 
 @Repository
@@ -73,6 +76,19 @@ public class AccountDAOImpl implements AccountDAO {
         logger.info("Account loaded successfully, Account details="+a);
         return a;
     }
+    
+    /*@Override*/
+    public Account getAccountByName(String name) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "FROM Account WHERE userLogin = :username";
+        Query query = session.createQuery(hql);
+        query.setParameter("username", name);
+        Account result = (Account) query.uniqueResult();
+
+        logger.info("getAccountByName query: " + query.toString());
+        logger.info("getAccountByName query results (toString()): " + result.toString());
+        return result;
+    }    
  
     /*@Override*/
     public void removeAccount(int id) {
