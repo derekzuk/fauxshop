@@ -296,7 +296,14 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Password</label>
                   <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="" id=password name=password>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="password" class="form-control" value="password hidden" id=password name=password disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="password" class="form-control" placeholder="" id=password name=password>
+                  	</c:otherwise>    
+                  </c:choose>                                    
                   </div>
                 </div>
                 <div class="form-group">
@@ -350,48 +357,97 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Address</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Address" id=address name=address>
-                    <span class="help-block">Street address, P.O. box, company name, c/o</span>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                    	<input type="text" class="form-control" value="${currentUser.address}" id=address name=address disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="Address" id=address name=address>
+                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>
+                  	</c:otherwise>    
+                  </c:choose>                                    
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Address (Line 2)</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Address (Line 2)" id=address2 name=address2>
-                    <span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                    	<input type="text" class="form-control" value="${currentUser.address2}" id=address2 name=address2 disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="Address (Line 2)" id=address2 name=address2>
+                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
+                  	</c:otherwise>    
+                  </c:choose>                                                      
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">City</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="City" id=city name=city>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.city}" id=city name=city disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="City" id=city name=city>
+                  	</c:otherwise>    
+                  </c:choose>                                          
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Country</label>
                   <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.country}" id=country name=country disabled>
+                  	</c:when>  
+                  	<c:otherwise>
                     <select class="form-control" id=country name=country>
-                      <option>United State</option>
+                      <option>United States</option>
                       <option>Canada</option>
                     </select>
+                  	</c:otherwise>    
+                  </c:choose>                                                                              
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">State</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="State" id=state name=state>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.state}" id=state name=state disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="State" id=state name=state>
+                  	</c:otherwise>    
+                  </c:choose>                                                            
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Zip Code</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="#####" id=zip name=zip>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.zip}" id=zip name=zip disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="#####" id=zip name=zip>
+                  	</c:otherwise>    
+                  </c:choose>                  
                   </div>
                 </div>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Phone</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.phoneNumber}" id=phoneNumber name=phoneNumber disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
+                  	</c:otherwise>    
+                  </c:choose>                                    
                   </div>
                 </div>
                 <div class="form-group">
