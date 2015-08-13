@@ -77,14 +77,13 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="#">Your Account</a></h4>
+                  <h4><a href="account">Your Account</a></h4>                
                   <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
-					<p>Current User: ${currentUser.userLogin}</p>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
+					<p>Welcome, ${currentUser.firstName}</p>
 					</c:when>
 					<c:otherwise>										
-                  	<p>Welcome, <a href="login">log in</a></p>
+                  	<p><a href="login">Log in</a></p>
                   </c:otherwise>
                   </c:choose>
                 </div>

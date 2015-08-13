@@ -65,6 +65,15 @@ public class PersonController {
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String listAccount(Model model) {
+    	// If no user is logged in, then the view will display accordingly.
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}
     	return "account";
     }    
     

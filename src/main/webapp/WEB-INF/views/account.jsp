@@ -243,26 +243,54 @@
               <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
               <div class="form-group">
                   <label class="col-sm-3 control-label">User Login</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Username" id=userLogin name=userLogin>
+                  <div class="col-sm-9">                  	                  	                  
+                  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.userLogin}" id=userLogin name=userLogin disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="Username" id=userLogin name=userLogin>
+                  	</c:otherwise>    
+                  </c:choose>                  	                 
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">First Name</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="First Name" id=firstName name=firstName>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.firstName}" id=firstName name=firstName disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="First Name" id=firstName name=firstName>
+                  	</c:otherwise>    
+                  </c:choose>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Last Name</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Last Name" id=lastName name=lastName>
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${currentUser.lastName}" id=lastName name=lastName disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" placeholder="Last Name" id=lastName name=lastName>
+                  	</c:otherwise>    
+                  </c:choose>                  
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Email</label>
                   <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="email" value="${currentUser.email}" class="form-control" id=email name=email disabled>
+                  	</c:when>  
+                  	<c:otherwise>
                     <input type="email" value="me@domainname.com" class="form-control" placeholder="Email" id=email name=email>
+                  	</c:otherwise>    
+                  </c:choose>                  
                   </div>
                 </div>
                 <div class="form-group">

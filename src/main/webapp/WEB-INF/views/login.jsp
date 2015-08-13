@@ -254,18 +254,21 @@
                 <div class="col-md-6 col-sm-6">
                   <h3>Already Registered ?</h3>
                   <hr />
-                  <form role="form" method="post" action="${flowExecutionUrl}">
+                  <!-- Spring security handles this login: -->
+                  <%-- <form role="form" method="post" action="${flowExecutionUrl}"> --%>
+				<c:url var="loginUrl" value="/j_spring_security_check"></c:url>
+    				<form action="${loginUrl}" method="POST">
                     <div class="form-group">
                       <label for="username">Username</label>
-                      <input type="text" class="form-control" placeholder="Username">
+                      <input type="text" class="form-control" placeholder="Username" name='username'>
                     </div>
                     <div class="form-group">
-                      <label for="password">Password Address</label>
-                      <input type="password" class="form-control" placeholder="Password">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" placeholder="Password" name='password'>
                     </div>
                     <a href="#">Forgot your password ?</a><br><br>
                     <!-- <a href="shipping" class="btn btn-primary">Log in</a> -->
-                    <input type="submit" class="btn btn-primary" name="_eventId_logIn" value="Log In" />
+                    <input type="submit" class="btn btn-primary" name="submit" value="Log In" />                    
                   </form>
                 </div>
               </div>
