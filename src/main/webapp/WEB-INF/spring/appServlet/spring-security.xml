@@ -21,7 +21,7 @@
 		access-decision-manager-ref="accessDecisionManager">	
 		<intercept-url pattern="/emp/**" access="Admin" />
 		<form-login login-page="/login**" authentication-failure-url="/denied"
-			username-parameter="username" password-parameter="password"
+			username-parameter="user_login" password-parameter="password"
 			default-target-url="/index" />
 		<logout invalidate-session="true" logout-success-url="/index"
 			logout-url="/j_spring_security_logout" />
@@ -51,8 +51,8 @@
 	<authentication-manager id="jdbc-auth">
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select username,password,enabled from Employees where username = ?"
-				authorities-by-username-query="select username,role from Roles where username = ?" />
+				users-by-username-query="select user_login,password,enabled from Account where user_login = ?"
+				authorities-by-username-query="select user_login,role from Roles where user_login = ?" />
 		</authentication-provider>
 	</authentication-manager>
 
