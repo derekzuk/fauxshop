@@ -81,6 +81,11 @@
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${currentUser.firstName}</p>
+						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
+						<form action="${logoutAction}" method="post">
+						<!-- This obviously needs to be fixed: -->
+						<a href="SpringMVCSecurity-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
+						</form>
 					</c:when>
 					<c:otherwise>										
                   	<p><a href="login">Log in</a></p>

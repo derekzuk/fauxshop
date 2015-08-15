@@ -26,9 +26,9 @@
 		<logout invalidate-session="true" logout-success-url="/index"
 			logout-url="/j_spring_security_logout" />
 		<access-denied-handler error-page="/denied"/>
-		<session-management invalid-session-url="/login">
+		<session-management invalid-session-url="/index">
 			<concurrency-control max-sessions="1"
-				expired-url="/login" />
+				expired-url="/index" />
 		</session-management>
 	</http>
 

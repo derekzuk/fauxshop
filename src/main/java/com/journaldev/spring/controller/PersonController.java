@@ -60,6 +60,14 @@ public class PersonController {
     
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String listAbout(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	
         return "about";
     } 
 
@@ -78,47 +86,103 @@ public class PersonController {
     }    
     
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
-    public String listCart(Model model) {
+    public String listCart(Model model) {   	
         return "redirect:cart.do";
     }       
     
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public String listCategories(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "categories";
     }
     
     @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String listConfirm(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "confirm";
     }
     
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String listContact(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "contact";
     }
     
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
     public String listInvoice(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "invoice";
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String listLogin(Model model) {
+    public String listLogin(Model model) {   	
         return "redirect:login.do";
     }   
     
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String listPayment(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	            
         return "payment";
     }
     
     @RequestMapping(value = "/product_detail", method = RequestMethod.GET)
     public String listProductDetail(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "product_detail";
     }
     
     @RequestMapping(value = "/shipping", method = RequestMethod.GET)
     public String listShipping(Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    	} else {
+    		model.addAttribute("currentUser", "No User Logged In");
+    	}    	    	
         return "shipping";
     }
 

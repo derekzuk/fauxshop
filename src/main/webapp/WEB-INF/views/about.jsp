@@ -78,7 +78,14 @@
               <li id="your-account">
                 <div class="hidden-xs">
                   <h4><a href="#">Your Account</a></h4>
-                  <p>Welcome, <a href="login">log in</a></p>
+                  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
+					<p>Welcome, ${currentUser.firstName}</p>
+					</c:when>
+					<c:otherwise>										
+                  	<p><a href="login">Log in</a></p>
+                  </c:otherwise>
+                  </c:choose>                  
                 </div>
                 <div class="visible-xs">
                   <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
