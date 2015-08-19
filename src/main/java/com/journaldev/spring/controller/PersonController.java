@@ -104,7 +104,7 @@ public class PersonController {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String listCart(Model model) {   	
         return "redirect:cart.do";
-    }       
+    }      
     
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public String listCategories(Model model) {
