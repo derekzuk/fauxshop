@@ -11,5 +11,6 @@ public interface CartService {
     public List<Cart> listCarts();
     public Cart getCartById(int id);
     public void removeCart(int id);
+    public List<Cart> getCartByUserLogin(String name);
      
 }

@@ -2,10 +2,13 @@ package com.journaldev.spring.service;
  
 import java.util.List;
  
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 import com.journaldev.spring.dao.CartDAO;
+import com.journaldev.spring.model.Account;
 import com.journaldev.spring.model.Cart;
  
 @Service
@@ -46,5 +49,11 @@ public class CartServiceImpl implements CartService {
     public void removeCart(int id) {
         this.cartDAO.removeCart(id);
     }
+    
+    /*@Override*/
+    @Transactional
+    public List<Cart> getCartByUserLogin(String name) {
+        return this.cartDAO.getCartByUserLogin(name);
+    }       
  
 }

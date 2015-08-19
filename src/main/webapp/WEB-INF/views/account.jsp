@@ -78,7 +78,19 @@
               <li id="your-account">
                 <div class="hidden-xs">
                   <h4><a href="#">Your Account</a></h4>
-                  <p>Welcome, <a href="login">log in</a></p>
+                  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
+					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
+						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
+						<form action="${logoutAction}" method="post">
+						<!-- This obviously needs to be fixed: -->
+						<a href="SpringMVCSecurity-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
+						</form>
+					</c:when>
+					<c:otherwise>										
+                  	<p><a href="login">Log in</a></p>
+                  </c:otherwise>
+                  </c:choose>  
                 </div>
                 <div class="visible-xs">
                   <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
@@ -87,7 +99,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>3 Product(s)</strong></p>
+                  <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -246,7 +258,7 @@
                   <div class="col-sm-9">                  	                  	                  
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.userLogin}" id=userLogin name=userLogin disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).userLogin}" id=userLogin name=userLogin disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="Username" id=userLogin name=userLogin>
@@ -259,7 +271,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.firstName}" id=firstName name=firstName disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).firstName}" id=firstName name=firstName disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="First Name" id=firstName name=firstName>
@@ -272,7 +284,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.lastName}" id=lastName name=lastName disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).lastName}" id=lastName name=lastName disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="Last Name" id=lastName name=lastName>
@@ -285,7 +297,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="email" value="${currentUser.email}" class="form-control" id=email name=email disabled>
+                  		<input type="email" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).email}" class="form-control" id=email name=email disabled>
                   	</c:when>  
                   	<c:otherwise>
                     <input type="email" value="me@domainname.com" class="form-control" placeholder="Email" id=email name=email>
@@ -359,7 +371,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${currentUser.address}" id=address name=address disabled>
+                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address}" id=address name=address disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="Address" id=address name=address>
@@ -373,7 +385,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${currentUser.address2}" id=address2 name=address2 disabled>
+                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address2}" id=address2 name=address2 disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="Address (Line 2)" id=address2 name=address2>
@@ -387,7 +399,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.city}" id=city name=city disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).city}" id=city name=city disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="City" id=city name=city>
@@ -400,7 +412,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.country}" id=country name=country disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).country}" id=country name=country disabled>
                   	</c:when>  
                   	<c:otherwise>
                     <select class="form-control" id=country name=country>
@@ -416,7 +428,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.state}" id=state name=state disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).state}" id=state name=state disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="State" id=state name=state>
@@ -429,7 +441,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.zip}" id=zip name=zip disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).zip}" id=zip name=zip disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="#####" id=zip name=zip>
@@ -442,7 +454,7 @@
                   <div class="col-sm-9">
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${currentUser.phoneNumber}" id=phoneNumber name=phoneNumber disabled>
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).phoneNumber}" id=phoneNumber name=phoneNumber disabled>
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="text" class="form-control" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
@@ -452,8 +464,15 @@
                 </div>
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">					
-                    <input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
-                    <input type="submit" class="btn btn-default" name="_eventId_cancel" value="Cancel" />
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="submit" class="btn btn-primary" name="_eventId_continueCheckout" value="Continue Checkout" />
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
+                    	<input type="submit" class="btn btn-default" name="_eventId_cancel" value="Cancel" />
+                  	</c:otherwise>    
+                  </c:choose>  
                   </div>
                 </div>
               </form>

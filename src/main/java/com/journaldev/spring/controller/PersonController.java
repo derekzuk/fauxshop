@@ -19,6 +19,8 @@ import com.journaldev.spring.model.Inventory;
 import com.journaldev.spring.service.InventoryService;
 import com.journaldev.spring.model.Account;
 import com.journaldev.spring.service.AccountService;
+import com.journaldev.spring.model.Cart;
+import com.journaldev.spring.service.CartService;
  
 @Controller
 public class PersonController {
@@ -26,6 +28,7 @@ public class PersonController {
     private PersonService personService;
     private InventoryService inventoryService;
     private AccountService accountService;
+    private CartService cartService;
     
     @Autowired(required=true)
     @Qualifier(value="inventoryService")
@@ -37,11 +40,18 @@ public class PersonController {
     @Qualifier(value="accountService")
     public void setAccountService(AccountService as){
         this.accountService = as;
+    } 
+    
+    @Autowired(required=true)
+    @Qualifier(value="cartService")
+    public void setCartService(CartService cs){
+        this.cartService = cs;
     }      
     
     /*Maps to welcome page*/
     @RequestMapping(value={"/", "index"}, method = RequestMethod.GET)
     public String listWelcomePage(Model model) {
+    	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("listInventory", this.inventoryService.listInventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));  
@@ -55,11 +65,14 @@ public class PersonController {
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
     	}
+    	
     	return "index";
     }
     
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String listAbout(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -73,11 +86,14 @@ public class PersonController {
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String listAccount(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
+    		model.addAttribute("accountService", this.accountService);
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
@@ -92,6 +108,8 @@ public class PersonController {
     
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public String listCategories(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -105,6 +123,8 @@ public class PersonController {
     
     @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String listConfirm(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -118,6 +138,8 @@ public class PersonController {
     
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String listContact(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -131,6 +153,8 @@ public class PersonController {
     
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
     public String listInvoice(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -149,6 +173,8 @@ public class PersonController {
     
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String listPayment(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -162,6 +188,8 @@ public class PersonController {
     
     @RequestMapping(value = "/product_detail", method = RequestMethod.GET)
     public String listProductDetail(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -175,6 +203,8 @@ public class PersonController {
     
     @RequestMapping(value = "/shipping", method = RequestMethod.GET)
     public String listShipping(Model model) {
+    	model.addAttribute("cartService", this.cartService);
+    	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username

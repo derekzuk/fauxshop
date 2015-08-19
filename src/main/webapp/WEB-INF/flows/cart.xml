@@ -7,8 +7,15 @@
 	<var name="cart" class="com.journaldev.spring.model.Cart"/>
 	<var name="transactionLog" class="com.journaldev.spring.model.TransactionLog"/>
 	
+	<!-- Get the products one time, at the beginning of the flow -->
+	
 	<!-- By default, the first state is the start state. -->
 	<view-state id="cart" view="cart">
+		<on-render>
+			<!-- Carry cart from Spring app context to request scope -->
+			<set name="requestScope.cart" value="cart"/>
+			<set name="requestScope.cartService" value="cartService"/>
+		</on-render>		
 		<transition on="next" to="loginCart"/>
 		<transition on="continueShopping" to="categoriesExit"/>
 	</view-state>	

@@ -78,14 +78,29 @@
               <li id="your-account">
                 <div class="hidden-xs">
                   <h4><a href="#">Your Account</a></h4>
-                  <c:choose>
+<%--                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${currentUser.getPrincipal().getUsername()}</p>
 					</c:when>
 					<c:otherwise>										
                   	<p><a href="login">Log in</a></p>
                   </c:otherwise>
-                  </c:choose>  
+                  </c:choose> --%>
+                  
+                  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
+					<p>Welcome, ${currentUser.getPrincipal().getUsername()}</p>
+						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
+						<form action="${logoutAction}" method="post">
+						<!-- This obviously needs to be fixed: -->
+						<a href="SpringMVCSecurity-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
+						</form>
+					</c:when>
+					<c:otherwise>										
+                  	<p><a href="login">Log in</a></p>
+                  </c:otherwise>
+                  </c:choose>                  
+                    
                 </div>
                 <div class="visible-xs">
                   <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
@@ -94,7 +109,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>3 Product(s)</strong></p>
+                  <p><strong>${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>

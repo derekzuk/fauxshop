@@ -101,10 +101,12 @@
 	<!-- Other beans -->
 	<!-- ================================================================== -->
 
-	<!-- Autowired into CartServiceImpl -->
-	<!-- Create a proxy to generate session-scoped shopping carts -->
-	<!-- <bean id="shoppingCart" class="mycart.ShoppingCart" scope="session"> 
-		This requires CGLIB <aop:scoped-proxy/> </bean> -->
+<!--Autowired into CartServiceImpl
+	Create a proxy to generate session-scoped shopping carts -->
+	<bean id="cart" class="com.journaldev.spring.model.Cart" scope="session"> 
+		<!-- This requires CGLIB --> 
+		<aop:scoped-proxy/> 
+	</bean>
 
 	<!-- Autowired into CartServiceImpl -->
 	<!-- <util:list id="shippingOptions"> <value>Standard Shipping (1 week) 
