@@ -17,14 +17,9 @@
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 		</on-render>		
-		<transition on="next" to="loginCart"/>
+		<transition on="next" to="shipping"/>
 		<transition on="continueShopping" to="categoriesExit"/>
 	</view-state>	
-	
-	<subflow-state id="loginCart" subflow="login">
-	<!-- Transitions must be the names of end states in the subflow? -->
-		<transition on="exitHome" to="shipping"/>
-	</subflow-state>	
 	
 	<view-state id="shipping" view="shipping">
 		<transition on="next" to="payment"/>

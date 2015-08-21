@@ -80,7 +80,7 @@
                   <h4><a href="#">Your Account</a></h4>                 
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
-					<p>Welcome, ${currentUser.getPrincipal().getUsername()}</p>
+					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
@@ -166,52 +166,11 @@
                 <div class="widget-title">
                   <h3>Cart</h3>
                 </div>
-                <c:choose>
-                <c:when test="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size() > 0}">
-                <ul class="cart list-unstyled">
-                  <li>                  
-                    <div class="row">
-                      <div class="col-sm-7 col-xs-7">1 <a href="product_detail">${inventoryService.getInventoryById(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).get(0).getInventoryId()).getInventoryTxt()}</a> <span>[ 26 ]</span></div>                      
-                      <div class="col-sm-5 col-xs-5 text-right"><strong>${inventoryService.getInventoryById(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).get(0).getInventoryId()).getPriceUsd()}</strong> <a href="#"><i class="fa fa-trash-o"></i></a></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-7 col-xs-7">1 <a href="product_detail">${inventoryService.getInventoryById(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).get(0).getInventoryId()).getInventoryTxt()}</a> <span>[ M ]</span></div>
-                      <div class="col-sm-5 col-sm-5 text-right"><strong>${inventoryService.getInventoryById(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).get(0).getInventoryId()).getPriceUsd()}</strong> <a href="#"><i class="fa fa-trash-o"></i></a></div>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="list-unstyled total-price">
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8">Shipping</div>
-                      <div class="col-sm-4 col-xs-4 text-right">$1.00</div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-8 col-xs-8">Total</div>
-                      <div class="col-sm-4 col-xs-4 text-right">$71.00</div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-sm-6 col-xs-6">
-                        <a class="btn btn-default" href="cart">Cart</a>
-                      </div>
-                      <div class="col-sm-6 col-xs-6 text-right">
-                        <a class="btn btn-primary" href="login">Checkout</a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-                </c:when>
-                <c:otherwise>
-                No items in cart.
-                </c:otherwise>
-                </c:choose>
-              </div>
+                
+              		<!-- We pull the table from another view: -->
+              		<jsp:include page="cartlist.jsp"/>
+
+              	</div>
               <!-- break -->
               <div class="widget">
                 <div class="widget-title">

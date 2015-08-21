@@ -80,7 +80,7 @@
                   <h4><a href="#">Your Account</a></h4>
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
-					<p>Welcome, ${currentUser.firstName}</p>
+					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 					</c:when>
 					<c:otherwise>										
                   	<p><a href="login">Log in</a></p>

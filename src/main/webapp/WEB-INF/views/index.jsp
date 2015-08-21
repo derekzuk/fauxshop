@@ -80,7 +80,7 @@
                   <h4><a href="account">Your Account</a></h4>                
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
-					<p>Welcome, ${currentUser.firstName}</p>
+					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->

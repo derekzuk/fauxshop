@@ -29,8 +29,8 @@
                       <a href="#" class="btn btn-primary" rel="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
                     </form>
                   </td>
-                  <td>${inventoryService.getInventoryById(item.inventoryId).priceUsd}</td>
-                  <td>${inventoryService.getInventoryById(item.inventoryId).priceUsd * item.quantity}</td>
+                  <td>$${inventoryService.getInventoryById(item.inventoryId).priceUsd}</td>
+                  <td>$${inventoryService.getInventoryById(item.inventoryId).priceUsd * item.quantity}</td>
                 </tr>
 			</c:forEach>               
                 <tr>
