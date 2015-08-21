@@ -3,9 +3,11 @@ package com.journaldev.spring.service;
 import java.util.List;
  
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 import com.journaldev.spring.dao.CartDAO;
 import com.journaldev.spring.model.Account;
@@ -54,6 +56,31 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public List<Cart> getCartByUserLogin(String name) {
         return this.cartDAO.getCartByUserLogin(name);
-    }       
+    }   
+    
+    /*@Override*/
+    @Transactional
+    public int getCartItemCostByUserLogin(String name) {
+        return this.cartDAO.getCartItemCostByUserLogin(name);
+    }
+    
+    /*@Override*/
+    @Transactional
+    public int getCartShippingCostByUserLogin(String name) {
+        return this.cartDAO.getCartShippingCostByUserLogin(name);
+    }  
+    
+    /*@Override*/
+    @Transactional
+    public int getCartTaxCostByUserLogin(String name) {
+        return this.cartDAO.getCartTaxCostByUserLogin(name);
+    }         
+    
+    /*@Override*/
+    @Transactional
+    public int getCartTotalByUserLogin(String name) {
+        return this.cartDAO.getCartTotalByUserLogin(name);
+    }     
+        
  
 }

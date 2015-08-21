@@ -3,7 +3,7 @@
 
 <c:choose>
 	<c:when test="${empty cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
-		<p>Cart contains no items.</p>
+		<p>No items in cart.</p>
 	</c:when>
 	<c:otherwise>
 		
@@ -13,24 +13,24 @@
                   <th>Product</th>
                   <th>Description</th>
                   <th>Qty</th>
-                  <th>Price</th>
+                  <th>Price Per Item</th>
                   <th>Total</th>
                 </tr>
                </thead>
                <tbody>
 			<c:forEach var="item" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 				<tr>
-                  <td><img src="<c:url value="/resources/img/product1.jpg"/>" class="img-cart" /></td>                  
-                  <td><strong>${inventoryService.getInventoryById(item.inventoryId).inventoryTxt}</strong><p>Size : 26</p></td>
+                  <td><img src="<c:url value="${inventoryService.getInventoryById(item.inventoryId).thumbnail}"/>" class="img-cart" /></td>                  
+                  <td><strong>${inventoryService.getInventoryById(item.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryService.getInventoryById(item.inventoryId).size}</p></td>
                   <td>
                     <form class="form-inline">
-                      <input class="form-control" type="text" value="1" />
+                      <input class="form-control" type="text" value="${item.quantity}" />
                       <button rel="tooltip" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
                       <a href="#" class="btn btn-primary" rel="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
                     </form>
                   </td>
                   <td>${inventoryService.getInventoryById(item.inventoryId).priceUsd}</td>
-                  <td>${inventoryService.getInventoryById(item.inventoryId).priceUsd}</td>
+                  <td>${inventoryService.getInventoryById(item.inventoryId).priceUsd * item.quantity}</td>
                 </tr>
 			</c:forEach>               
                 <tr>
@@ -38,15 +38,19 @@
                 </tr>
                 <tr>
                   <td colspan="4" class="text-right">Total Product</td>
-                  <td>$86.00</td>
+                  <td>$${cartService.getCartItemCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
                 </tr>
                 <tr>
                   <td colspan="4" class="text-right">Total Shipping</td>
-                  <td>$2.00</td>
+                  <td>$${cartService.getCartShippingCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
                 </tr>
                 <tr>
+                  <td colspan="4" class="text-right">Total Tax</td>
+                  <td>$${cartService.getCartTaxCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
+                </tr>                
+                <tr>
                   <td colspan="4" class="text-right"><strong>Total</strong></td>
-                  <td>$88.00</td>
+                  <td>$${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername())}</td>
                 </tr>
                </tbody>       
               </table>		

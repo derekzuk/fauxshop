@@ -50,6 +50,9 @@ public class Inventory {
     
     @Column(name="PRICE_USD")
     private String priceUsd;
+    
+    @Column(name="THUMBNAIL")
+    private String thumbnail;    
  
     public int getInventoryId() {
         return inventoryId;
@@ -137,7 +140,15 @@ public class Inventory {
     
     public void setPriceUsd(String priceUsd) {
     	this.priceUsd = priceUsd;
-    }     
+    }
+    
+    public String getThumbnail() {
+    	return thumbnail;
+    }
+    
+    public void setThumbnail(String thumbnail) {
+    	this.thumbnail = thumbnail;
+    }         
     
     @Override
     public String toString(){

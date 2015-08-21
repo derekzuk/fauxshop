@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,10 +13,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
- 
 
-
-import com.journaldev.spring.model.Account;
 import com.journaldev.spring.model.Cart;
 
 @Repository
@@ -107,6 +105,62 @@ public class CartDAOImpl implements CartDAO {
         logger.info("getCartByUserLogin query: " + query.toString());
         logger.info("getCartByUserLogin query results (toString()): " + cartList.toString());        
         return cartList;        
+    }
+    
+    /*@Override*/
+    public int getCartItemCostByUserLogin(String name) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "SELECT quantity * SUM(pricePerItem) FROM Cart WHERE accountId = ("
+        		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
+        Query query = session.createQuery(hql);
+        query.setParameter("userLogin", name);
+        int cartSum = (int) query.uniqueResult();
+
+        logger.info("getCartByUserLogin query: " + query.toString());
+        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        return cartSum;        
+    }
+    
+    /*@Override*/
+    public int getCartShippingCostByUserLogin(String name) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "SELECT quantity * SUM(shippingCost) FROM Cart WHERE accountId = ("
+        		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
+        Query query = session.createQuery(hql);
+        query.setParameter("userLogin", name);
+        int cartSum = (int) query.uniqueResult();
+
+        logger.info("getCartByUserLogin query: " + query.toString());
+        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        return cartSum;        
+    }         
+    
+    /*@Override*/
+    public int getCartTaxCostByUserLogin(String name) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "SELECT quantity * SUM(tax) FROM Cart WHERE accountId = ("
+        		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
+        Query query = session.createQuery(hql);
+        query.setParameter("userLogin", name);
+        int cartSum = (int) query.uniqueResult();
+
+        logger.info("getCartByUserLogin query: " + query.toString());
+        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        return cartSum;        
+    }      
+    
+    /*@Override*/
+    public int getCartTotalByUserLogin(String name) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "SELECT quantity * (SUM(pricePerItem) + SUM(shippingCost) + SUM(tax)) FROM Cart WHERE accountId = ("
+        		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
+        Query query = session.createQuery(hql);
+        query.setParameter("userLogin", name);
+        int cartSum = (int) query.uniqueResult();
+
+        logger.info("getCartByUserLogin query: " + query.toString());
+        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        return cartSum;        
     }      
  
 }
