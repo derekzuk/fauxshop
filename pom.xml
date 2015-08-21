@@ -12,6 +12,7 @@
 		<org.springframework-version>4.0.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
+		<mysql-connector-java-version>5.1.36</mysql-connector-java-version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 		<org.springframework.webflow-version>2.4.1.RELEASE</org.springframework.webflow-version>
 		<ognl-version>2.6.9</ognl-version>
@@ -65,6 +66,13 @@
 			<groupId>ognl</groupId>
 			<artifactId>ognl</artifactId>
 			<version>${ognl-version}</version>
+		</dependency>
+
+		<!-- MySql Connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java-version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -236,6 +244,110 @@
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
+			</plugin>
+
+			<!-- Dropping and rebuilding the database for testing. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+
+				<dependencies>
+					<!-- MySql Connector -->
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql-connector-java-version}</version>
+					</dependency>
+				</dependencies>
+
+				<!-- common configuration shared by all executions -->
+				<configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost:3306/fauxleather</url>
+					<username>root</username>
+					<password>pass</password>
+					<!-- You can comment out username/password configurations and have maven 
+						to look them up in your settings.xml using ${settingsKey} <settingsKey>sensibleKey</settingsKey> -->
+					<!--all executions are ignored if -Dmaven.test.skip=true -->
+					<skip>${maven.test.skip}</skip>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>drop-db-before-test-if-any</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<!-- need another database to drop the targeted one -->
+							<url>jdbc:mysql://localhost:3306/fauxleather2</url>
+							<autocommit>true</autocommit>
+							<sqlCommand>drop database fauxleather</sqlCommand>
+							<!-- ignore error when database is not avaiable -->
+							<onError>continue</onError>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>create-db</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<url>jdbc:mysql://localhost:3306/fauxleather2</url>
+							<!-- no transaction -->
+							<autocommit>true</autocommit>
+							<sqlCommand>create database fauxleather</sqlCommand>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>create-schema</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<autocommit>true</autocommit>
+							<srcFiles>
+								<srcFile>src/main/sql/fauxleather-schema.sql</srcFile>
+							</srcFiles>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>create-data</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<orderFile>ascending</orderFile>
+							<fileset>
+								<basedir>${basedir}</basedir>
+								<includes>
+									<include>src/test/sql/test-account.sql</include>
+									<include>src/test/sql/test-cart.sql</include>
+									<include>src/test/sql/test-employees.sql</include>
+									<include>src/test/sql/test-inventory.sql</include>
+									<include>src/test/sql/test-inventory_type_code.sql</include>
+									<include>src/test/sql/test-person.sql</include>
+									<include>src/test/sql/test-roles.sql</include>
+									<include>src/test/sql/test-sizing.sql</include>
+									<include>src/test/sql/test-transaction.sql</include>
+								</includes>
+							</fileset>
+						</configuration>
+					</execution>
+
+					<!-- drop db after test -->
+					<!-- <execution> <id>drop-db-after-test</id> <phase>test</phase> <goals> 
+						<goal>execute</goal> </goals> <configuration> <autocommit>true</autocommit> 
+						<sqlCommand>drop database fauxleather</sqlCommand> </configuration> </execution> -->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
