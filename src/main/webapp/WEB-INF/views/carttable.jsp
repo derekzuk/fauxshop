@@ -18,19 +18,19 @@
                 </tr>
                </thead>
                <tbody>
-			<c:forEach var="item" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
+			<c:forEach var="cart" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 				<tr>
-                  <td><img src="<c:url value="${inventoryService.getInventoryById(item.inventoryId).thumbnail}"/>" class="img-cart" /></td>                  
-                  <td><strong>${inventoryService.getInventoryById(item.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryService.getInventoryById(item.inventoryId).size}</p></td>
-                  <td>
-                    <form class="form-inline">
-                      <input class="form-control" type="text" value="${item.quantity}" />
+                  <td><img src="<c:url value="${inventoryService.getInventoryById(cart.inventoryId).thumbnail}"/>" class="img-cart" /></td>                  
+                  <td><strong>${inventoryService.getInventoryById(cart.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryService.getInventoryById(cart.inventoryId).size}</p></td>
+                  <td>                                    
+                    <form class="form-inline" method="post" action="${flowExecutionUrl}">
+                      <input class="form-control" type="text" value="${cart.quantity}" />
                       <button rel="tooltip" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                      <a href="#" class="btn btn-primary" rel="tooltip" title="Delete"><i class="fa fa-trash-o"></i></a>
+                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
                     </form>
                   </td>
-                  <td>$${inventoryService.getInventoryById(item.inventoryId).priceUsd}</td>
-                  <td>$${inventoryService.getInventoryById(item.inventoryId).priceUsd * item.quantity}</td>
+                  <td>$${inventoryService.getInventoryById(cart.inventoryId).priceUsd}</td>
+                  <td>$${inventoryService.getInventoryById(cart.inventoryId).priceUsd * cart.quantity}</td>
                 </tr>
 			</c:forEach>               
                 <tr>

@@ -14,7 +14,7 @@ public interface CartService {
     public void updateCart(Cart c);
     public List<Cart> listCarts();
     public Cart getCartById(int id);
-    public void removeCart(int id);
+    public void removeCart(int cartId);
     public List<Cart> getCartByUserLogin(String name);
     public int getCartItemCostByUserLogin(String name);
     public int getCartShippingCostByUserLogin(String name);

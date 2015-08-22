@@ -48,8 +48,8 @@ public class CartServiceImpl implements CartService {
  
     /*@Override*/
     @Transactional
-    public void removeCart(int id) {
-        this.cartDAO.removeCart(id);
+    public void removeCart(int cartId) {
+        this.cartDAO.removeCart(cartId);
     }
     
     /*@Override*/
@@ -80,7 +80,6 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public int getCartTotalByUserLogin(String name) {
         return this.cartDAO.getCartTotalByUserLogin(name);
-    }     
+    }         
         
- 
 }

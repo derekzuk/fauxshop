@@ -79,9 +79,9 @@ public class CartDAOImpl implements CartDAO {
     }
  
     /*@Override*/
-    public void removeCart(int id) {
+    public void removeCart(int cartId) {
         Session session = this.sessionFactory.getCurrentSession();
-        Cart c = (Cart) session.load(Cart.class, new Integer(id));
+        Cart c = (Cart) session.load(Cart.class, new Integer(cartId));
         if(null != c){
             session.delete(c);
         }

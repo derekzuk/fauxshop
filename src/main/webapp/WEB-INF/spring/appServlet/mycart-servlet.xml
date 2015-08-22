@@ -82,6 +82,7 @@
 		flow-builder-services="flowBuilderServices">
 		<flow:flow-location path="/WEB-INF/flows/cart.xml" />
 		<flow:flow-location path="/WEB-INF/flows/login.xml" />
+		<flow:flow-location path="/WEB-INF/flows/removeFromCart.xml" />
 	</flow:flow-registry>
 
 	<flow:flow-builder-services id="flowBuilderServices"

@@ -33,6 +33,9 @@ public class Inventory {
     @Column(name="INVENTORY_CARE")
     private String inventoryCare;
     
+    @Column(name="INVENTORY_SIZE_DESC")
+    private String inventorySizeDesc;    
+    
     @Column(name="BRAND")
     private String brand;
     
@@ -93,6 +96,14 @@ public class Inventory {
     public void setInventoryCare(String inventoryCare) {
     	this.inventoryCare = inventoryCare;
     }
+    
+    public String getInventorySizeDesc() {
+    	return inventorySizeDesc;
+    }
+    
+    public void setInventorySizeDesc(String inventorySizeDesc) {
+    	this.inventorySizeDesc = inventorySizeDesc;
+    }    
     
     public String getBrand() {
     	return brand;

@@ -239,7 +239,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="heading-title">
-                <h2>The <span>Product title</span> <span class="text-yellow">.</span></h2>
+                <h2><span>${leatherJacket.inventoryTxt}</span> <span class="text-yellow"></span></h2>
               </div>
               <div class="row">
                 <!-- begin:product-image-slider -->
@@ -286,17 +286,24 @@
                           <tr class="hidden-xs">
                               <td><strong>Brand</strong></td>
                               <td>:</td>
-                              <td>Blackbox</td>
+                              <td>${leatherJacket.brand}</td>
                           </tr>
                           <tr class="hidden-xs">
                               <td><strong>Product Code</strong></td>
                               <td>:</td>
-                              <td>AF0012</td>
+                              <td>${leatherJacket.productCode}</td>
                           </tr>
                           <tr class="hidden-xs">
                               <td><strong>Availability</strong></td>
                               <td>:</td>
+                              <c:choose>
+                              <c:when test="${leatherJacket.stockQuantity > 0}">
                               <td>In Stock</td>
+                              </c:when>
+                              <c:otherwise>
+                              <td>Out of Stock</td>
+                              </c:otherwise>
+                              </c:choose>                                                            
                           </tr>
                           <tr>
                               <td colspan="3"><span class="price-old">$32.91</span> <span class="price">$21.42</span></td>
@@ -357,18 +364,13 @@
 
                     <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active in" id="desc">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>${leatherJacket.inventoryDescription}</p>
                       </div>
                       <div class="tab-pane fade" id="care">
-                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR.</p>
+                        <p>${leatherJacket.inventoryCare}</p>
                       </div>
                       <div class="tab-pane fade" id="size">
-                        <p>Standard swim suit sizing comes in S/M/L and come in Body measurements are given in inches. </p>
+                        <p>${leatherJacket.inventorySizeDesc}</p>
                         <table class="table table-striped table-bordered">
                           <tbody>
                             <tr>

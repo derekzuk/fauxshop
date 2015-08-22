@@ -189,6 +189,9 @@ public class PersonController {
     @RequestMapping(value = "/product_detail", method = RequestMethod.GET)
     public String listProductDetail(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventory", new Inventory());
+    	model.addAttribute("listInventory", this.inventoryService.listInventory());
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));    	
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -210,10 +210,10 @@
             <div class="col-md-12">
               <ul class="nav nav-tabs">
                   <li class="active"><a href="cart">Cart</a></li>
-                  <li><a href="#">Login</a></li>
-                  <li><a href="#">Account</a></li>
-                  <li><a href="#">Shipping</a></li>
-                  <li><a href="#">Payment</a></li>
+                  <li><a href="login">Login</a></li>
+                  <li><a href="account">Account</a></li>
+                  <li><a href="shipping">Shipping</a></li>
+                  <li><a href="payment">Payment</a></li>
               </ul>
 
               <h3>Your Cart</h3>
