@@ -11,5 +11,5 @@ public interface InventoryDAO {
     public List<Inventory> list();
     
     public List<Inventory> listInventory();
-    public Inventory getInventoryById(int id);
+    public Inventory getInventoryById(int inventoryId);
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<on-start>
+		<set name="requestScope.accountId" value="requestParameters.accountId"/>
+		<set name="requestScope.inventoryId" value="requestParameters.inventoryId"/>
+		<set name="requestScope.quantity" value="requestParameters.quantity"/>
+		<set name="requestScope.shippingCost" value="requestParameters.shippingCost"/>
+		<set name="requestScope.tax" value="requestParameters.tax"/>
+	</on-start>
+	
+	<!-- If not specified, the start state is the first state specified. -->
+	<action-state id="addToCart">
+
+		<!-- action-state must have an evaluate element, a set element, or similar.  See the XSD. -->
+		<evaluate expression="cartService.addToCart(accountId,inventoryId,quantity,shippingCost,tax)"/>
+		
+		<transition to="cartAdded"/>
+	</action-state>
+	
+	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
+	<!-- Suppress leading slash to go servlet-relative? (Check docs) -->
+	<!-- View applies only when directly called; calling flows ignore it? -->
+	<end-state id="cartAdded" view="externalRedirect:contextRelative:/cart.do"/>
+</flow>

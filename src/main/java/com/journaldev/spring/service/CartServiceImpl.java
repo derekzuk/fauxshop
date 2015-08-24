@@ -4,14 +4,23 @@ import java.util.List;
  
 
 
+
+
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
 
 
+
+
+
+
 import com.journaldev.spring.dao.CartDAO;
 import com.journaldev.spring.model.Account;
 import com.journaldev.spring.model.Cart;
+import com.journaldev.spring.model.TransactionLog;
  
 @Service
 public class CartServiceImpl implements CartService {
@@ -21,12 +30,12 @@ public class CartServiceImpl implements CartService {
     public void setCartDAO(CartDAO cartDAO) {
         this.cartDAO = cartDAO;
     }
- 
+    
     /*@Override*/
     @Transactional
-    public void addCart(Cart c) {
-        this.cartDAO.addCart(c);
-    }
+    public void save(Cart c) {
+        this.cartDAO.save(c);
+    }           
  
     /*@Override*/
     @Transactional
@@ -44,6 +53,11 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public Cart getCartById(int id) {
         return this.cartDAO.getCartById(id);
+    }
+    
+    /*@Override*/
+    public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem,String shippingCost, String tax) {
+    	this.cartDAO.addToCart(accountId,inventoryId,quantity,pricePerItem,shippingCost,tax);
     }
  
     /*@Override*/

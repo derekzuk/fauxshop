@@ -80,6 +80,7 @@
 	<!-- This creates an XmlFlowRegistryFactory bean -->
 	<flow:flow-registry id="flowRegistry"
 		flow-builder-services="flowBuilderServices">
+		<flow:flow-location path="/WEB-INF/flows/addToCart.xml" />
 		<flow:flow-location path="/WEB-INF/flows/cart.xml" />
 		<flow:flow-location path="/WEB-INF/flows/login.xml" />
 		<flow:flow-location path="/WEB-INF/flows/removeFromCart.xml" />

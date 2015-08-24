@@ -204,6 +204,31 @@ public class PersonController {
         return "product_detail";
     }
     
+    @RequestMapping(value = "/product_detail/add", method = {RequestMethod.POST,RequestMethod.GET})
+    public String addProduct(Model model) {   	
+    	
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		model.addAttribute("account", new Account());
+    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+        	
+    		// We add the selected inventory item to the user's cart.
+    		// This method isn't finished. Needs work.
+    		Cart newCartRecord = new Cart();
+    		newCartRecord.setAccountId(this.accountService.getAccountByName(name).getAccountId());
+    		newCartRecord.setInventoryId(-111);
+    		newCartRecord.setQuantity(1);
+    		newCartRecord.setPricePerItem("500.00");
+    		newCartRecord.setShippingCost("22.22");
+    		newCartRecord.setTax("11.11");
+    		this.cartService.save(newCartRecord);
+    	} else {
+    		return "redirect:/login";
+    	}    	    	
+        return "redirect:/cart";
+    }    
+    
     @RequestMapping(value = "/shipping", method = RequestMethod.GET)
     public String listShipping(Model model) {
     	model.addAttribute("cartService", this.cartService);

@@ -22,7 +22,7 @@ public class Cart implements Serializable {
  
     @Id
     @Column(name="CART_ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int cartId;
      
     @Column(name="ACCOUNT_ID")

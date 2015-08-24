@@ -276,7 +276,7 @@
                 <!-- begin:product-spesification -->
                 <div class="col-md-6 col-sm-6">
                   <div class="single-desc">
-                    <form>
+                    <form method="post" action="${flowExecutionUrl}">
                       <span class="visible-xs">
                           <strong>Blackbox / AF0012 / In Stock</strong>
                       </span>
@@ -342,7 +342,8 @@
                           </tr>
                           <tr>
                               <td colspan="3">
-                                <a href="#" class="btn btn-sm btn-primary">Add to Cart</a>
+                              	<%-- <a href="${flowExecutionUrl}&_eventId=addToCart&inventoryId=${leatherJacket.inventoryId}&accountId=${currentUser.accountId}&quantity=${1}&shippingCost=${'22.22'}&tax=${'11.11'}" type="submit" class="btn btn-sm btn-primary">Add to Cart</a> --%>
+                                <a href="product_detail/add" class="btn btn-sm btn-primary">Add to Cart</a>
                               </td>  
                           </tr>
                         </tbody>

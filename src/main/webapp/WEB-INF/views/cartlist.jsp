@@ -6,22 +6,24 @@
 	No items in cart.
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="item"
+		<c:forEach var="cart"
 			items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
+			<form method="post" action="${flowExecutionUrl}">
 			<ul class="cart list-unstyled">
 				<li>
 					<div class="row">
 						<div class="col-sm-7 col-xs-7">
-							1 <a href="product_detail">${inventoryService.getInventoryById(item.inventoryId).getInventoryTxt()}</a>
-							<span>[ ${inventoryService.getInventoryById(item.inventoryId).getSize()} ]</span>
+							1 <a href="product_detail">${inventoryService.getInventoryById(cart.inventoryId).getInventoryTxt()}</a>
+							<span>[ ${inventoryService.getInventoryById(cart.inventoryId).getSize()} ]</span>
 						</div>
 						<div class="col-sm-5 col-xs-5 text-right">
-							<strong>$${inventoryService.getInventoryById(item.inventoryId).getPriceUsd()}</strong>
-							<a href="#"><i class="fa fa-trash-o"></i></a>
+							<strong>$${inventoryService.getInventoryById(cart.inventoryId).getPriceUsd()}</strong>
+							<a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
 						</div>
 					</div>
 				</li>
 			</ul>
+			</form>
 		</c:forEach>
 		<ul class="list-unstyled total-price">
 			<li>

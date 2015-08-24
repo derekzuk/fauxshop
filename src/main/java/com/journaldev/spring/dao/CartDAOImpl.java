@@ -1,10 +1,6 @@
 package com.journaldev.spring.dao;
  
 import java.util.List;
- 
-
-
-
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -15,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.journaldev.spring.model.Cart;
+import com.journaldev.spring.model.Inventory;
+import com.journaldev.spring.model.Person;
+import com.journaldev.spring.service.InventoryService;
 
 @Repository
 public class CartDAOImpl implements CartDAO {
@@ -46,13 +45,6 @@ public class CartDAOImpl implements CartDAO {
     }    
  
     /*@Override*/
-    public void addCart(Cart c) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(c);
-        logger.info("Cart saved successfully, Cart Details="+c);
-    }
- 
-    /*@Override*/
     public void updateCart(Cart c) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(c);
@@ -76,6 +68,25 @@ public class CartDAOImpl implements CartDAO {
         Cart c = (Cart) session.load(Cart.class, new Integer(id));
         logger.info("Cart loaded successfully, Cart details="+c);
         return c;
+    }   
+    
+    /*@Override*/
+    public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax){
+    	Session session = this.sessionFactory.openSession();
+    	Transaction tx = session.beginTransaction();
+    	String hql = "INSERT INTO Cart (accountId,inventoryId,quantity,pricePerItem,shippingCost,tax)"
+    			+ " :accountId,:inventoryId,:quantity,:pricePerItem,:shippingCost,:tax";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("accountId", accountId);
+    	query.setParameter("inventoryId", inventoryId);
+    	query.setParameter("quantity", quantity);
+    	query.setParameter("pricePerItem", pricePerItem);
+    	query.setParameter("shippingCost", shippingCost);
+    	query.setParameter("tax", tax);
+    	
+    	query.executeUpdate();    	
+    	tx.commit();
+    	session.close();
     }
  
     /*@Override*/
