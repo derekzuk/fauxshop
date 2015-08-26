@@ -39,23 +39,14 @@ public class Inventory {
     @Column(name="BRAND")
     private String brand;
     
-    @Column(name="PRODUCT_CODE")
-    private String productCode;
-    
-    @Column(name="STOCK_QUANTITY")
-    private int stockQuantity;
-    
-    @Column(name="SIZE")
-    private String size;
-    
-    @Column(name="COLOR")
-    private String color;
-    
     @Column(name="PRICE_USD")
     private String priceUsd;
     
-    @Column(name="THUMBNAIL")
-    private String thumbnail;    
+    @Column(name="IN_STOCK")
+	private boolean inStock;
+    
+    @Column(name="IMG")
+    private String img;    
  
     public int getInventoryId() {
         return inventoryId;
@@ -112,39 +103,7 @@ public class Inventory {
     public void setBrand(String brand) {
     	this.brand = brand;
     }
-    
-    public String getProductCode() {
-    	return productCode;
-    }
-    
-    public void setProductCode(String productCode) {
-    	this.productCode = productCode;
-    }
-    
-    public int getStockQuantity() {
-    	return stockQuantity;
-    }
-    
-    public void setStockQuantity(int stockQuantity) {
-    	this.stockQuantity = stockQuantity;
-    }     
-
-    public String getSize() {
-    	return size;
-    }
-    
-    public void setSize(String size) {
-    	this.size = size;
-    }
-    
-    public String getColor() {
-    	return color;
-    }
-    
-    public void setColor(String color) {
-    	this.color = color;
-    } 
-    
+        
     public String getPriceUsd() {
     	return priceUsd;
     }
@@ -153,12 +112,20 @@ public class Inventory {
     	this.priceUsd = priceUsd;
     }
     
-    public String getThumbnail() {
-    	return thumbnail;
+    public boolean getInStock() {
+    	return inStock;
     }
     
-    public void setThumbnail(String thumbnail) {
-    	this.thumbnail = thumbnail;
+    public void setInStock(boolean inStock) {
+    	this.inStock = inStock;
+    }    
+    
+    public String getImg() {
+    	return img;
+    }
+    
+    public void setImg(String img) {
+    	this.img = img;
     }         
     
     @Override

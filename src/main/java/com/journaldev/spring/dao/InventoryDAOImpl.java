@@ -61,19 +61,6 @@ public class InventoryDAOImpl implements InventoryDAO {
         Inventory i = (Inventory) session.load(Inventory.class, new Integer(inventoryId));
         logger.info("Inventory loaded successfully, Inventory details="+i);
         return i;
-    }
-    
-    /*@Override*/
-/*    public Inventory getInventoryById(int inventoryId) {
-        Session session = this.sessionFactory.getCurrentSession();      
-        String hql = "FROM Inventory WHERE inventoryId = :inventoryId";
-        Query query = session.createQuery(hql);
-        query.setParameter("inventoryId", inventoryId);
-        Inventory result = (Inventory) query.uniqueResult();
-
-        logger.info("getInventoryById query: " + query.toString());
-        logger.info("getAccountById query results (toString()): " + result.toString());
-        return result;
-    }*/        
+    }          
  
 }

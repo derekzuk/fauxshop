@@ -53,6 +53,7 @@
 				<beans:value>com.journaldev.spring.model.Account</beans:value>
 				<beans:value>com.journaldev.spring.model.Cart</beans:value>
 				<beans:value>com.journaldev.spring.model.Inventory</beans:value>
+				<beans:value>com.journaldev.spring.model.InventoryDetail</beans:value>
 				<beans:value>com.journaldev.spring.model.Person</beans:value>
 				<beans:value>com.journaldev.spring.model.TransactionLog
 				</beans:value>
@@ -91,6 +92,14 @@
 		class="com.journaldev.spring.service.InventoryServiceImpl">
 		<beans:property name="inventoryDAO" ref="inventoryDAO"></beans:property>
 	</beans:bean>
+	<beans:bean id="inventoryDetailDAO" class="com.journaldev.spring.dao.InventoryDetailDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="inventoryDetailService"
+		class="com.journaldev.spring.service.InventoryDetailServiceImpl">
+		<beans:property name="inventoryDetailDAO" ref="inventoryDetailDAO"></beans:property>
+	</beans:bean>		
 	<beans:bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />

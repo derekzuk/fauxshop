@@ -17,6 +17,7 @@ import com.journaldev.spring.model.Person;
 import com.journaldev.spring.service.PersonService;
 import com.journaldev.spring.model.Inventory;
 import com.journaldev.spring.service.InventoryService;
+import com.journaldev.spring.service.InventoryDetailService;
 import com.journaldev.spring.model.Account;
 import com.journaldev.spring.service.AccountService;
 import com.journaldev.spring.model.Cart;
@@ -27,6 +28,7 @@ public class PersonController {
      
     private PersonService personService;
     private InventoryService inventoryService;
+    private InventoryDetailService inventoryDetailService;
     private AccountService accountService;
     private CartService cartService;
     
@@ -34,7 +36,13 @@ public class PersonController {
     @Qualifier(value="inventoryService")
     public void setInventoryService(InventoryService is){
         this.inventoryService = is;
-    }   
+    }
+    
+    @Autowired(required=true)
+    @Qualifier(value="inventoryDetailService")
+    public void setInventoryDetailService(InventoryDetailService ids){
+        this.inventoryDetailService = ids;
+    }       
     
     @Autowired(required=true)
     @Qualifier(value="accountService")
@@ -190,8 +198,8 @@ public class PersonController {
     public String listProductDetail(Model model) {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventory", new Inventory());
-    	model.addAttribute("listInventory", this.inventoryService.listInventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));    	
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
+    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-111));    	
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

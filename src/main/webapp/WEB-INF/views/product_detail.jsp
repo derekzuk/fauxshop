@@ -291,13 +291,13 @@
                           <tr class="hidden-xs">
                               <td><strong>Product Code</strong></td>
                               <td>:</td>
-                              <td>${leatherJacket.productCode}</td>
+                              <td>${leatherJacketDetail.productCode}</td>
                           </tr>
                           <tr class="hidden-xs">
                               <td><strong>Availability</strong></td>
                               <td>:</td>
                               <c:choose>
-                              <c:when test="${leatherJacket.stockQuantity > 0}">
+                              <c:when test="${leatherJacket.inStock.equals('1')}">
                               <td>In Stock</td>
                               </c:when>
                               <c:otherwise>
@@ -342,7 +342,6 @@
                           </tr>
                           <tr>
                               <td colspan="3">
-                              	<%-- <a href="${flowExecutionUrl}&_eventId=addToCart&inventoryId=${leatherJacket.inventoryId}&accountId=${currentUser.accountId}&quantity=${1}&shippingCost=${'22.22'}&tax=${'11.11'}" type="submit" class="btn btn-sm btn-primary">Add to Cart</a> --%>
                                 <a href="product_detail/add" class="btn btn-sm btn-primary">Add to Cart</a>
                               </td>  
                           </tr>

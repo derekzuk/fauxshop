@@ -210,8 +210,15 @@
             <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
             <div class="caption">
               <h5>${leatherJacket.inventoryTxt}</h5>
-              <p>$${leatherJacket.priceUsd}</p>                            
-              <p>Available</p>
+              <p>$${leatherJacket.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${leatherJacket.inStock.equals('1')}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>                            
             </div>
             <div class="product-item-badge">New</div>
           </div>
@@ -222,7 +229,14 @@
             <div class="caption">
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p class="product-item-price">$${leatherJacket.priceUsd}</p>
-              <p>Available</p>
+              <c:choose> 
+	            <c:when test="${leatherJacket.inStock.equals('1')}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
@@ -232,7 +246,14 @@
             <div class="caption">
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p><del>$590.00</del> $${leatherJacket.priceUsd}</p>
-              <p>Available</p>
+              <c:choose> 
+	            <c:when test="${leatherJacket.inStock.equals('1')}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
             <div class="product-item-badge badge-sale">Sale</div>
           </div>

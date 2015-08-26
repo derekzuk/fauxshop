@@ -136,6 +136,7 @@
 				<value>com.journaldev.spring.model.Account</value>
 				<value>com.journaldev.spring.model.Cart</value>
 				<value>com.journaldev.spring.model.Inventory</value>
+				<value>com.journaldev.spring.model.InventoryDetail</value>
 				<value>com.journaldev.spring.model.Person</value>
 				<value>com.journaldev.spring.model.TransactionLog
 				</value>
@@ -174,6 +175,14 @@
 		class="com.journaldev.spring.service.InventoryServiceImpl">
 		<property name="inventoryDAO" ref="inventoryDAO"></property>
 	</bean>
+	<bean id="inventoryDetailDAO" class="com.journaldev.spring.dao.InventoryDetailDAOImpl">
+		<property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="inventoryDetailService"
+		class="com.journaldev.spring.service.InventoryDetailServiceImpl">
+		<property name="inventoryDetailDAO" ref="inventoryDetailDAO"></property>
+	</bean>	
 	<bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
