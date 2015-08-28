@@ -212,7 +212,7 @@
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p>$${leatherJacket.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${leatherJacket.inStock.equals('1')}">
+	            <c:when test="${leatherJacket.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -230,7 +230,7 @@
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p class="product-item-price">$${leatherJacket.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${leatherJacket.inStock.equals('1')}">
+	            <c:when test="${leatherJacket.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -247,7 +247,7 @@
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p><del>$590.00</del> $${leatherJacket.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${leatherJacket.inStock.equals('1')}">
+	            <c:when test="${leatherJacket.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>

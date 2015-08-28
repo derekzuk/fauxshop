@@ -1,5 +1,6 @@
 package com.journaldev.spring.controller;
  
+import org.hibernate.context.spi.CurrentSessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
  
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.journaldev.spring.model.Person;
 import com.journaldev.spring.service.PersonService;
 import com.journaldev.spring.model.Inventory;
@@ -95,6 +99,8 @@ public class PersonController {
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String listAccount(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
@@ -112,11 +118,19 @@ public class PersonController {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String listCart(Model model) {   	
         return "redirect:cart.do";
-    }      
+    }
+    
+    @RequestMapping("/cartRemove/{cartId}")
+    public String removeFromCart(@PathVariable(value="cartId") int cartId) {   	        	
+    		this.cartService.removeCart(cartId);	    	
+        return "redirect:/cart";
+    }         
     
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public String listCategories(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -132,6 +146,8 @@ public class PersonController {
     @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String listConfirm(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -162,6 +178,8 @@ public class PersonController {
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
     public String listInvoice(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -182,6 +200,8 @@ public class PersonController {
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String listPayment(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -197,6 +217,8 @@ public class PersonController {
     @RequestMapping(value = "/product_detail", method = RequestMethod.GET)
     public String listProductDetail(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
     	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-111));    	
@@ -240,6 +262,8 @@ public class PersonController {
     @RequestMapping(value = "/shipping", method = RequestMethod.GET)
     public String listShipping(Model model) {
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

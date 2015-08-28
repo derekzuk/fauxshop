@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-	<c:when test="${empty cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
+	<c:when test="${empty cartService.getCartByUserLogin(pageContext.request.userPrincipal.name)}">
 		<p>No items in cart.</p>
 	</c:when>
 	<c:otherwise>
@@ -20,8 +20,8 @@
                <tbody>
 			<c:forEach var="cart" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 				<tr>
-                  <td><img src="<c:url value="${inventoryService.getInventoryById(cart.inventoryId).thumbnail}"/>" class="img-cart" /></td>                  
-                  <td><strong>${inventoryService.getInventoryById(cart.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryService.getInventoryById(cart.inventoryId).size}</p></td>
+                  <td><img src="<c:url value="${inventoryService.getInventoryById(cart.inventoryId).img}"/>" class="img-cart" /></td>                  
+                  <td><strong>${inventoryService.getInventoryById(cart.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryDetailService.getInventoryDetailByInventoryId(cart.inventoryId).size}</p></td>
                   <td>                                    
                     <form class="form-inline" method="post" action="${flowExecutionUrl}">
                       <input class="form-control" type="text" value="${cart.quantity}" />

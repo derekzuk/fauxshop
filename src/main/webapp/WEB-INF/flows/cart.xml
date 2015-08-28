@@ -12,6 +12,7 @@
 		<on-render>
 			<set name="requestScope.cartService" value="cartService"/>	
 			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 		</on-render>		
 		<transition on="next" to="shipping"/>
 		<transition on="continueShopping" to="categoriesExit"/>
