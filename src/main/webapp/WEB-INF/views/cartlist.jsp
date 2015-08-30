@@ -14,11 +14,11 @@
 				<li>
 					<div class="row">
 						<div class="col-sm-7 col-xs-7">
-							<a href="product_detail">${inventoryService.getInventoryById(cart.inventoryId).getInventoryTxt()}</a>
-							<span>[${inventoryDetailService.getInventoryDetailByInventoryId(cart.inventoryId).getSize()}]</span>
+							<a href="product_detail">${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</a>
+							<span>[${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()}]</span>
 						</div>
 						<div class="col-sm-5 col-xs-5 text-right">
-							<strong>$${inventoryService.getInventoryById(cart.inventoryId).getPriceUsd()}</strong>
+							<strong>$${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getPriceUsd()}</strong>
 							<a href="<c:url value='cartRemove/${cart.cartId}'/>" > <i class="fa fa-trash-o"></i> </a>
 							<%-- <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a> --%>
 						</div>

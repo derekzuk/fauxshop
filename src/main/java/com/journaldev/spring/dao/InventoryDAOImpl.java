@@ -3,6 +3,7 @@ package com.journaldev.spring.dao;
 import java.util.List;
  
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
 
+
 import com.journaldev.spring.model.Account;
 import com.journaldev.spring.model.Inventory;
+import com.journaldev.spring.model.InventoryDetail;
 
 @Repository
 public class InventoryDAOImpl implements InventoryDAO {
@@ -61,6 +64,20 @@ public class InventoryDAOImpl implements InventoryDAO {
         Inventory i = (Inventory) session.load(Inventory.class, new Integer(inventoryId));
         logger.info("Inventory loaded successfully, Inventory details="+i);
         return i;
-    }          
+    }       
+    
+    /*@Override*/
+    public Inventory getInventoryByInventoryDetailId(int inventoryDetailId) {        
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "FROM Inventory WHERE inventoryId = ("
+        		+ "SELECT inventoryId from InventoryDetail where inventoryDetailId = :inventoryDetailId)";
+        Query query = session.createQuery(hql);
+        query.setParameter("inventoryDetailId", inventoryDetailId);
+		Inventory inventory = (Inventory) query.uniqueResult();
+        
+        logger.info("getInventoryByInventoryDetailId query: " + query.toString());
+        logger.info("getInventoryByInventoryDetailId query results (toString()): " + inventory.toString());        
+        return inventory;                
+    }       
  
 }

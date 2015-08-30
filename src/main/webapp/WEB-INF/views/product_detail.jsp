@@ -68,7 +68,7 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-6">
           <div class="logo">
-            <h1><a href="index">Faux<span>shop</span> </a></h1>
+            <h1><a href="../index">Faux<span>shop</span> </a></h1>
             <p>Durable, Fashionable, Animal Friendly</p>
           </div>
         </div>
@@ -77,27 +77,27 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="#">Your Account</a></h4>
+                  <h4><a href="../account">Your Account</a></h4>
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 					</c:when>
 					<c:otherwise>										
-                  	<p><a href="login">Log in</a></p>
+                  	<p><a href="../login">Log in</a></p>
                   </c:otherwise>
                   </c:choose>  
                 </div>
                 <div class="visible-xs">
-                  <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
+                  <a href="../login" class="btn btn-primary"><i class="fa fa-user"></i></a>
                 </div>
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="../cart">Cart</a></h4>
                   <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
-                  <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
+                  <a href="../cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
                 </div>
               </li>
             </ul>
@@ -126,7 +126,7 @@
                     </ul>
                   </li>
                   <li><a href="#">Jacket</a></li>
-                  <li><a href="categories">Pants</a></li>
+                  <li><a href="../categories">Pants</a></li>
                   <li><a href="#">Boxer</a></li>
                   <li class="divider"></li>
                   <li><a href="#">SweatShirts</a></li>
@@ -142,8 +142,8 @@
               </li>
               <li><a href="#">Edition</a></li>
               <li><a href="#">Authorized Dealer</a></li>
-              <li><a href="about">About</a></li>
-              <li><a href="contact">Contact</a></li>
+              <li><a href="../about">About</a></li>
+              <li><a href="../contact">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -254,11 +254,11 @@
                               <td>:</td>
                               <td>${leatherJacket.brand}</td>
                           </tr>
-                          <tr class="hidden-xs">
+<%--                           <tr class="hidden-xs">
                               <td><strong>Product Code</strong></td>
                               <td>:</td>
                               <td>${leatherJacketDetail.productCode}</td>
-                          </tr>
+                          </tr> --%>
                           <tr class="hidden-xs">
                               <td><strong>Availability</strong></td>
                               <td>:</td>
@@ -308,7 +308,8 @@
                           </tr>
                           <tr>
                               <td colspan="3">
-                                <a href="product_detail/add" class="btn btn-sm btn-primary">Add to Cart</a>
+                              <!-- This needs to be fixed...get(0): -->
+                                <a href="<c:url value='add/${leatherJacketDetail.get(0).inventoryDetailId}'" class="btn btn-sm btn-primary">Add to Cart</a>
                               </td>  
                           </tr>
                         </tbody>
@@ -420,7 +421,7 @@
                   <div class="row product-container" style="position: relative; height: 463.75px;">
                     <div class="col-md-3 col-sm-6 col-xs-6">
                       <div class="thumbnail product-item">
-                        <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
+                        <a href="../product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
                         <div class="caption">
                           <h5>Pants</h5>
                           <p>$54.00</p>
@@ -430,7 +431,7 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">
                       <div class="thumbnail product-item">
-                        <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product2.jpg"/>"></a>
+                        <a href="../product_detail"><img alt="" src="<c:url value="/resources/img/product2.jpg"/>"></a>
                         <div class="caption">
                           <h5>Pants</h5>
                           <p>$54.00</p>
@@ -440,7 +441,7 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">
                       <div class="thumbnail product-item">
-                        <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product3.jpg"/>"></a>
+                        <a href="../product_detail"><img alt="" src="<c:url value="/resources/img/product3.jpg"/>"></a>
                         <div class="caption">
                           <h5>Pants</h5>
                           <p>$54.00</p>
@@ -450,7 +451,7 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">
                       <div class="thumbnail product-item">
-                        <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product4.jpg"/>"></a>
+                        <a href="../product_detail"><img alt="" src="<c:url value="/resources/img/product4.jpg"/>"></a>
                         <div class="caption">
                           <h5>Pants</h5>
                           <p>$54.00</p>

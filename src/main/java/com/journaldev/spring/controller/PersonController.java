@@ -66,7 +66,10 @@ public class PersonController {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("listInventory", this.inventoryService.listInventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));  
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
+    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(-112));  
+    	model.addAttribute("pleatherPants", this.inventoryService.getInventoryById(-113));
+    	model.addAttribute("hempShirt", this.inventoryService.getInventoryById(-114));  
 
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
@@ -212,16 +215,17 @@ public class PersonController {
     		model.addAttribute("currentUser", "No User Logged In");
     	}    	            
         return "payment";
-    }
+    }      
     
-    @RequestMapping(value = "/product_detail", method = RequestMethod.GET)
-    public String listProductDetail(Model model) {
+    /*@RequestMapping(value = "/product_detail/${id}", method = {RequestMethod.POST,RequestMethod.GET})*/
+    @RequestMapping("/product_detail/{id}")
+    public String listProductDetail(@PathVariable("id") int id, Model model) {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
-    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-111));    	
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(id));
+    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));    	
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -232,10 +236,10 @@ public class PersonController {
     		model.addAttribute("currentUser", "No User Logged In");
     	}    	    	
         return "product_detail";
-    }
+    }   
     
-    @RequestMapping(value = "/product_detail/add", method = {RequestMethod.POST,RequestMethod.GET})
-    public String addProduct(Model model) {   	
+    @RequestMapping(value = "/product_detail/add/{inventoryDetailId}", method = {RequestMethod.POST,RequestMethod.GET})
+    public String addProduct(@PathVariable("inventoryDetailId") int inventoryDetailId, Model model) {   	
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -246,10 +250,11 @@ public class PersonController {
     		// We add the selected inventory item to the user's cart.
     		// This method isn't finished. Needs work.
     		Cart newCartRecord = new Cart();
+    		Inventory product = this.inventoryService.getInventoryByInventoryDetailId(inventoryDetailId);
     		newCartRecord.setAccountId(this.accountService.getAccountByName(name).getAccountId());
-    		newCartRecord.setInventoryId(-111);
+    		newCartRecord.setInventoryDetailId(inventoryDetailId);
     		newCartRecord.setQuantity(1);
-    		newCartRecord.setPricePerItem("500.00");
+    		newCartRecord.setPricePerItem(product.getPriceUsd());
     		newCartRecord.setShippingCost("22.22");
     		newCartRecord.setTax("11.11");
     		this.cartService.save(newCartRecord);

@@ -7,6 +7,7 @@ import com.journaldev.spring.model.InventoryDetail;
 public interface InventoryDetailService {
  
     public List<InventoryDetail> listInventoryDetail();
-    public InventoryDetail getInventoryDetailByInventoryId(int inventoryId);
+    public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId);
+    public InventoryDetail getInventoryDetailByInventoryDetailId(int inventoryDetailId);
      
 }

@@ -7,5 +7,6 @@ import com.journaldev.spring.model.InventoryDetail;
 public interface InventoryDetailDAO { 
     
     public List<InventoryDetail> listInventoryDetail();
-    public InventoryDetail getInventoryDetailByInventoryId(int inventoryId);
+    public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId);
+    public InventoryDetail getInventoryDetailByInventoryDetailId(int inventoryDetailId);
 }

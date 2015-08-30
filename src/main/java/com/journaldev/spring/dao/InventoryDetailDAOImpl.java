@@ -4,6 +4,7 @@ import java.util.List;
  
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
+
 
 import com.journaldev.spring.model.Cart;
 import com.journaldev.spring.model.InventoryDetail;
@@ -38,17 +40,35 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
         return inventoryDetailList;
     }
  
+    @SuppressWarnings("unchecked")    
     /*@Override*/
-    public InventoryDetail getInventoryDetailByInventoryId(int inventoryId) {
+    public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId) {
         Session session = this.sessionFactory.getCurrentSession();      
         String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryId", inventoryId);
-        InventoryDetail inventoryDetail = (InventoryDetail) query.uniqueResult();
+		List<InventoryDetail> inventoryDetailList = (List<InventoryDetail>) query.list();
         
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + inventoryDetail.toString());        
-        return inventoryDetail;         
-    }          
+        for(InventoryDetail id : inventoryDetailList){
+        	logger.info("Inventory Detail List::"+id);
+        }
+        
+        logger.info("getInventoryDetailByInventoryId query: " + query.toString());
+        logger.info("getInventoryDetailByInventoryId query results (toString()): " + inventoryDetailList.toString());        
+        return inventoryDetailList;               
+    }    
+       
+    /*@Override*/
+    public InventoryDetail getInventoryDetailByInventoryDetailId(int inventoryDetailId) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "FROM InventoryDetail WHERE inventoryDetailId = :inventoryDetailId";
+        Query query = session.createQuery(hql);
+        query.setParameter("inventoryDetailId", inventoryDetailId);
+		InventoryDetail inventoryDetail = (InventoryDetail) query.uniqueResult();
+        
+        logger.info("getInventoryDetailByInventoryDetailId query: " + query.toString());
+        logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());        
+        return inventoryDetail;               
+    }         
  
 }

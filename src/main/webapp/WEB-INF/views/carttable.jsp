@@ -20,8 +20,8 @@
                <tbody>
 			<c:forEach var="cart" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 				<tr>
-                  <td><img src="<c:url value="${inventoryService.getInventoryById(cart.inventoryId).img}"/>" class="img-cart" /></td>                  
-                  <td><strong>${inventoryService.getInventoryById(cart.inventoryId).inventoryTxt}</strong><p>Size : ${inventoryDetailService.getInventoryDetailByInventoryId(cart.inventoryId).size}</p></td>
+                  <td><img src="<c:url value="${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetail).img}"/>" class="img-cart" /></td>                  
+                  <td><strong>${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).inventoryTxt}</strong><p>Size : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).size}</p></td>
                   <td>                                    
                     <form class="form-inline" method="post" action="${flowExecutionUrl}">
                       <input class="form-control" type="text" value="${cart.quantity}" />
@@ -29,8 +29,8 @@
                       <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
                     </form>
                   </td>
-                  <td>$${inventoryService.getInventoryById(cart.inventoryId).priceUsd}</td>
-                  <td>$${inventoryService.getInventoryById(cart.inventoryId).priceUsd * cart.quantity}</td>
+                  <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).priceUsd}</td>
+                  <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).priceUsd * cart.quantity}</td>
                 </tr>
 			</c:forEach>               
                 <tr>

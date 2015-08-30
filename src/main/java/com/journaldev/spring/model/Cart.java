@@ -28,8 +28,8 @@ public class Cart implements Serializable {
     @Column(name="ACCOUNT_ID")
     private int accountId;
     
-    @Column(name="INVENTORY_ID")
-    private int inventoryId;
+    @Column(name="INVENTORY_DETAIL_ID")
+    private int inventoryDetailId;
     
     @Column(name="QUANTITY")
     private int quantity;
@@ -59,12 +59,12 @@ public class Cart implements Serializable {
         this.accountId = accountId;
     }
  
-    public int getInventoryId() {
-        return inventoryId;
+    public int getInventoryDetailId() {
+        return inventoryDetailId;
     }
  
-    public void setInventoryId(int inventoryId) {
-        this.inventoryId = inventoryId;
+    public void setInventoryDetailId(int inventoryDetailId) {
+        this.inventoryDetailId = inventoryDetailId;
     }
     
     public int getQuantity() {
@@ -103,7 +103,7 @@ public class Cart implements Serializable {
     public String toString(){
         return "cartId="+cartId+
         		", accountId="+accountId+
-        		", inventoryId="+inventoryId+
+        		", inventoryDetailId="+inventoryDetailId+
         		", quantity="+quantity+
         		", pricePerItem="+pricePerItem+
         		", shippingCost="+shippingCost+
