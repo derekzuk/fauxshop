@@ -309,7 +309,8 @@
                           <tr>
                               <td colspan="3">
                               <!-- This needs to be fixed...get(0): -->
-                                <a href="<c:url value='add/${leatherJacketDetail.get(0).inventoryDetailId}'" class="btn btn-sm btn-primary">Add to Cart</a>
+                              <!-- It should retrieve the exact inventoryDetailId based on the inventoryId, size, and color. -->
+                                <a href="<c:url value='add/${leatherJacketDetail.get(0).inventoryDetailId}'/>" class="btn btn-sm btn-primary">Add to Cart</a>
                               </td>  
                           </tr>
                         </tbody>

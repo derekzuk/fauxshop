@@ -70,7 +70,7 @@ public class InventoryDAOImpl implements InventoryDAO {
     public Inventory getInventoryByInventoryDetailId(int inventoryDetailId) {        
         Session session = this.sessionFactory.getCurrentSession();      
         String hql = "FROM Inventory WHERE inventoryId = ("
-        		+ "SELECT inventoryId from InventoryDetail where inventoryDetailId = :inventoryDetailId)";
+        		+ "SELECT inventoryId FROM InventoryDetail WHERE inventoryDetailId = :inventoryDetailId)";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryDetailId", inventoryDetailId);
 		Inventory inventory = (Inventory) query.uniqueResult();
