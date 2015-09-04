@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +25,9 @@
       <script src="<c:url value="/resources/js/html5shiv.js" />"></script>
       <script src="<c:url value="/resources/js/respond.min.js" />"></script>
     <![endif]-->
+    
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   </head>
 
   <body>
@@ -283,11 +287,10 @@
                               <td><strong>Color</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="color" class="form-control" name="color">
-                                  <form:option value="Black">Black</form:option>
-                                  <form:option value="Green">Green</form:option>
-                                  <form:option value="Blue">Blue</form:option>
-                                  <form:option value="Yellow">Yellow</form:option>                                  
+                                <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${leatherJacket.inventoryId}?color=" + this.value + "&size=" + size.value;'>
+									<c:forEach items="${leatherJacketDetail}" var="item">								
+   										<form:option value="${item.color}"></form:option>   								
+									</c:forEach>                                                     
                                 </form:select>                            
                             </td>   
                           </tr>   
@@ -295,12 +298,10 @@
                               <td><strong>Size</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="size" class="form-control" name="size">
-                                  <form:option value="XS"></form:option>
-                                  <form:option value="S"></form:option>
-                                  <form:option value="M"></form:option>
-                                  <form:option value="L"></form:option>
-                                  <form:option value="XL"></form:option>                                
+                                <form:select path="size" class="form-control" name="size" id="size" onChange='window.location="${leatherJacket.inventoryId}?color=" + color.value + "&size=" + this.value;'>
+									<c:forEach items="${leatherJacketDetail}" var="item">
+   										<form:option value="${item.size}"></form:option>   								   								
+									</c:forEach>                                                                                    
                                 </form:select>
                               </td>
                           </tr>
@@ -309,7 +310,6 @@
                               <td>:</td>
                               <td>
                                 <input type="number" class="form-control" value="1" name="quantity">
-                                <%-- <form:hidden path="quantity"/> --%>
                               </td>
                           </tr>
                           <tr>
@@ -566,6 +566,28 @@
     <script src="<c:url value="/resources/js/masonry.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
+    
+    <script>
+    /* This is clever. It parses the variables out of the URL. */
+	function gup( name )
+	{
+  	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  	var regexS = "[\\?&]"+name+"=([^&#]*)";
+  	var regex = new RegExp( regexS );
+  	var results = regex.exec( window.location.href );
+  	if( results == null )
+    	return "";
+  	else
+    	return results[1];
+	}
+	
+	var color_param = gup( 'color' );
+	var size_param = gup( 'size' );
+	
+	$("#color".val('color_param'));
+	$("#size".val('size_param'));	
+	</script>
 
   </body>
 </html>
+

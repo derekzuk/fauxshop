@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
+
 
 
 import com.journaldev.spring.model.Cart;
@@ -85,5 +87,18 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
         logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());        
         return inventoryDetail;               
     }       
+    
+    @SuppressWarnings("unchecked")
+	public List<String> getAvailableSizes(int inventoryId, String color) {
+    	Session session = this.sessionFactory.getCurrentSession();
+    	String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId AND color = :color";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("inventoryId", inventoryId);
+    	query.setParameter("color", color);
+    	List<String> availableSizes = (List<String>) query.list();
+    	
+    	return availableSizes;
+    	
+    }
  
 }

@@ -3,9 +3,11 @@ package com.journaldev.spring.service;
 import java.util.List;
  
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 import com.journaldev.spring.dao.InventoryDetailDAO;
 import com.journaldev.spring.model.Inventory;
@@ -43,5 +45,9 @@ public class InventoryDetailServiceImpl implements InventoryDetailService {
     public InventoryDetail getInventoryDetailByIdColorSize(int inventoryId, String color, String size) {
         return this.inventoryDetailDAO.getInventoryDetailByIdColorSize(inventoryId, color, size);
     }         
+    
+    public List<String> getAvailableSizes(int inventoryId, String color){
+    	return this.inventoryDetailDAO.getAvailableSizes(inventoryId, color);
+    }
  
 }

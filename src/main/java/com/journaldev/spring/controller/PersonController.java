@@ -238,7 +238,7 @@ public class PersonController {
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(id));
-    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));    	
+    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
