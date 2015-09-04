@@ -33,6 +33,6 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     public Inventory getInventoryByInventoryDetailId(int inventoryDetailId) {
         return this.inventoryDAO.getInventoryByInventoryDetailId(inventoryDetailId);
-    }    
+    }        
  
 }

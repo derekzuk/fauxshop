@@ -145,6 +145,7 @@ public class InventoryDetail {
         		", inventoryId="+inventoryId+
         		", productCode="+productCode+
         		", stockQuantity="+stockQuantity+
-        		", size="+size;
+        		", size="+size+
+				", color="+color;
     }
 }

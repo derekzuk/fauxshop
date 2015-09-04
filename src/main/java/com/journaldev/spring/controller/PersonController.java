@@ -1,5 +1,8 @@
 package com.journaldev.spring.controller;
  
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.context.spi.CurrentSessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.journaldev.spring.model.InventoryDetail;
 import com.journaldev.spring.model.Person;
 import com.journaldev.spring.service.PersonService;
 import com.journaldev.spring.model.Inventory;
@@ -29,12 +34,14 @@ import com.journaldev.spring.service.CartService;
  
 @Controller
 public class PersonController {
-     
-    private PersonService personService;
+
+	private PersonService personService;
     private InventoryService inventoryService;
     private InventoryDetailService inventoryDetailService;
     private AccountService accountService;
     private CartService cartService;
+    
+	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
     
     @Autowired(required=true)
     @Qualifier(value="inventoryService")
@@ -219,7 +226,16 @@ public class PersonController {
     
     /*@RequestMapping(value = "/product_detail/${id}", method = {RequestMethod.POST,RequestMethod.GET})*/
     @RequestMapping("/product_detail/{id}")
-    public String listProductDetail(@PathVariable("id") int id, Model model) {
+    public String listProductDetail(@PathVariable("id") int id, 
+    		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
+    		Model model,
+    		HttpServletRequest request) {
+    	
+    	logger.error(request.getParameter("color"));
+    	logger.error(request.getParameter("size"));
+    	logger.error(request.getParameter("test"));
+    	logger.error(request.getParameter("productCode"));
+    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -238,8 +254,23 @@ public class PersonController {
         return "product_detail";
     }   
     
-    @RequestMapping(value = "/product_detail/add/{inventoryDetailId}", method = {RequestMethod.POST,RequestMethod.GET})
-    public String addProduct(@PathVariable("inventoryDetailId") int inventoryDetailId, Model model) {   	
+    @RequestMapping(value = "/product_detail/add/{inventoryId}", method = {RequestMethod.POST,RequestMethod.GET})
+    public String addProduct(@PathVariable("inventoryId") int inventoryId,
+    		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
+    		Model model,
+    		HttpServletRequest request) {    	
+    	
+    	logger.error(model.toString());
+    	logger.error(invdet.toString());
+    	logger.error(invdet.getColor());
+    	logger.error(invdet.getSize());
+    	logger.error(request.getParameter("color"));
+    	logger.error(request.getParameter("size"));
+    	logger.error(request.getParameter("test"));
+    	logger.error(request.getParameter("productCode"));
+    	
+    	
+    	/*We need to check if an inventory detail record already exists in the cart for this user. If so, we will add to the quantity.*/
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -250,9 +281,9 @@ public class PersonController {
     		// We add the selected inventory item to the user's cart.
     		// This method isn't finished. Needs work.
     		Cart newCartRecord = new Cart();
-    		Inventory product = this.inventoryService.getInventoryByInventoryDetailId(inventoryDetailId);
+    		Inventory product = this.inventoryService.getInventoryById(inventoryId);
     		newCartRecord.setAccountId(this.accountService.getAccountByName(name).getAccountId());
-    		newCartRecord.setInventoryDetailId(inventoryDetailId);
+    		newCartRecord.setInventoryDetailId(inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId());
     		newCartRecord.setQuantity(1);
     		newCartRecord.setPricePerItem(product.getPriceUsd());
     		newCartRecord.setShippingCost("22.22");

@@ -70,5 +70,20 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
         logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());        
         return inventoryDetail;               
     }         
+    
+    /*@Override*/
+    public InventoryDetail getInventoryDetailByIdColorSize(int inventoryId, String color, String size) {
+        Session session = this.sessionFactory.getCurrentSession();      
+        String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId AND color = :color AND size = :size";
+        Query query = session.createQuery(hql);
+        query.setParameter("inventoryId", inventoryId);
+        query.setParameter("color", color);
+        query.setParameter("size", size);
+		InventoryDetail inventoryDetail = (InventoryDetail) query.uniqueResult();
+        
+        logger.info("getInventoryDetailByInventoryDetailId query: " + query.toString());
+        logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());        
+        return inventoryDetail;               
+    }       
  
 }
