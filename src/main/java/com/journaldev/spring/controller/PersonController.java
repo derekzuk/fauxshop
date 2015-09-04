@@ -1,5 +1,7 @@
 package com.journaldev.spring.controller;
  
+import java.math.BigDecimal;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
@@ -231,11 +233,6 @@ public class PersonController {
     		Model model,
     		HttpServletRequest request) {
     	
-    	logger.error(request.getParameter("color"));
-    	logger.error(request.getParameter("size"));
-    	logger.error(request.getParameter("test"));
-    	logger.error(request.getParameter("productCode"));
-    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -259,17 +256,7 @@ public class PersonController {
     		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
     		Model model,
     		HttpServletRequest request) {    	
-    	
-    	logger.error(model.toString());
-    	logger.error(invdet.toString());
-    	logger.error(invdet.getColor());
-    	logger.error(invdet.getSize());
-    	logger.error(request.getParameter("color"));
-    	logger.error(request.getParameter("size"));
-    	logger.error(request.getParameter("test"));
-    	logger.error(request.getParameter("productCode"));
-    	
-    	
+    	    	
     	/*We need to check if an inventory detail record already exists in the cart for this user. If so, we will add to the quantity.*/
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
@@ -284,10 +271,10 @@ public class PersonController {
     		Inventory product = this.inventoryService.getInventoryById(inventoryId);
     		newCartRecord.setAccountId(this.accountService.getAccountByName(name).getAccountId());
     		newCartRecord.setInventoryDetailId(inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId());
-    		newCartRecord.setQuantity(1);
+    		newCartRecord.setQuantity(Integer.parseInt(request.getParameter("quantity")));
     		newCartRecord.setPricePerItem(product.getPriceUsd());
-    		newCartRecord.setShippingCost("22.22");
-    		newCartRecord.setTax("11.11");
+    		newCartRecord.setShippingCost(BigDecimal.valueOf(22.22));
+    		newCartRecord.setTax(BigDecimal.valueOf(11.11));
     		this.cartService.save(newCartRecord);
     	} else {
     		return "redirect:/login";

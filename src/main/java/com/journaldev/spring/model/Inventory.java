@@ -1,5 +1,7 @@
 package com.journaldev.spring.model;
  
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +42,7 @@ public class Inventory {
     private String brand;
     
     @Column(name="PRICE_USD")
-    private String priceUsd;
+    private BigDecimal priceUsd;
     
     @Column(name="IN_STOCK")
 	private boolean inStock;
@@ -104,11 +106,11 @@ public class Inventory {
     	this.brand = brand;
     }
         
-    public String getPriceUsd() {
+    public BigDecimal getPriceUsd() {
     	return priceUsd;
     }
     
-    public void setPriceUsd(String priceUsd) {
+    public void setPriceUsd(BigDecimal priceUsd) {
     	this.priceUsd = priceUsd;
     }
     

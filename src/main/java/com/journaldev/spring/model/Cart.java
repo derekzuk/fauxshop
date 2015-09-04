@@ -1,6 +1,7 @@
 package com.journaldev.spring.model;
  
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,13 +36,13 @@ public class Cart implements Serializable {
     private int quantity;
     
     @Column(name="PRICE_PER_ITEM")
-    private String pricePerItem;
+    private BigDecimal pricePerItem;
     
     @Column(name="SHIPPING_COST")
-    private String shippingCost;
+    private BigDecimal shippingCost;
     
     @Column(name="TAX")
-    private String tax;
+    private BigDecimal tax;
     
     public int getCartId() {
         return cartId;
@@ -75,27 +76,27 @@ public class Cart implements Serializable {
     	this.quantity = quantity;
     }
     
-    public String getPricePerItem() {
+    public BigDecimal getPricePerItem() {
     	return pricePerItem;
     }
     
-    public void setPricePerItem(String pricePerItem) {
+    public void setPricePerItem(BigDecimal pricePerItem) {
     	this.pricePerItem = pricePerItem;
     }
     
-    public String getShippingCost() {
+    public BigDecimal getShippingCost() {
     	return shippingCost;
     }
     
-    public void setShippingCost(String shippingCost) {
+    public void setShippingCost(BigDecimal shippingCost) {
     	this.shippingCost = shippingCost;
     }
     
-    public String getTax() {
+    public BigDecimal getTax() {
     	return tax;
     }
     
-    public void setTax(String tax) {
+    public void setTax(BigDecimal tax) {
     	this.tax = tax;
     }
     

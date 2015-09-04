@@ -1,21 +1,10 @@
 package com.journaldev.spring.service;
  
+import java.math.BigDecimal;
 import java.util.List;
- 
-
-
-
-
-
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
- 
-
-
-
-
-
 
 import com.journaldev.spring.dao.CartDAO;
 import com.journaldev.spring.model.Account;
@@ -74,25 +63,25 @@ public class CartServiceImpl implements CartService {
     
     /*@Override*/
     @Transactional
-    public int getCartItemCostByUserLogin(String name) {
+    public BigDecimal getCartItemCostByUserLogin(String name) {
         return this.cartDAO.getCartItemCostByUserLogin(name);
     }
     
     /*@Override*/
     @Transactional
-    public int getCartShippingCostByUserLogin(String name) {
+    public BigDecimal getCartShippingCostByUserLogin(String name) {
         return this.cartDAO.getCartShippingCostByUserLogin(name);
     }  
     
     /*@Override*/
     @Transactional
-    public int getCartTaxCostByUserLogin(String name) {
+    public BigDecimal getCartTaxCostByUserLogin(String name) {
         return this.cartDAO.getCartTaxCostByUserLogin(name);
     }         
     
     /*@Override*/
     @Transactional
-    public int getCartTotalByUserLogin(String name) {
+    public BigDecimal getCartTotalByUserLogin(String name) {
         return this.cartDAO.getCartTotalByUserLogin(name);
     }         
         

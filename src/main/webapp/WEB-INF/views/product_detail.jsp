@@ -243,7 +243,11 @@
                 <!-- begin:product-spesification -->
                 <div class="col-md-6 col-sm-6">
                   <div class="single-desc">
-                    <form:form method="post" action="${flowExecutionUrl}" commandName="InventoryDetail">
+                  
+                  <c:url var="addAction" value="add/${leatherJacket.inventoryId}" ></c:url>
+				  <form:form action="${addAction}" commandName="InventoryDetail">
+                    <%-- <form:form method="post" action="${flowExecutionUrl}" commandName="InventoryDetail"> --%>
+                  
                       <span class="visible-xs">
                           <strong>${leatherJacket.inventoryTxt} / <c:choose><c:when test="$leatherJacket.inStock">In Stock</c:when><c:otherwise>Out of Stock</c:otherwise></c:choose></strong>                                                  
                       </span>
@@ -279,34 +283,24 @@
                               <td><strong>Color</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="color" class="form-control" id="color" name="color">
+                                <form:select path="color" class="form-control" name="color">
                                   <form:option value="Black">Black</form:option>
                                   <form:option value="Green">Green</form:option>
                                   <form:option value="Blue">Blue</form:option>
                                   <form:option value="Yellow">Yellow</form:option>                                  
                                 </form:select>                            
                             </td>   
-                          </tr>
-                          <tr>
-                              <td><strong>productCode</strong></td>
-        						<td><form:input path="productCode" name="productCode" type="text"/></td>
-                          </tr>                          
+                          </tr>   
                           <tr>
                               <td><strong>Size</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="size" class="form-control" id="size" name="size">
-<%--                                 <form:hidden path="size"/> --%>
+                                <form:select path="size" class="form-control" name="size">
                                   <form:option value="XS"></form:option>
                                   <form:option value="S"></form:option>
                                   <form:option value="M"></form:option>
                                   <form:option value="L"></form:option>
                                   <form:option value="XL"></form:option>                                
-<!--                                   <option>XS</option>
-                                  <option>S</option>
-                                  <option>M</option>
-                                  <option>L</option>
-                                  <option>XL</option> -->
                                 </form:select>
                               </td>
                           </tr>
@@ -314,7 +308,7 @@
                               <td><strong>Quantity</strong></td>
                               <td>:</td>
                               <td>
-                                <input type="text" class="form-control" value="1" id="quantity" name="quantity">
+                                <input type="number" class="form-control" value="1" name="quantity">
                                 <%-- <form:hidden path="quantity"/> --%>
                               </td>
                           </tr>
@@ -322,7 +316,8 @@
                               <td colspan="3">
                               <!-- This needs to be fixed...get(0): -->
                               <!-- It should retrieve the exact inventoryDetailId based on the inventoryId, size, and color. -->
-                                <a href="<c:url value='add/${leatherJacket.inventoryId}'/>" class="btn btn-sm btn-primary">Add to Cart</a>
+							<input type="submit" class="btn btn-sm btn-primary" value="Add To Cart"/>
+                                <%-- <a href="<c:url value='add/${leatherJacket.inventoryId}'/>" class="btn btn-sm btn-primary">Add to Cart</a> --%>
                               </td>  
                           </tr>
                         </tbody>

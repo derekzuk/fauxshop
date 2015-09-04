@@ -1,7 +1,9 @@
 package com.journaldev.spring.dao;
  
+import java.math.BigDecimal;
 import java.util.List;
  
+
 
 
 
@@ -18,8 +20,8 @@ public interface CartDAO {
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax);    
     public void removeCart(int cartId);
     public List<Cart> getCartByUserLogin(String name);
-    public int getCartItemCostByUserLogin(String name);
-    public int getCartShippingCostByUserLogin(String name);
-    public int getCartTaxCostByUserLogin(String name);
-    public int getCartTotalByUserLogin(String name);
+    public BigDecimal getCartItemCostByUserLogin(String name);
+    public BigDecimal getCartShippingCostByUserLogin(String name);
+    public BigDecimal getCartTaxCostByUserLogin(String name);
+    public BigDecimal getCartTotalByUserLogin(String name);
 }
