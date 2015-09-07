@@ -22,8 +22,8 @@
 				<tr>
                   <td><img src="<c:url value="${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getImg()}"/>" class="img-cart" /></td>                  
                   <td><strong>${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</strong>
-                  <p>Size : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()}</p>
-                  <p>Color : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getColor()}</p></td>
+                  <p>Size : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()} <br>
+                  Color : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getColor()}</p></td>
                   <td>                                    
                     <form class="form-inline" method="post" action="${flowExecutionUrl}">
                       <input class="form-control" type="text" value="${cart.quantity}" />

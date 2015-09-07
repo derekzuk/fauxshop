@@ -24,12 +24,12 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.journaldev.spring.model.Account</value>
-				<value>com.journaldev.spring.model.Cart</value>
-				<value>com.journaldev.spring.model.Inventory</value>
-				<value>com.journaldev.spring.model.InventoryDetail</value>
-				<value>com.journaldev.spring.model.Person</value>
-				<value>com.journaldev.spring.model.TransactionLog
+				<value>com.fauxshop.spring.model.Account</value>
+				<value>com.fauxshop.spring.model.Cart</value>
+				<value>com.fauxshop.spring.model.Inventory</value>
+				<value>com.fauxshop.spring.model.InventoryDetail</value>
+				<value>com.fauxshop.spring.model.Person</value>
+				<value>com.fauxshop.spring.model.TransactionLog
 				</value>
 			</list>
 		</property>
@@ -42,53 +42,53 @@
 		</property>
 	</bean>
 
-	<bean id="accountDAO" class="com.journaldev.spring.dao.AccountDAOImpl">
+	<bean id="accountDAO" class="com.fauxshop.spring.dao.AccountDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="accountService"
-		class="com.journaldev.spring.service.AccountServiceImpl">
+		class="com.fauxshop.spring.service.AccountServiceImpl">
 		<property name="accountDAO" ref="accountDAO"></property>
 	</bean>
-	<bean id="cartDAO" class="com.journaldev.spring.dao.CartDAOImpl">
+	<bean id="cartDAO" class="com.fauxshop.spring.dao.CartDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="cartService"
-		class="com.journaldev.spring.service.CartServiceImpl">
+		class="com.fauxshop.spring.service.CartServiceImpl">
 		<property name="cartDAO" ref="cartDAO"></property>
 	</bean>
-	<bean id="inventoryDAO" class="com.journaldev.spring.dao.InventoryDAOImpl">
+	<bean id="inventoryDAO" class="com.fauxshop.spring.dao.InventoryDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="inventoryService"
-		class="com.journaldev.spring.service.InventoryServiceImpl">
+		class="com.fauxshop.spring.service.InventoryServiceImpl">
 		<property name="inventoryDAO" ref="inventoryDAO"></property>
 	</bean>
-	<bean id="inventoryDetailDAO" class="com.journaldev.spring.dao.InventoryDetailDAOImpl">
+	<bean id="inventoryDetailDAO" class="com.fauxshop.spring.dao.InventoryDetailDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="inventoryDetailService"
-		class="com.journaldev.spring.service.InventoryDetailServiceImpl">
+		class="com.fauxshop.spring.service.InventoryDetailServiceImpl">
 		<property name="inventoryDetailDAO" ref="inventoryDetailDAO"></property>
 	</bean>	
-	<bean id="personDAO" class="com.journaldev.spring.dao.PersonDAOImpl">
+	<bean id="personDAO" class="com.fauxshop.spring.dao.PersonDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="personService"
-		class="com.journaldev.spring.service.PersonServiceImpl">
+		class="com.fauxshop.spring.service.PersonServiceImpl">
 		<property name="personDAO" ref="personDAO"></property>
 	</bean>
 	<bean id="transactionDAO"
-		class="com.journaldev.spring.dao.TransactionDAOImpl">
+		class="com.fauxshop.spring.dao.TransactionDAOImpl">
 		<property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
 	<bean id="transactionService"
-		class="com.journaldev.spring.service.TransactionServiceImpl">
+		class="com.fauxshop.spring.service.TransactionServiceImpl">
 		<property name="transactionDAO" ref="transactionDAO"></property>
 	</bean>
 	

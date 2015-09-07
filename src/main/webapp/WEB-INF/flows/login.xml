@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 		
-	<var name="accountCredentials" class="com.journaldev.spring.model.Account"/>
+	<var name="accountCredentials" class="com.fauxshop.spring.model.Account"/>
 	
 	<!-- By default, the first state is the start state. -->
 	<view-state id="login" view="login">

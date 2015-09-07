@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 		
-	<!-- <var name="cart" class="com.journaldev.spring.model.Cart"/> -->
-	<var name="transactionLog" class="com.journaldev.spring.model.TransactionLog"/>	
+	<!-- <var name="cart" class="com.fauxshop.spring.model.Cart"/> -->
+	<var name="transactionLog" class="com.fauxshop.spring.model.TransactionLog"/>	
 	
 	<!-- By default, the first state is the start state. -->
 	<view-state id="cart" view="cart">

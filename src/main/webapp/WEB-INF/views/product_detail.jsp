@@ -300,6 +300,7 @@
                               <td>
                                 <form:select path="size" class="form-control" name="size" id="size" onChange='window.location="${leatherJacket.inventoryId}?color=" + color.value + "&size=" + this.value;'>
 									<c:forEach items="${leatherJacketDetail}" var="item">
+									<%-- <c:forEach items="${inventoryDetailService.getAvailableSizes(leatherJacket.inventoryId,color.value)}" var="item"> --%>
    										<form:option value="${item.size}"></form:option>   								   								
 									</c:forEach>                                                                                    
                                 </form:select>
@@ -590,4 +591,3 @@
 
   </body>
 </html>
-

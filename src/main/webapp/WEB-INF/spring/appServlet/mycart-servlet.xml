@@ -28,7 +28,7 @@
 	<context:annotation-config />
 
 	<!-- Scan for controllers and services -->
-	<context:component-scan base-package="com.journaldev.spring"
+	<context:component-scan base-package="com.fauxshop.spring"
 		use-default-filters="false">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -105,7 +105,7 @@
 
 	<!--Autowired into CartServiceImpl
 	Create a proxy to generate session-scoped shopping carts -->
-	<bean id="cart" class="com.journaldev.spring.model.Cart" scope="session"> 
+	<bean id="cart" class="com.fauxshop.spring.model.Cart" scope="session"> 
 		<!-- This requires CGLIB --> 
 		<aop:scoped-proxy/> 
 	</bean>

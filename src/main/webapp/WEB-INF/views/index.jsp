@@ -84,7 +84,7 @@
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
-						<a href="SpringMVCSecurity-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
+						<a href="fauxshop-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
 						</form>
 					</c:when>
 					<c:otherwise>										
@@ -290,41 +290,71 @@
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
+            <a href="product_detail/${leatherJacket.inventoryId}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${leatherJacket.inventoryTxt}</h5>
+              <p>$${leatherJacket.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${leatherJacket.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>                            
+            </div>
+            <div class="product-item-badge">New</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail product-item">
+            <a href="product_detail/${pleatherShirt.inventoryId}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <div class="caption">
+              <h5>${pleatherShirt.inventoryTxt}</h5>
+              <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${pleatherShirt.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product2.jpg"/>"></a>
+            <a href="product_detail/${pleatherPants.inventoryId}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${pleatherPants.inventoryTxt}</h5>
+              <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${pleatherPants.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
+            <div class="product-item-badge badge-sale">Sale</div>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product3.jpg"/>"></a>
+            <a href="product_detail/${hempShirt.inventoryId}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product4.jpg"/>"></a>
-            <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${hempShirt.inventoryTxt}</h5>
+              <p>$${hempShirt.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${hempShirt.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
@@ -335,7 +365,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="page-header">
-            <h2>Random Product <small>Other products</small></h2>
+            <h2>Other Products <small>Other Products</small></h2>
           </div>
         </div>
       </div>
@@ -343,41 +373,71 @@
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
+            <a href="product_detail/${leatherJacket.inventoryId}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${leatherJacket.inventoryTxt}</h5>
+              <p>$${leatherJacket.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${leatherJacket.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>                            
+            </div>
+            <div class="product-item-badge">New</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail product-item">
+            <a href="product_detail/${pleatherShirt.inventoryId}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <div class="caption">
+              <h5>${pleatherShirt.inventoryTxt}</h5>
+              <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${pleatherShirt.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product2.jpg"/>"></a>
+            <a href="product_detail/${pleatherPants.inventoryId}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${pleatherPants.inventoryTxt}</h5>
+              <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${pleatherPants.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
+            <div class="product-item-badge badge-sale">Sale</div>
           </div>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product3.jpg"/>"></a>
+            <a href="product_detail/${hempShirt.inventoryId}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
             <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product4.jpg"/>"></a>
-            <div class="caption">
-              <h5>Pants</h5>
-              <p>$54.00</p>
-              <p>Available</p>
+              <h5>${hempShirt.inventoryTxt}</h5>
+              <p>$${hempShirt.priceUsd}</p>
+              <c:choose> 
+	            <c:when test="${hempShirt.inStock}">
+				  <p>Available</p>
+				</c:when>
+              	<c:otherwise>
+            	  <p>Out of Stock</p>
+              	</c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
