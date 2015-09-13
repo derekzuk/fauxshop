@@ -1,7 +1,9 @@
 package com.fauxshop.spring.model;
  
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +32,7 @@ public class TransactionLog implements Serializable {
     private int accountId;
     
     @Column(name="ORDER_QUANTITY")
-    private String orderQuantity;
+    private int orderQuantity;
     
     @Column(name="SHIP_NAME")
     private String shipName;
@@ -57,16 +59,16 @@ public class TransactionLog implements Serializable {
     private String phone;
 
     @Column(name="SHIPPING_COST")
-    private String shippingCost;
+    private BigDecimal shippingCost;
     
     @Column(name="TAX")
-    private String tax;    
+    private BigDecimal tax;    
 
     @Column(name="ORDER_EMAIL")
     private String orderEmail;
     
     @Column(name="DATE")
-    private Timestamp date;
+    private Date date;
     
     @Column(name="SHIPPED")
     private boolean shipped;
@@ -74,11 +76,11 @@ public class TransactionLog implements Serializable {
     @Column(name="TRACKING_NUMBER")
     private String trackingNumber;
     
-    @Column(name="INVENTORY_ID")
-    private int inventoryId;
+    @Column(name="INVENTORY_DETAIL_ID")
+    private int inventoryDetailId;
     
     @Column(name="ORDER_COST")
-    private String orderCost;    
+    private BigDecimal orderCost;    
     
     public int getTransactionId() {
         return transactionId;
@@ -96,11 +98,11 @@ public class TransactionLog implements Serializable {
         this.accountId = accountId;
     }
  
-    public String getOrderQuantity() {
+    public int getOrderQuantity() {
         return orderQuantity;
     }
  
-    public void setOrderQuantity(String orderQuantity) {
+    public void setOrderQuantity(int orderQuantity) {
         this.orderQuantity = orderQuantity;
     }
     
@@ -168,19 +170,19 @@ public class TransactionLog implements Serializable {
     	this.phone = phone;
     } 
     
-    public String getShippingCost() {
+    public BigDecimal getShippingCost() {
     	return shippingCost;
     }
     
-    public void setShippingCost(String shippingCost) {
+    public void setShippingCost(BigDecimal shippingCost) {
     	this.shippingCost = shippingCost;
     }
     
-    public String getTax() {
+    public BigDecimal getTax() {
     	return tax;
     }
     
-    public void setTax(String tax) {
+    public void setTax(BigDecimal tax) {
     	this.tax = tax;
     }    
     
@@ -192,11 +194,11 @@ public class TransactionLog implements Serializable {
     	this.orderEmail = orderEmail;
     }
     
-    public Timestamp getDate() {
+    public Date getDate() {
     	return date;
     }
     
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
     	this.date = date;
     }
     
@@ -216,19 +218,19 @@ public class TransactionLog implements Serializable {
     	this.trackingNumber = trackingNumber;
     }
     
-    public int getInventoryId() {
-    	return inventoryId;
+    public int getInventoryDetailId() {
+    	return inventoryDetailId;
     }
     
-    public void setInventoryId(int inventoryId) {
-    	this.inventoryId = inventoryId;
+    public void setInventoryDetailId(int inventoryDetailId) {
+    	this.inventoryDetailId = inventoryDetailId;
     }
     
-    public String getOrderCost() {
+    public BigDecimal getOrderCost() {
     	return orderCost;
     }
     
-    public void setOrderCost(String orderCost) {
+    public void setOrderCost(BigDecimal orderCost) {
     	this.orderCost = orderCost;
     }     
     
@@ -249,7 +251,7 @@ public class TransactionLog implements Serializable {
         		", date="+date+
         		", shipped="+shipped+
         		", trackingNumber="+trackingNumber+
-        		", inventoryId="+inventoryId+
+        		", inventoryDetailId="+inventoryDetailId+
         		", orderCost="+orderCost;
         		
     }

@@ -14,4 +14,5 @@ public interface TransactionDAO {
     public List<TransactionLog> listTransactions();
     public TransactionLog getTransactionById(int id);
     public void removeTransaction(int id);
+    public void createTransaction(int cartId);
 }

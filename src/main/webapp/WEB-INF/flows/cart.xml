@@ -4,17 +4,37 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 		
-	<!-- <var name="cart" class="com.fauxshop.spring.model.Cart"/> -->
+	<!-- <var name="cartModel" class="com.fauxshop.spring.model.Cart"/> -->
 	<var name="transactionLog" class="com.fauxshop.spring.model.TransactionLog"/>	
 	
+<!-- 	<on-start>
+		<set name="requestScope.accountId" value="requestParameters.accountId"/>
+		<set name="requestScope.orderQuantity" value="requestParameters.orderQuantity"/>
+		<set name="requestScope.shipName" value="requestParameters.shipName"/>
+		<set name="requestScope.shipAddress" value="requestParameters.shipAddress"/>
+		<set name="requestScope.shipAddress2" value="requestParameters.shipAddress2"/>
+		<set name="requestScope.city" value="requestParameters.city"/>
+		<set name="requestScope.state" value="requestParameters.state"/>
+		<set name="requestScope.zip" value="requestParameters.zip"/>
+		<set name="requestScope.country" value="requestParameters.country"/>
+		<set name="requestScope.phone" value="requestParameters.phone"/>
+		<set name="requestScope.shippingCost" value="requestParameters.shippingCost"/>
+		<set name="requestScope.tax" value="requestParameters.tax"/>
+		<set name="requestScope.date" value="requestParameters.date"/>
+		<set name="requestScope.shipped" value="requestParameters.shipped"/>
+		<set name="requestScope.trackingNumber" value="requestParameters.trackingNumber"/>
+		<set name="requestScope.inventoryId" value="requestParameters.inventoryId"/>
+		<set name="requestScope.orderCost" value="requestParameters.orderCost"/>
+	</on-start> -->
+	
 	<!-- By default, the first state is the start state. -->
-	<view-state id="cart" view="cart">
+	<view-state id="cart" view="cart" model="transactionLog">
 		<on-render>
 			<set name="requestScope.cartService" value="cartService"/>	
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
-		</on-render>		
-		<transition on="next" to="shipping"/>
+		</on-render>							
+		<transition on="next" to="createTransaction"/>
 		<transition on="continueShopping" to="categoriesExit"/>
 		<transition on="removeFromCart" to="removeFromCart"/>
 	</view-state>	
@@ -35,7 +55,8 @@
 	
 	<!-- The addTransaction method will have to pull the cart for this specific user -->
 	<action-state id="createTransaction">
-		<evaluate expression="transactionService.addTransaction(transactionLog)"/>
+		<!-- <evaluate expression="transactionService.addTransaction(transactionLog)"/> -->
+		<evaluate expression="transactionService.createTransaction(-11)"/>		
 		<transition to="invoice"/>
 	</action-state>
 		

@@ -47,6 +47,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void removeTransaction(int id) {
         this.transactionDAO.removeTransaction(id);
-    }
- 
+    }    
+
+	/*@Override*/
+	@Transactional
+	public void createTransaction(int cartId) {
+		this.transactionDAO.createTransaction(cartId);
+	}    	
+    	
 }
