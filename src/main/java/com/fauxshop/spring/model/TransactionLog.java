@@ -74,7 +74,7 @@ public class TransactionLog implements Serializable {
     private boolean shipped;
     
     @Column(name="TRACKING_NUMBER")
-    private String trackingNumber;
+    private long trackingNumber;
     
     @Column(name="INVENTORY_DETAIL_ID")
     private int inventoryDetailId;
@@ -210,11 +210,11 @@ public class TransactionLog implements Serializable {
     	this.shipped = shipped;
     }
     
-    public String getTrackingNumber() {
+    public long getTrackingNumber() {
     	return trackingNumber;
     }
     
-    public void setTrackingNumber(String trackingNumber) {
+    public void setTrackingNumber(long trackingNumber) {
     	this.trackingNumber = trackingNumber;
     }
     

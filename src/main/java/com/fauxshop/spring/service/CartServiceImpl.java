@@ -54,6 +54,13 @@ public class CartServiceImpl implements CartService {
     public void removeCart(int cartId) {
         this.cartDAO.removeCart(cartId);
     }
+
+    /*@Override*/
+    @Transactional
+    public boolean removeCartFromCartList(List<Cart> cartList) {
+        this.cartDAO.removeCartFromCartList(cartList);
+        return true;
+    }
     
     /*@Override*/
     @Transactional

@@ -5,15 +5,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
- 
-
-
-
-
-
-
-
-
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -26,24 +18,23 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
- 
-
-
-
-
-
-
-
 
 import com.fauxshop.spring.model.Account;
+import com.fauxshop.spring.model.Cart;
 import com.fauxshop.spring.model.TransactionLog;
+import com.fauxshop.spring.service.CartService;
 
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
      
     private static final Logger logger = LoggerFactory.getLogger(TransactionDAOImpl.class);
     
+    private CartService cartService;
     private SessionFactory sessionFactory;
+    
+    public CartService getCartService(CartService cs){
+    	return cartService;
+    }
      
     public void setSessionFactory(SessionFactory sf){
         this.sessionFactory = sf;
@@ -111,7 +102,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
     
     /*@Override*/
-    public void createTransaction(int cartId){
+    public void createTransaction(int cartId, long trackingNumber){
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
@@ -184,7 +175,6 @@ public class TransactionDAOImpl implements TransactionDAO {
         String orderEmail = (String) orderEmailQuery.uniqueResult();
         Date date = calendar.getTime();
         boolean shipped = false;
-        String trackingNumber = "This is the Tracking Number 1234";
         
         TransactionLog transactionLog = new TransactionLog();
         transactionLog.setAccountId(accountId);
@@ -209,6 +199,17 @@ public class TransactionDAOImpl implements TransactionDAO {
         session.save(transactionLog);
         tx.commit();
     	session.close();
-    }    
+    }   
+    
+    /*@Override*/
+    public void createTransactionsFromCartList(List<Cart> cartList){
+/*    	Random randomGenerator = new Random();
+    	int trackingNumber = randomGenerator.nextInt(1000000000);*/
+    	long trackingNumber = (long) Math.floor(Math.random() * 9000000000L) + 1000000000L;
+    	for (Cart cartRow : cartList) {
+    		/*We assign a random number for the tracking number to each TransactionLog record we created:*/
+    		createTransaction(cartRow.getCartId(),trackingNumber);
+    	}     	    	
+    }     
  
 }

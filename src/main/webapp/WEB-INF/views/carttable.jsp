@@ -19,6 +19,8 @@
                </thead>
                <tbody>
 			<c:forEach var="cart" items="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
+			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+			<input type="hidden" name="cartId" id="cartId" value="${cart.cartId}"/>
 				<tr>
                   <td><img src="<c:url value="${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getImg()}"/>" class="img-cart" /></td>                  
                   <td><strong>${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</strong>

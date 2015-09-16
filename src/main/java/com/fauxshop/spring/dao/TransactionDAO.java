@@ -1,8 +1,8 @@
 package com.fauxshop.spring.dao;
  
 import java.util.List;
- 
 
+import com.fauxshop.spring.model.Cart;
 import com.fauxshop.spring.model.TransactionLog;
  
 public interface TransactionDAO {
@@ -14,5 +14,6 @@ public interface TransactionDAO {
     public List<TransactionLog> listTransactions();
     public TransactionLog getTransactionById(int id);
     public void removeTransaction(int id);
-    public void createTransaction(int cartId);
+    public void createTransaction(int cartId, long trackingNumber);
+    public void createTransactionsFromCartList(List<Cart> cartList);
 }

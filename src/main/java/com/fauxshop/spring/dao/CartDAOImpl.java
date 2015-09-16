@@ -98,7 +98,16 @@ public class CartDAOImpl implements CartDAO {
             session.delete(c);
         }
         logger.info("Cart deleted successfully, cart details="+c);
-    }
+    } 
+    
+    /*@Override*/
+    public void removeCartFromCartList(List<Cart> cartList) {
+    	logger.info("in removeCartFromCartList.");
+    	for (Cart cartRow : cartList) {
+    		removeCart(cartRow.getCartId());
+    	}   
+    	logger.info("Cart removed.");
+    }       
     
     /*@Override*/
     @SuppressWarnings("unchecked")
