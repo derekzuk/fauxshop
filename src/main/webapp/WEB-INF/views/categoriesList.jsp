@@ -26,7 +26,7 @@
               <!-- begind:item -->
                 <div class="col-md-4 col-sm-4 col-xs-6">
                   <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="${item.img}"/>"></a>
+                    <a href="../product_detail/${item.inventoryId}"><img alt="" src="<c:url value="${item.img}"/>"></a>
                     <div class="caption">
                       <h5>${item.inventoryTxt}</h5>
                       <p>$${item.priceUsd}</p>

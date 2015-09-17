@@ -14,8 +14,9 @@
 				<li>
 					<div class="row">
 						<div class="col-sm-7 col-xs-7">
+							<span>[${cart.quantity}]</span>
 							<a href="product_detail">${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</a>
-							<span>[${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()}]</span>
+							<%-- <span>[${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()}]</span> --%>
 						</div>
 						<div class="col-sm-5 col-xs-5 text-right">
 							<strong>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd()}</strong>

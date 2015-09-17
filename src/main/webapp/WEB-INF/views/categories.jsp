@@ -68,7 +68,7 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-6">
           <div class="logo">
-            <h1><a href="index">Faux<span>shop</span> </a></h1>
+            <h1><a href="../index">Faux<span>shop</span> </a></h1>
             <p>Durable, Fashionable, Animal Friendly</p>
           </div>
         </div>
@@ -77,27 +77,27 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="account">Your Account</a></h4>
+                  <h4><a href="../account">Your Account</a></h4>
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 					</c:when>
 					<c:otherwise>										
-                  	<p><a href="login">Log in</a></p>
+                  	<p><a href="../login">Log in</a></p>
                   </c:otherwise>
                   </c:choose>  
                 </div>
                 <div class="visible-xs">
-                  <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
+                  <a href="../login" class="btn btn-primary"><i class="fa fa-user"></i></a>
                 </div>
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="../cart">Cart</a></h4>
                   <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
-                  <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
+                  <a href="../cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
                 </div>
               </li>
             </ul>
@@ -111,7 +111,7 @@
         <div class="col-md-12">
           <div class="nav-menus">
             <ul class="nav nav-pills">
-              <li class="active"><a href="index">Home</a></li>
+              <li class="active"><a href="../index">Home</a></li>
               <li><a href="#">Acessories</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Boy <b class="caret"></b></a>
@@ -142,8 +142,8 @@
               </li>
               <li><a href="#">Edition</a></li>
               <li><a href="#">Authorized Dealer</a></li>
-              <li><a href="about">About</a></li>
-              <li><a href="contact">Contact</a></li>
+              <li><a href="../about">About</a></li>
+              <li><a href="../contact">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -182,7 +182,7 @@
                 <div class="widget-title">
                   <h3>Payment Confirmation</h3>
                 </div>
-                <p>Already make a payment ? please confirm your payment by filling <a href="confirm">this form</a></p>
+                <p>Already make a payment ? please confirm your payment by filling <a href="../confirm">this form</a></p>
               </div>
 
             </div>

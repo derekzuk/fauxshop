@@ -103,7 +103,7 @@ public class InventoryDAOImpl implements InventoryDAO {
     /*@Override*/
     public InventoryCategoryCode getInventoryCategoryCode(int inventoryCatCd) {
     	Session session = this.sessionFactory.openSession();
-    	String hql = "FROM InventoryCategoryCode where inventoryCatCd = :inventoryCatCd";
+    	String hql = "FROM InventoryCategoryCode WHERE inventoryCatCd = :inventoryCatCd";
     	Query query = session.createQuery(hql);
     	query.setParameter("inventoryCatCd", inventoryCatCd);
     	InventoryCategoryCode result = (InventoryCategoryCode) query.uniqueResult(); 
