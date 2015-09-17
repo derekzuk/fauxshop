@@ -190,110 +190,13 @@
         </div>
         <!-- end:sidebar -->
 
-        <!-- begin:content -->
-        <div class="col-md-9 col-sm-8 content">
-          <div class="row">
-            <div class="col-md-12">
-                <ol class="breadcrumb">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Categories</a></li>
-                  <li><a href="#">Girl</a></li>
-                  <li class="active">Pants</li>
-                </ol>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">                
-              <h3>Pants</h3>
-              <hr />
-
-              <!-- begind:item -->
-              <div class="row product-container">
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Casual Rock Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                    <div class="product-item-badge">New</div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Casual Rock Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                    <div class="product-item-badge badge-sale">Sale</div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="thumbnail product-item">
-                    <a href="product_detail"><img alt="" src="<c:url value="/resources/img/product1.jpg"/>"></a>
-                    <div class="caption">
-                      <h5>Pants</h5>
-                      <p>$54.00</p>
-                      <p>Available</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- end:item -->
+        <!-- begin:content -->              
+			<!-- We pull the items from another view: -->
+              		<jsp:include page="categoriesList.jsp"/>
               
-              <!-- begin:pagination -->
-              <div class="row">
-                <div class="col-md-12">
-                  <ul class="pagination">
-                  <li class="disabled"><a href="#">&lsaquo;</a></li>
-                  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&rsaquo;</a></li>
-                </ul>
-                </div>
-              </div>
-              <!-- end:pagination -->
             </div>
           </div>
-        </div>
         <!-- end:content -->
-      </div>
       <!-- end:article -->
 
       <!-- begin:footer -->

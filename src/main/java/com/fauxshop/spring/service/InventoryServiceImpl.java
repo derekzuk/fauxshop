@@ -2,11 +2,14 @@ package com.fauxshop.spring.service;
  
 import java.util.List;
  
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 import com.fauxshop.spring.dao.InventoryDAO;
 import com.fauxshop.spring.model.Inventory;
+import com.fauxshop.spring.model.InventoryCategoryCode;
  
 @Service
 public class InventoryServiceImpl implements InventoryService {
@@ -34,5 +37,14 @@ public class InventoryServiceImpl implements InventoryService {
     public Inventory getInventoryByInventoryDetailId(int inventoryDetailId) {
         return this.inventoryDAO.getInventoryByInventoryDetailId(inventoryDetailId);
     }        
- 
+    
+    /*@Override*/
+    public List<Inventory> getInventoryListByInventoryCatCd(int inventoryCatCd) {
+        return this.inventoryDAO.getInventoryListByInventoryCatCd(inventoryCatCd);
+    }      
+    
+    public InventoryCategoryCode getInventoryCategoryCode(int inventoryCatCd) {
+    	return this.inventoryDAO.getInventoryCategoryCode(inventoryCatCd);
+    }
+    
 }

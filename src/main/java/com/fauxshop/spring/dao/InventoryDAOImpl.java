@@ -4,6 +4,8 @@ import java.util.List;
  
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,8 +16,11 @@ import org.springframework.stereotype.Repository;
  
 
 
+
+
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.Inventory;
+import com.fauxshop.spring.model.InventoryCategoryCode;
 import com.fauxshop.spring.model.InventoryDetail;
 
 @Repository
@@ -78,6 +83,34 @@ public class InventoryDAOImpl implements InventoryDAO {
         logger.info("getInventoryByInventoryDetailId query: " + query.toString());
         logger.info("getInventoryByInventoryDetailId query results (toString()): " + inventory.toString());        
         return inventory;                
-    }       
- 
+    }      
+    
+    /*@Override*/
+	@SuppressWarnings("unchecked")
+    public List<Inventory> getInventoryListByInventoryCatCd(int inventoryCatCd) {        
+        Session session = this.sessionFactory.openSession();  
+        String hql = "FROM Inventory WHERE inventoryCatCd = :inventoryCatCd";
+        Query query = session.createQuery(hql);
+        query.setParameter("inventoryCatCd", inventoryCatCd);
+		List<Inventory> inventoryList = (List<Inventory>) query.list();
+		session.close();
+        
+        logger.info("getInventoryListByInventoryTypeCd query: " + query.toString());
+        logger.info("getInventoryListByInventoryTypeCd query results (toString()): " + inventoryList.toString());        
+        return inventoryList;                
+    }      
+	
+    /*@Override*/
+    public InventoryCategoryCode getInventoryCategoryCode(int inventoryCatCd) {
+    	Session session = this.sessionFactory.openSession();
+    	String hql = "FROM InventoryCategoryCode where inventoryCatCd = :inventoryCatCd";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("inventoryCatCd", inventoryCatCd);
+    	InventoryCategoryCode result = (InventoryCategoryCode) query.uniqueResult(); 
+        
+        session.close();
+        logger.info("InventoryCategoryCode loaded successfully, InventoryCategoryCode details="+result);
+        return result;
+    }       	
+    
 }

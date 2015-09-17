@@ -25,6 +25,9 @@ public class Inventory {
      
     @Column(name="INVENTORY_TYPE_CD")
     private int inventoryTypeCd;
+
+    @Column(name="INVENTORY_CAT_CD")
+    private int inventoryCatCd;    
     
     @Column(name="INVENTORY_TXT")
     private String inventoryTxt;
@@ -65,7 +68,15 @@ public class Inventory {
     public void setInventoryTypeCd(int inventoryTypeCd) {
         this.inventoryTypeCd = inventoryTypeCd;
     }
+
+    public int getInventoryCatCd() {
+        return inventoryCatCd;
+    }
  
+    public void setInventoryCatCd(int inventoryCatCd) {
+        this.inventoryCatCd = inventoryCatCd;
+    }    
+    
     public String getInventoryTxt() {
         return inventoryTxt;
     }
@@ -134,6 +145,7 @@ public class Inventory {
     public String toString(){
         return "inventoryId="+inventoryId+
         		", inventoryTypeCd="+inventoryTypeCd+
+        		", inventoryCatCd="+inventoryCatCd+
         		", inventoryTxt="+inventoryTxt+
         		", inventoryDescription="+inventoryDescription+
         		", inventoryCare="+inventoryCare;

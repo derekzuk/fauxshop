@@ -138,11 +138,15 @@ public class PersonController {
         return "redirect:/cart";
     }         
     
-    @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public String listCategories(Model model) {
+    @RequestMapping(value = "/categories/{inventoryCatCd}", method = RequestMethod.GET)
+    public String listCategories(@PathVariable("inventoryCatCd") int inventoryCatCd,
+    		Model model) {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
+    	model.addAttribute("inventoryCatCd", inventoryCatCd);
+    	model.addAttribute("inventoryList", this.inventoryService.getInventoryListByInventoryCatCd(inventoryCatCd));
+    	model.addAttribute("inventoryCategoryCode", this.inventoryService.getInventoryCategoryCode(inventoryCatCd));
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

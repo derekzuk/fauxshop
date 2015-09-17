@@ -36,7 +36,8 @@ CREATE TABLE `employees` (
  
 CREATE TABLE `inventory` (
    `INVENTORY_ID` int(11) NOT NULL,
-   `INVENTORY_TYPE_CD` INT NOT NULL,   
+   `INVENTORY_TYPE_CD` INT NOT NULL,
+   `INVENTORY_CAT_CD` INT NOT NULL, 
    `INVENTORY_TXT` varchar(45) DEFAULT NULL,
    `INVENTORY_DESCRIPTION` VARCHAR(5000) NOT NULL,
    `INVENTORY_CARE` VARCHAR(5000) NULL,
@@ -62,6 +63,13 @@ CREATE TABLE `inventory` (
   `THUMBNAIL5` VARCHAR(100) NULL,
   PRIMARY KEY (`INVENTORY_DETAIL_ID`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  
+CREATE TABLE `inventory_category_code` (
+   `inventory_cat_cd` int(11) NOT NULL,
+   `inventory_cat_txt` varchar(45) DEFAULT NULL,
+   `inventory_cat_description` varchar(5000) DEFAULT NULL,
+   PRIMARY KEY (`inventory_cat_cd`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
  
 CREATE TABLE `inventory_type_code` (
    `inventory_type_cd` int(11) NOT NULL,

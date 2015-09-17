@@ -27,6 +27,7 @@
 				<value>com.fauxshop.spring.model.Account</value>
 				<value>com.fauxshop.spring.model.Cart</value>
 				<value>com.fauxshop.spring.model.Inventory</value>
+				<value>com.fauxshop.spring.model.InventoryCategoryCode</value>
 				<value>com.fauxshop.spring.model.InventoryDetail</value>
 				<value>com.fauxshop.spring.model.Person</value>
 				<value>com.fauxshop.spring.model.TransactionLog
