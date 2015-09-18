@@ -254,7 +254,7 @@ public class PersonController {
     	 i++;
     	}
     	while (i < inventoryList.size());
-    	
+    	/*LinkedHashSet does not allow for duplicate values, so we run the list through a LinkedHashSet:*/
     	colorList = new ArrayList<String>(new LinkedHashSet<String>(colorList));
     	sizeList = new ArrayList<String>(new LinkedHashSet<String>(sizeList));    
     	

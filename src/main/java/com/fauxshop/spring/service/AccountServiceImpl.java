@@ -11,7 +11,7 @@ import com.fauxshop.spring.dao.AccountDAO;
 import com.fauxshop.spring.model.Account;
  
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService {	
      
     private AccountDAO accountDAO;
     
