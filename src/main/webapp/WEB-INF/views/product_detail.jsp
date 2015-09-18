@@ -288,8 +288,8 @@
                               <td>:</td>
                               <td>
                                 <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${leatherJacket.inventoryId}?color=" + this.value + "&size=" + size.value;'>
-									<c:forEach items="${leatherJacketDetail}" var="item">								
-   										<form:option value="${item.color}"></form:option>   								
+									<c:forEach items="${colorList}" var="item">								
+   										<form:option value="${item}"></form:option>   								
 									</c:forEach>                                                     
                                 </form:select>                            
                             </td>   
@@ -299,9 +299,9 @@
                               <td>:</td>
                               <td>
                                 <form:select path="size" class="form-control" name="size" id="size" onChange='window.location="${leatherJacket.inventoryId}?color=" + color.value + "&size=" + this.value;'>
-									<c:forEach items="${leatherJacketDetail}" var="item">
+									<c:forEach items="${sizeList}" var="item">
 									<%-- <c:forEach items="${inventoryDetailService.getAvailableSizes(leatherJacket.inventoryId,color.value)}" var="item"> --%>
-   										<form:option value="${item.size}"></form:option>   								   								
+   										<form:option value="${item}"></form:option>   								   								
 									</c:forEach>                                                                                    
                                 </form:select>
                               </td>

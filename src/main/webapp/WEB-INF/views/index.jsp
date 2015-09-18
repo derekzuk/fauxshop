@@ -122,19 +122,19 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Mens <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="menu1">
                   <li>
-                    <a href="#">Shirts <b class="caret"></b></a>
+                    <a href="categories/101">Shirts <b class="caret"></b></a>
                     <ul class="dropdown-menu sub-menu">
-                      <li><a href="#">Shirts</a></li>
-                      <li><a href="#">T-shirts</a></li>
-                      <li><a href="#">Polo Shirts</a></li>
-                      <li><a href="#">Tanktop</a></li>
+                      <li><a href="categories/101">Shirts</a></li>
+                      <li><a href="categories/101">T-shirts</a></li>
+                      <li><a href="categories/101">Polo Shirts</a></li>
+                      <li><a href="categories/101">Tanktop</a></li>
                     </ul>
                   </li>
-                  <li><a href="#">Jacket</a></li>
-                  <li><a href="categories">Pants</a></li>
-                  <li><a href="#">Boxer</a></li>
+                  <li><a href="categories/100">Jacket</a></li>
+                  <li><a href="categories/102">Pants</a></li>
+                  <li><a href="categories/102">Boxer</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">SweatShirts</a></li>
+                  <li><a href="categories/101">SweatShirts</a></li>
                 </ul>
               </li>
               <li class="dropdown">

@@ -1,6 +1,9 @@
 package com.fauxshop.spring.controller;
  
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -237,12 +240,32 @@ public class PersonController {
     		Model model,
     		HttpServletRequest request) {
     	
+    	/*We get a unique list of colors and sizes for the inventoryId:*/
+    	List<InventoryDetail> inventoryList = this.inventoryDetailService.getInventoryDetailByInventoryId(id);
+   	 	List<String> colorList = new ArrayList<String>();
+   	 	List<String> sizeList = new ArrayList<String>();    
+    	
+    	int i = 0;
+    	do{
+    	 String color = inventoryList.get(i).getColor();
+    	 String size = inventoryList.get(i).getSize();
+    	 colorList.add(color);
+    	 sizeList.add(size);
+    	 i++;
+    	}
+    	while (i < inventoryList.size());
+    	
+    	colorList = new ArrayList<String>(new LinkedHashSet<String>(colorList));
+    	sizeList = new ArrayList<String>(new LinkedHashSet<String>(sizeList));    
+    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(id));
     	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));
+    	model.addAttribute("colorList", colorList);
+    	model.addAttribute("sizeList", sizeList);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
