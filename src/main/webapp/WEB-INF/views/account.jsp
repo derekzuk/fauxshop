@@ -84,7 +84,7 @@
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
-						<a href="fauxshop/j_spring_security_logout">Log Out</a>
+						<a href="fauxshop-1.0.0-BUILD-SNAPSHOT/j_spring_security_logout">Log Out</a>
 						</form>
 					</c:when>
 					<c:otherwise>										

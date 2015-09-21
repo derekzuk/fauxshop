@@ -29,7 +29,6 @@
 				<value>com.fauxshop.spring.model.Inventory</value>
 				<value>com.fauxshop.spring.model.InventoryCategoryCode</value>
 				<value>com.fauxshop.spring.model.InventoryDetail</value>
-				<value>com.fauxshop.spring.model.Person</value>
 				<value>com.fauxshop.spring.model.TransactionLog
 				</value>
 			</list>
@@ -75,14 +74,6 @@
 		class="com.fauxshop.spring.service.InventoryDetailServiceImpl">
 		<property name="inventoryDetailDAO" ref="inventoryDetailDAO"></property>
 	</bean>	
-	<bean id="personDAO" class="com.fauxshop.spring.dao.PersonDAOImpl">
-		<property name="sessionFactory"
-			ref="hibernate4AnnotatedSessionFactory" />
-	</bean>
-	<bean id="personService"
-		class="com.fauxshop.spring.service.PersonServiceImpl">
-		<property name="personDAO" ref="personDAO"></property>
-	</bean>
 	<bean id="transactionDAO"
 		class="com.fauxshop.spring.dao.TransactionDAOImpl">
 		<property name="sessionFactory"

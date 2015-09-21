@@ -223,7 +223,7 @@
                       <input type="email" value="me@domainname.com" class="form-control" placeholder="Email">
                     </div>                    
                     <input type="submit" class="btn btn-default" name="_eventId_submitRegistration" value="Submit Registration" />
-                  </form>
+                  </form>                                
                 </div>
 
                 <div class="col-md-6 col-sm-6">

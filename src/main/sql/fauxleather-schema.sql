@@ -27,13 +27,6 @@ CREATE TABLE `cart` (
    PRIMARY KEY (`CART_ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  
-CREATE TABLE `employees` (
-   `username` varchar(20) NOT NULL DEFAULT '',
-   `password` varchar(20) NOT NULL DEFAULT '',
-   `enabled` tinyint(1) NOT NULL DEFAULT '1',
-   PRIMARY KEY (`username`)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
- 
 CREATE TABLE `inventory` (
    `INVENTORY_ID` int(11) NOT NULL,
    `INVENTORY_TYPE_CD` INT NOT NULL,
@@ -77,13 +70,6 @@ CREATE TABLE `inventory_type_code` (
    `inventory_type_description` varchar(5000) DEFAULT NULL,
    PRIMARY KEY (`inventory_type_cd`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
- 
-CREATE TABLE `person` (
-   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-   `name` varchar(20) NOT NULL DEFAULT '',
-   `country` varchar(20) DEFAULT NULL,
-   PRIMARY KEY (`id`)
- ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `roles` (
    `USER_LOGIN` varchar(20) NOT NULL DEFAULT '',

@@ -332,12 +332,10 @@
 								<includes>
 									<include>src/test/sql/test-account.sql</include>
 									<include>src/test/sql/test-cart.sql</include>
-									<include>src/test/sql/test-employees.sql</include>
 									<include>src/test/sql/test-inventory.sql</include>
 									<include>src/test/sql/test-inventory_category_code.sql</include>
 									<include>src/test/sql/test-inventory_detail.sql</include>
 									<include>src/test/sql/test-inventory_type_code.sql</include>
-									<include>src/test/sql/test-person.sql</include>
 									<include>src/test/sql/test-roles.sql</include>
 									<include>src/test/sql/test-sizing.sql</include>
 									<include>src/test/sql/test-transaction.sql</include>

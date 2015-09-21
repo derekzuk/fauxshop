@@ -12,9 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.fauxshop.spring.model.Cart;
-import com.fauxshop.spring.model.Inventory;
-import com.fauxshop.spring.model.Person;
-import com.fauxshop.spring.service.InventoryService;
 
 @Repository
 public class CartDAOImpl implements CartDAO {

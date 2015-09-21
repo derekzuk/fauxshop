@@ -20,30 +20,32 @@
 	<http authentication-manager-ref="jdbc-auth"
 		access-decision-manager-ref="accessDecisionManager">	
 		<intercept-url pattern="/emp/**" access="Admin" />
-		<form-login login-page="/login**" authentication-failure-url="/denied"
+		<form-login login-page="/login**" authentication-failure-url="/login"
 			username-parameter="user_login" password-parameter="password"
 			default-target-url="/index" />
 		<logout invalidate-session="true" logout-success-url="/index"
 			logout-url="/j_spring_security_logout" />
 		<access-denied-handler error-page="/denied"/>
-		<session-management invalid-session-url="/index">
+		<session-management invalid-session-url="/login">
 			<concurrency-control max-sessions="1"
 				expired-url="/index" />
 		</session-management>
 	</http>
 
-	<authentication-manager id="in-memory-auth">
+	<!-- This method of authentication is currently not used: -->
+<!-- 	<authentication-manager id="in-memory-auth">
 		<authentication-provider>
 			<user-service>
-				<user name="pankaj" password="pankaj123" authorities="Admin" />
+				<user name="derek" password="pass" authorities="Admin" />
 			</user-service>
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager> -->
 
-	<authentication-manager id="dao-auth">
+	<!-- This method of authentication is currently not used: -->
+<!-- 	<authentication-manager id="dao-auth">
 		<authentication-provider user-service-ref="userDetailsService">
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager> -->
 
 	<beans:bean id="userDetailsService"
 		class="com.fauxshop.spring.security.dao.AppUserDetailsServiceDAO" />

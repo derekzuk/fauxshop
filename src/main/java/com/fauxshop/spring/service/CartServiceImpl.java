@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fauxshop.spring.dao.CartDAO;
-import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.Cart;
-import com.fauxshop.spring.model.TransactionLog;
  
 @Service
 public class CartServiceImpl implements CartService {

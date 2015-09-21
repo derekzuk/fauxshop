@@ -9,15 +9,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
-
-
-
-import com.fauxshop.spring.model.Cart;
 import com.fauxshop.spring.model.InventoryDetail;
 
 @Repository

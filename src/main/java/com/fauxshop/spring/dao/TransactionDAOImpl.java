@@ -1,16 +1,9 @@
 package com.fauxshop.spring.dao;
  
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.Cart;
 import com.fauxshop.spring.model.TransactionLog;
 import com.fauxshop.spring.service.CartService;

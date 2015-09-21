@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.fauxshop.spring.dao.InventoryDetailDAO;
-import com.fauxshop.spring.model.Inventory;
 import com.fauxshop.spring.model.InventoryDetail;
  
 @Service
