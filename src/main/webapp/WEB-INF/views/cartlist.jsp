@@ -8,20 +8,17 @@
 	<c:otherwise>
 		<c:forEach var="cart"
 			items="${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name)}">
-			<%-- <input type="hidden" name="cartId" id="cartId" value="${cart.cartId}"></input> --%>
 			<form method="post" action="${flowExecutionUrl}">
 			<ul class="cart list-unstyled">
 				<li>
 					<div class="row">
 						<div class="col-sm-7 col-xs-7">
 							<span>[${cart.quantity}]</span>
-							<a href="product_detail">${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</a>
-							<%-- <span>[${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getSize()}]</span> --%>
+							<a href="product_detail/${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getInventoryId()}?color=${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getColor()}">${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getInventoryTxt()}</a>
 						</div>
 						<div class="col-sm-5 col-xs-5 text-right">
 							<strong>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd()}</strong>
 							<a href="<c:url value='cartRemove/${cart.cartId}'/>" > <i class="fa fa-trash-o"></i> </a>
-							<%-- <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a> --%>
 						</div>
 					</div>
 				</li>

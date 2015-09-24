@@ -47,8 +47,8 @@
 		</authentication-provider>
 	</authentication-manager> -->
 
-	<beans:bean id="userDetailsService"
-		class="com.fauxshop.spring.security.dao.AppUserDetailsServiceDAO" />
+<!-- 	<beans:bean id="userDetailsService"
+		class="com.fauxshop.spring.security.dao.AppUserDetailsServiceDAO" /> -->
 
 	<authentication-manager id="jdbc-auth">
 		<authentication-provider>

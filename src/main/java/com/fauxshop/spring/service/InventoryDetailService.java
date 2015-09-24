@@ -10,6 +10,7 @@ public interface InventoryDetailService {
     public List<InventoryDetail> listInventoryDetail();
     public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId);
     public InventoryDetail getInventoryDetailByInventoryDetailId(int inventoryDetailId);
+    public List<InventoryDetail> getInventoryDetailByIdColor(int inventoryId, String color);
     public InventoryDetail getInventoryDetailByIdColorSize(int inventoryId, String color, String size);
     public List<String> getAvailableSizes(int inventoryId, String color);
      

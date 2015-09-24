@@ -52,6 +52,12 @@ public class CartServiceImpl implements CartService {
     public void removeCart(int cartId) {
         this.cartDAO.removeCart(cartId);
     }
+    
+    /*@Override*/
+    @Transactional
+    public void updateQuantity(int cartId, int quantity) {
+        this.cartDAO.updateQuantity(cartId, quantity);
+    }
 
     /*@Override*/
     @Transactional

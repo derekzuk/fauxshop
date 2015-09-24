@@ -287,7 +287,7 @@
                               <td><strong>Color</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${leatherJacket.inventoryId}?color=" + this.value + "&size=" + size.value;'>
+                                <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${leatherJacket.inventoryId}?color=" + this.value;'>
 									<c:forEach items="${colorList}" var="item">								
    										<form:option value="${item}"></form:option>   								
 									</c:forEach>                                                     
@@ -298,7 +298,7 @@
                               <td><strong>Size</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="size" class="form-control" name="size" id="size" onChange='window.location="${leatherJacket.inventoryId}?color=" + color.value + "&size=" + this.value;'>
+                                <form:select path="size" class="form-control" name="size" id="size">
 									<c:forEach items="${sizeList}" var="item">
 									<%-- <c:forEach items="${inventoryDetailService.getAvailableSizes(leatherJacket.inventoryId,color.value)}" var="item"> --%>
    										<form:option value="${item}"></form:option>   								   								
@@ -315,10 +315,8 @@
                           </tr>
                           <tr>
                               <td colspan="3">
-                              <!-- This needs to be fixed...get(0): -->
                               <!-- It should retrieve the exact inventoryDetailId based on the inventoryId, size, and color. -->
 							<input type="submit" class="btn btn-sm btn-primary" value="Add To Cart"/>
-                                <%-- <a href="<c:url value='add/${leatherJacket.inventoryId}'/>" class="btn btn-sm btn-primary">Add to Cart</a> --%>
                               </td>  
                           </tr>
                         </tbody>
@@ -583,10 +581,10 @@
 	}
 	
 	var color_param = gup( 'color' );
-	var size_param = gup( 'size' );
+	/* var size_param = gup( 'size' ); */
 	
 	$("#color".val('color_param'));
-	$("#size".val('size_param'));	
+	/* $("#size".val('size_param'));	 */
 	</script>
 
   </body>

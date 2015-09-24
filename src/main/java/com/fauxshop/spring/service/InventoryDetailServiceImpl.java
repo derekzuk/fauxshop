@@ -41,9 +41,15 @@ public class InventoryDetailServiceImpl implements InventoryDetailService {
     
     /*@Override*/
     @Transactional
+    public List<InventoryDetail> getInventoryDetailByIdColor(int inventoryId, String color) {
+        return this.inventoryDetailDAO.getInventoryDetailByIdColor(inventoryId, color);
+    }
+    
+    /*@Override*/
+    @Transactional
     public InventoryDetail getInventoryDetailByIdColorSize(int inventoryId, String color, String size) {
         return this.inventoryDetailDAO.getInventoryDetailByIdColorSize(inventoryId, color, size);
-    }         
+    }             
     
     public List<String> getAvailableSizes(int inventoryId, String color){
     	return this.inventoryDetailDAO.getAvailableSizes(inventoryId, color);

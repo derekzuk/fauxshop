@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.context.spi.CurrentSessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
  
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.Inventory;
@@ -76,9 +71,13 @@ public class PersonController {
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("listInventory", this.inventoryService.listInventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
-    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(-112));  
+    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-111));
+    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(-112));
+    	model.addAttribute("pleatherShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-112));
     	model.addAttribute("pleatherPants", this.inventoryService.getInventoryById(-113));
+    	model.addAttribute("pleatherPantsDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-113));
     	model.addAttribute("hempShirt", this.inventoryService.getInventoryById(-114));  
+    	model.addAttribute("hempShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-114));
 
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
@@ -131,6 +130,15 @@ public class PersonController {
     public String listCart(Model model) {   	
         return "redirect:cart.do";
     }
+    
+    @RequestMapping(value = "/cart/updateQuantity/{cartId}", method = {RequestMethod.POST,RequestMethod.GET})
+    public String updateQuantity(@PathVariable("cartId") int cartId,
+    		HttpServletRequest request) { 
+
+	    this.cartService.updateQuantity(cartId, Integer.parseInt(request.getParameter("quantity")));
+    	
+	    return "redirect:/cart";
+    }    
     
     @RequestMapping("/cartRemove/{cartId}")
     public String removeFromCart(@PathVariable(value="cartId") int cartId) {   	        	
@@ -228,32 +236,42 @@ public class PersonController {
     		model.addAttribute("currentUser", "No User Logged In");
     	}    	            
         return "payment";
-    }      
+    }          
     
-    /*@RequestMapping(value = "/product_detail/${id}", method = {RequestMethod.POST,RequestMethod.GET})*/
-    @RequestMapping("/product_detail/{id}")
-    public String listProductDetail(@PathVariable("id") int id, 
+	@RequestMapping("/product_detail/{id}**")
+    public String listProductDetail(@PathVariable("id") int id,    		
     		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
     		Model model,
     		HttpServletRequest request) {
-    	
+		
+		String queryString = (String) request.getQueryString();
+	    String colorPath = queryString.replace("color=","");     	    
+	        	
     	/*We get a unique list of colors and sizes for the inventoryId:*/
-    	List<InventoryDetail> inventoryList = this.inventoryDetailService.getInventoryDetailByInventoryId(id);
-   	 	List<String> colorList = new ArrayList<String>();
+    	List<InventoryDetail> fullInventoryList = this.inventoryDetailService.getInventoryDetailByInventoryId(id); 
+    	List<InventoryDetail> inventoryList =  this.inventoryDetailService.getInventoryDetailByIdColor(id, colorPath);
    	 	List<String> sizeList = new ArrayList<String>();    
+   	 	List<String> colorList = new ArrayList<String>();
     	
-    	int i = 0;
+   	 	/*Loops to populate the size and color list:*/
+    	int a = 0;
     	do{
-    	 String color = inventoryList.get(i).getColor();
-    	 String size = inventoryList.get(i).getSize();
-    	 colorList.add(color);
+    	 String size = inventoryList.get(a).getSize();
     	 sizeList.add(size);
-    	 i++;
+    	 a++;
     	}
-    	while (i < inventoryList.size());
+    	while (a < inventoryList.size());
     	/*LinkedHashSet does not allow for duplicate values, so we run the list through a LinkedHashSet:*/
-    	colorList = new ArrayList<String>(new LinkedHashSet<String>(colorList));
-    	sizeList = new ArrayList<String>(new LinkedHashSet<String>(sizeList));    
+    	sizeList = new ArrayList<String>(new LinkedHashSet<String>(sizeList)); 
+
+    	int b = 0;
+    	do{
+    	 String color = fullInventoryList.get(b).getColor();
+    	 colorList.add(color);
+    	 b++;
+    	}	
+    	while (b < fullInventoryList.size());
+    	colorList = new ArrayList<String>(new LinkedHashSet<String>(colorList)); 
     	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
@@ -273,7 +291,7 @@ public class PersonController {
     		model.addAttribute("currentUser", "No User Logged In");
     	}    	    	
         return "product_detail";
-    }   
+    }       
     
     @RequestMapping(value = "/product_detail/add/{inventoryId}", method = {RequestMethod.POST,RequestMethod.GET})
     public String addProduct(@PathVariable("inventoryId") int inventoryId,

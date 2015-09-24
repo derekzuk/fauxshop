@@ -47,7 +47,7 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="all" />
-		<appender-ref ref="console" />
+		<!-- <appender-ref ref="console" /> -->
 		<appender-ref ref="app" />
 	</root>
 

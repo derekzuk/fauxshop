@@ -1,4 +1,4 @@
-package com.fauxshop.spring.security.dao;
+/*package com.fauxshop.spring.security.dao;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-/*
+
  * I don't know if this class is actually even doing anything right now.
-*/
+
 public class AppUserDetailsServiceDAO implements UserDetailsService {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -73,3 +73,4 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	}
 
 }
+*/

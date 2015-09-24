@@ -98,6 +98,22 @@ public class CartDAOImpl implements CartDAO {
     } 
     
     /*@Override*/
+    public void updateQuantity(int cartId, int quantity) {
+    	Session session = this.sessionFactory.openSession();
+    	Transaction tx = session.beginTransaction();
+    	
+        logger.info("updateQuantity quantity variable value: " + quantity); 
+    	
+    	String hql = "UPDATE Cart SET quantity = :quantity WHERE cartId = :cartId";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("cartId", cartId);
+    	query.setParameter("quantity", quantity);    	
+    	query.executeUpdate();    	
+    	tx.commit();
+    	session.close();
+    }     
+    
+    /*@Override*/
     public void removeCartFromCartList(List<Cart> cartList) {
     	logger.info("in removeCartFromCartList.");
     	for (Cart cartRow : cartList) {
