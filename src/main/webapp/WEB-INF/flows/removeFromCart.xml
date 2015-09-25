@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+<!-- This flow isn't used at the moment, but I will leave it alone for now. -->
+
 	<on-start>
 		<set name="requestScope.cartId" value="requestParameters.cartId"/>
 	</on-start>

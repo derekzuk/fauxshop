@@ -43,6 +43,12 @@ public class CartServiceImpl implements CartService {
     }
     
     /*@Override*/
+    @Transactional
+    public Cart getCartByIdAndAccountId(int cartId, int accountId) {
+        return this.cartDAO.getCartByIdAndAccountId(cartId, accountId);
+    }
+    
+    /*@Override*/
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem,String shippingCost, String tax) {
     	this.cartDAO.addToCart(accountId,inventoryId,quantity,pricePerItem,shippingCost,tax);
     }

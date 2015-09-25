@@ -18,14 +18,7 @@
 		</on-render>							
 		<transition on="next" to="shipping"/>
 		<transition on="continueShopping" to="categoriesExit"/>
-		<transition on="removeFromCart" to="removeFromCart"/>
-	</view-state>	
-	
-	<subflow-state id="removeFromCart" subflow="removeFromCart">
-		<!-- This is where we go when the subflow returns. cartRemoved is
-		     the name of an end-state. -->
-		<transition on="cartRemoved" to="cart"/>
-	</subflow-state>	
+	</view-state>		
 	
 	<view-state id="shipping" view="shipping">
 		<transition on="next" to="payment"/>

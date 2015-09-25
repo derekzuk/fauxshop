@@ -141,9 +141,23 @@ public class PersonController {
     }    
     
     @RequestMapping("/cartRemove/{cartId}")
-    public String removeFromCart(@PathVariable(value="cartId") int cartId) {   	        	
-    		this.cartService.removeCart(cartId);	    	
-        return "redirect:/cart";
+    public String removeFromCart(@PathVariable(value="cartId") int cartId,
+    		Model model) {
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String name = user.getUsername(); //get logged in username
+    		int accountId = this.accountService.getAccountByName(name).getAccountId();    
+    		Cart cartItemToBeRemoved = this.cartService.getCartByIdAndAccountId(cartId, accountId);
+    		
+    		/*The item is only removed if both the cartId and accountId provided are valid.*/
+        	if (null != cartItemToBeRemoved) {
+        		this.cartService.removeCart(cartId);
+        	}
+    	} else {
+    		/*No user is logged in.*/
+    		return "redirect:/cart";    		
+    	}   
+    	return "redirect:/cart";    		
     }         
     
     @RequestMapping(value = "/categories/{inventoryCatCd}", method = RequestMethod.GET)

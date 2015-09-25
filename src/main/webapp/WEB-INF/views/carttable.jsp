@@ -30,15 +30,22 @@
                   Color : ${inventoryDetailService.getInventoryDetailByInventoryDetailId(cart.inventoryDetailId).getColor()}</p></td>
                   <td>                                    
                       <c:url var="updateAction" value="cart/updateQuantity/${cart.cartId}" ></c:url>
-					  <form:form action="${updateAction}" commandName="Cart">
+                      <c:url var="deleteAction" value="cartRemove/${cart.cartId}" ></c:url>					  
 
-                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
-                      <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+                      <%-- <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a> --%>
+                      <!-- Both the Edit and Delete buttons navigate away from SWF to a controller class: -->
+                      <form:form action="${deleteAction}" commandName="Cart">
+                      <button type="submit" style="float: right" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></button>
+                      </form:form>
+                      
+                      <form:form action="${updateAction}" commandName="Cart">
+                      <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>                      
                       				
 						<div style="overflow: hidden; padding-right: .5em;">                      					  
                       	<input class="form-control" type="number" value="${cart.quantity}" name="quantity" id="quantity" />
 						</div>
-					</form:form>
+					  </form:form>
+					  					
                   </td>
                   <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd()}</td>
                   <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd() * cart.quantity}</td>

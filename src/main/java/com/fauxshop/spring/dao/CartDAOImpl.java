@@ -69,6 +69,17 @@ public class CartDAOImpl implements CartDAO {
     }   
     
     /*@Override*/
+    public Cart getCartByIdAndAccountId(int cartId, int accountId) {
+    	Session session = this.sessionFactory.openSession();
+    	String hql = "FROM Cart WHERE cartId = :cartId AND accountId = :accountId";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("cartId", cartId);
+    	query.setParameter("accountId", accountId);    	
+    	Cart result = (Cart) query.uniqueResult();  
+    	return result;
+    }       
+    
+    /*@Override*/
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax){
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
