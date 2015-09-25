@@ -31,11 +31,14 @@
                   <td>                                    
                       <c:url var="updateAction" value="cart/updateQuantity/${cart.cartId}" ></c:url>
 					  <form:form action="${updateAction}" commandName="Cart">
-                      <input class="form-control" type="number" value="${cart.quantity}" name="quantity" id="quantity" />
-                      <button type="submit" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                      </form:form>
-                      
-                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
+
+                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
+                      <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+                      				
+						<div style="overflow: hidden; padding-right: .5em;">                      					  
+                      	<input class="form-control" type="number" value="${cart.quantity}" name="quantity" id="quantity" />
+						</div>
+					</form:form>
                   </td>
                   <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd()}</td>
                   <td>$${inventoryService.getInventoryByInventoryDetailId(cart.inventoryDetailId).getPriceUsd() * cart.quantity}</td>
