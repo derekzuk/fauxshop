@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
  
 
+
 import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.Inventory;
 import com.fauxshop.spring.service.InventoryService;
@@ -307,7 +308,7 @@ public class PersonController {
         return "product_detail";
     }       
     
-    @RequestMapping(value = "/product_detail/add/{inventoryId}", method = {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/product_detail/add/{inventoryId}", method = {RequestMethod.POST,RequestMethod.GET})
     public String addProduct(@PathVariable("inventoryId") int inventoryId,
     		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
     		Model model,
@@ -320,7 +321,25 @@ public class PersonController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		
+    		List<Cart> userCartList = this.cartService.getCartByUserLogin(name);    	    		
+    		List<Integer> userCartInventoryIdList = new ArrayList<Integer>();    		
+    		int a = 0;
+        	do {
+        	 int inventoryDetailId = userCartList.get(a).getInventoryDetailId();
+           	 userCartInventoryIdList.add(inventoryDetailId);
+           	 a++;
+           	} 	
+           	while (a < userCartInventoryIdList.size());    			
         	
+    		/*If the inventory item already exists in the cart, we add the quantity to the existing record.*/
+        	int inventoryDetailId = this.inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId();
+        	int accountId = this.accountService.getAccountByName(name).getAccountId();
+    		if (userCartInventoryIdList.contains(inventoryDetailId)) {
+    			Cart existingCart = this.cartService.getCartByInventoryDetailIdAndAccountId(inventoryDetailId, accountId);
+    			this.cartService.updateQuantity(existingCart.getCartId(), (existingCart.getQuantity() + Integer.parseInt(request.getParameter("quantity"))));
+    		/*If the inventory item does not already exist in the user's cart, we create a new cart record.*/    		
+    		} else {
     		// We add the selected inventory item to the user's cart.
     		// This method isn't finished. Needs work.
     		Cart newCartRecord = new Cart();
@@ -332,6 +351,7 @@ public class PersonController {
     		newCartRecord.setShippingCost(BigDecimal.valueOf(22.22));
     		newCartRecord.setTax(BigDecimal.valueOf(11.11));
     		this.cartService.save(newCartRecord);
+    		}
     	} else {
     		return "redirect:/login";
     	}    	    	

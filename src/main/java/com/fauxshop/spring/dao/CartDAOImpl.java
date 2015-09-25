@@ -77,7 +77,18 @@ public class CartDAOImpl implements CartDAO {
     	query.setParameter("accountId", accountId);    	
     	Cart result = (Cart) query.uniqueResult();  
     	return result;
-    }       
+    }      
+    
+    /*@Override*/
+    public Cart getCartByInventoryDetailIdAndAccountId(int inventoryDetailId, int accountId) {
+    	Session session = this.sessionFactory.openSession();
+    	String hql = "FROM Cart WHERE inventoryDetailId = :inventoryDetailId AND accountId = :accountId";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("inventoryDetailId", inventoryDetailId);
+    	query.setParameter("accountId", accountId);    	
+    	Cart result = (Cart) query.uniqueResult();  
+    	return result;
+    }      
     
     /*@Override*/
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax){

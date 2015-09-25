@@ -19,6 +19,7 @@ public interface CartService {
     public List<Cart> listCarts();
     public Cart getCartById(int id);
     public Cart getCartByIdAndAccountId(int cartId, int accountId);
+    public Cart getCartByInventoryDetailIdAndAccountId(int inventoryDetailId, int accountId);
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem,String shippingCost,String tax);
     public void removeCart(int cartId);
     public void updateQuantity(int cartId, int quantity);

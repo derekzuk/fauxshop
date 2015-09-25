@@ -42,7 +42,7 @@
                       <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>                      
                       				
 						<div style="overflow: hidden; padding-right: .5em;">                      					  
-                      	<input class="form-control" type="number" value="${cart.quantity}" name="quantity" id="quantity" />
+                      	<input class="form-control" type="number" min="1" value="${cart.quantity}" name="quantity" id="quantity" />
 						</div>
 					  </form:form>
 					  					

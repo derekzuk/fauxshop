@@ -15,6 +15,7 @@ public interface CartDAO {
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax);    
     public void removeCart(int cartId);
     public Cart getCartByIdAndAccountId(int cartId, int accountId);
+    public Cart getCartByInventoryDetailIdAndAccountId(int inventoryDetailId, int accountId);
     public void updateQuantity(int cartId, int quantity);
     public void removeCartFromCartList(List<Cart> cartList);
     public List<Cart> getCartByUserLogin(String name);

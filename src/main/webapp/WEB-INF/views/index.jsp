@@ -280,17 +280,17 @@
 
       <!-- begin:new-arrival -->
       <div class="row">
-        <dov class="col-md-12">
+        <div class="col-md-12">
           <div class="page-header">
             <h2>New Arrival <small>New products in this month</small></h2>
           </div>
-        </dov>
+        </div>
       </div>
 
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${leatherJacket.inventoryId}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
+            <a href="product_detail/${leatherJacket.inventoryId}?color=${leatherJacketDetail.get(0).getColor()}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
             <div class="caption">
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p>$${leatherJacket.priceUsd}</p>
@@ -308,7 +308,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherShirt.inventoryId}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <a href="product_detail/${pleatherShirt.inventoryId}?color=${pleatherShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
             <div class="caption">
               <h5>${pleatherShirt.inventoryTxt}</h5>
               <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
@@ -325,7 +325,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherPants.inventoryId}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
+            <a href="product_detail/${pleatherPants.inventoryId}?color=${pleatherPantsDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
             <div class="caption">
               <h5>${pleatherPants.inventoryTxt}</h5>
               <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
@@ -343,7 +343,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${hempShirt.inventoryId}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
+            <a href="product_detail/${hempShirt.inventoryId}?color=${hempShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
             <div class="caption">
               <h5>${hempShirt.inventoryTxt}</h5>
               <p>$${hempShirt.priceUsd}</p>
@@ -373,7 +373,7 @@
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${leatherJacket.inventoryId}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
+            <a href="product_detail/${leatherJacket.inventoryId}?color=${leatherJacketDetail.get(0).getColor()}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
             <div class="caption">
               <h5>${leatherJacket.inventoryTxt}</h5>
               <p>$${leatherJacket.priceUsd}</p>
@@ -391,7 +391,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherShirt.inventoryId}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <a href="product_detail/${pleatherShirt.inventoryId}?color=${pleatherShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
             <div class="caption">
               <h5>${pleatherShirt.inventoryTxt}</h5>
               <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
@@ -408,7 +408,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherPants.inventoryId}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
+            <a href="product_detail/${pleatherPants.inventoryId}?color=${pleatherPantsDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
             <div class="caption">
               <h5>${pleatherPants.inventoryTxt}</h5>
               <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
@@ -426,7 +426,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${hempShirt.inventoryId}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
+            <a href="product_detail/${hempShirt.inventoryId}?color=${hempShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
             <div class="caption">
               <h5>${hempShirt.inventoryTxt}</h5>
               <p>$${hempShirt.priceUsd}</p>

@@ -310,7 +310,7 @@
                               <td><strong>Quantity</strong></td>
                               <td>:</td>
                               <td>
-                                <input type="number" class="form-control" value="1" name="quantity">
+                                <input type="number" min="1" class="form-control" value="1" name="quantity">
                               </td>
                           </tr>
                           <tr>
