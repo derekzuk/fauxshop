@@ -94,7 +94,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size()} Product(s)</strong></p>
+                  <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -216,24 +216,24 @@
                     <table class="table table-bordered table-striped">
                        <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Information</th>
+                            <th></th>
+                            <th>Shipping Option</th>
+                            <th>Shipping Details</th>
                             <th>Price</th>
                         </tr>
                        </thead>
                        <tbody>
                         <tr>
                             <td><input type="radio" name="radio1" checked="checked"></td>
-                            <td><strong>JNE</strong><p>Regular Service</p></td>
-                            <td><p>Lorem ipsum dolor sit amet</p></td>
+                            <td><strong>USPS</strong><p>Standard Shipping</p></td>
+                            <td><p>Ships approximately 5 days from date of purchase.</p></td>
                             <td>$3.00</td>
                         </tr>
                         <tr>
                             <td><input type="radio" name="radio1"></td>
-                            <td><strong>JNE</strong><p>Premium Service</p></td>
-                            <td><p>Lorem ipsum dolor sit amet</p></td>
-                            <td>$5.00</td>
+                            <td><strong>UPS/FedEx</strong><p>2 Day Shipping</p></td>
+                            <td><p>Ships 2 days from date of purchase.</p></td>
+                            <td>$10.00</td>
                         </tr>
                        </tbody>
                    </table>

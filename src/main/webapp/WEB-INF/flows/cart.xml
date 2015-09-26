@@ -21,10 +21,17 @@
 	</view-state>		
 	
 	<view-state id="shipping" view="shipping">
+		<on-render>
+			<set name="requestScope.currentUser" value="currentUser"/>
+		</on-render>		
 		<transition on="next" to="payment"/>
 	</view-state>
 	
 	<view-state id="payment" view="payment">
+		<on-render>
+			<set name="requestScope.accountService" value="accountService"/>
+			<set name="requestScope.currentUser" value="currentUser"/>
+		</on-render>	
 		<transition on="proceedToCheckout" to="createTransaction"/>
 	</view-state>	
 	

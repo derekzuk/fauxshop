@@ -314,8 +314,7 @@ public class PersonController {
     		Model model,
     		HttpServletRequest request) {    	
     	    	
-    	/*We need to check if an inventory detail record already exists in the cart for this user. If so, we will add to the quantity.*/
-    	
+    	/*We need to check if an inventory detail record already exists in the cart for this user. If so, we will add to the quantity.*/   	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
@@ -324,13 +323,15 @@ public class PersonController {
     		
     		List<Cart> userCartList = this.cartService.getCartByUserLogin(name);    	    		
     		List<Integer> userCartInventoryIdList = new ArrayList<Integer>();    		
-    		int a = 0;
-        	do {
-        	 int inventoryDetailId = userCartList.get(a).getInventoryDetailId();
-           	 userCartInventoryIdList.add(inventoryDetailId);
-           	 a++;
-           	} 	
-           	while (a < userCartInventoryIdList.size());    			
+    		if (!userCartInventoryIdList.isEmpty()) {
+        		int a = 0;
+    			do {
+    				int inventoryDetailId = userCartList.get(a).getInventoryDetailId();
+    				userCartInventoryIdList.add(inventoryDetailId);
+    				a++;
+    			} 	
+    			while (a < userCartInventoryIdList.size());    			
+    		}
         	
     		/*If the inventory item already exists in the cart, we add the quantity to the existing record.*/
         	int inventoryDetailId = this.inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId();

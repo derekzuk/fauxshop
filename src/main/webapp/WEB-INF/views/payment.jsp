@@ -220,11 +220,11 @@
                         </div>
                         <div class="box-content">
                             <address>
-                                <strong>afriq ramadhan</strong><br>
-                                jalan imogiri timur km 9 jejeran wonokromo pleret<br>
-                                Pleret, Kab. Bantul, D.I. YOGYAKARTA<br>
-                                Indonesia<br>
-                                <abbr title="Phone">Mobile :</abbr> +628995001222
+                                <strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()} ${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+                                <abbr title="Phone">Phone :</abbr> ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
                             </address>
                         </div>
                     </div>                    
@@ -236,11 +236,11 @@
                         </div>
                         <div class="box-content">
                             <address>
-                                <strong>afriq ramadhan</strong><br>
-                                jalan imogiri timur km 9 jejeran wonokromo pleret<br>
-                                Pleret, Kab. Bantul, D.I. YOGYAKARTA<br>
-                                Indonesia<br>
-                                <abbr title="Phone">Mobile :</abbr> +628995001222
+                                <strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()} ${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+                                <abbr title="Phone">Phone :</abbr> ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
                             </address>
                         </div>
                     </div>                    
@@ -263,7 +263,7 @@
                         </div>
                     </div>
                    <form method="post" action="${flowExecutionUrl}">
-                   <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Next" />
+                   <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Confirm Order" />
                     <!-- <a href="invoice" class="btn btn-primary" onclick="return confirm('Are you sure ?')">Proceed to Checkout</a> -->
                     </form>
                 </div>
