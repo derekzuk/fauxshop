@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -94,7 +95,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
     
     /*@Override*/
-    public void createTransaction(int cartId, long trackingNumber){
+    public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode){
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
@@ -186,7 +187,11 @@ public class TransactionDAOImpl implements TransactionDAO {
         transactionLog.setShipped(shipped);
         transactionLog.setTrackingNumber(trackingNumber);
         transactionLog.setInventoryDetailId(inventoryDetailId);
-        transactionLog.setOrderCost(orderCost);            	    	
+        transactionLog.setOrderCost(orderCost);            	   
+        transactionLog.setMessage(message);
+        transactionLog.setCardType(cardType);
+        transactionLog.setCardNumber(cardNumber);
+        transactionLog.setCardSecurityCode(cardSecurityCode);
         
         session.save(transactionLog);
         tx.commit();
@@ -194,13 +199,13 @@ public class TransactionDAOImpl implements TransactionDAO {
     }   
     
     /*@Override*/
-    public void createTransactionsFromCartList(List<Cart> cartList){
+    public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode){
 /*    	Random randomGenerator = new Random();
     	int trackingNumber = randomGenerator.nextInt(1000000000);*/
     	long trackingNumber = (long) Math.floor(Math.random() * 9000000000L) + 1000000000L;
     	for (Cart cartRow : cartList) {
     		/*We assign a random number for the tracking number to each TransactionLog record we created:*/
-    		createTransaction(cartRow.getCartId(),trackingNumber);
+    		createTransaction(cartRow.getCartId(),trackingNumber,message,cardType,cardNumber,cardSecurityCode);
     	}     	    	
     }     
  

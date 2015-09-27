@@ -4,9 +4,13 @@ import java.util.List;
  
 
 
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
+
 
 
 import com.fauxshop.spring.dao.TransactionDAO;
@@ -54,14 +58,14 @@ public class TransactionServiceImpl implements TransactionService {
 
 	/*@Override*/
 	@Transactional
-	public void createTransaction(int cartId, long trackingNumber) {
-		this.transactionDAO.createTransaction(cartId, trackingNumber);
+	public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode) {
+		this.transactionDAO.createTransaction(cartId, trackingNumber, message, cardType, cardNumber, cardSecurityCode);
 	}    	
 	
 	/*@Override*/
 	@Transactional
-	public void createTransactionsFromCartList(List<Cart> cartList) {
-		this.transactionDAO.createTransactionsFromCartList(cartList);
+	public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode) {
+		this.transactionDAO.createTransactionsFromCartList(cartList, message, cardType, cardNumber, cardSecurityCode);
 	} 	
     	
 }

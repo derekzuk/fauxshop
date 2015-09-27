@@ -94,7 +94,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size()} Product(s)</strong></p>
+                  <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -191,6 +191,9 @@
         <!-- end:sidebar -->
 
         <!-- begin:content -->
+			<form method="post" action="${flowExecutionUrl}">
+            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>        
+        
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
@@ -208,64 +211,83 @@
                   <li><a href="#">Account</a></li>
                   <li><a href="#">Shipping</a></li>
                   <li class="active"><a href="payment">Payment</a></li>
-              </ul>
-
-              <h3>Payment</h3>
-              <hr>
-              <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="box">
-                        <div class="box-head">
-                            <h3>Billing Address</h3>
-                        </div>
-                        <div class="box-content">
-                            <address>
-                                <strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()} ${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
-                                <abbr title="Phone">Phone :</abbr> ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
-                            </address>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="box">
-                        <div class="box-head">
-                            <h3>Delivery Address</h3>
-                        </div>
-                        <div class="box-content">
-                            <address>
-                                <strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()} ${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
-                                ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
-                                <abbr title="Phone">Phone :</abbr> ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
-                            </address>
-                        </div>
-                    </div>                    
-                </div>
-              </div>
-              <!-- break -->
+              </ul>              
+              
+				<h3>Payment</h3>
+						<!-- <form action=""> -->
+							<input type="radio" name="cardType" id="cardType" value="visa">Visa
+							<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
+						<!-- </form> -->
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
+							</tr>
+							<tr>
+								<td style="width: 20%"><strong>Security Code: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardSecurityCode" id="cardSecurityCode" placeholder="Security Code (no spaces)"></td>
+							</tr>
+						</table>
+						<hr>
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Billing Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
+												${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+										</address>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Delivery Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
+												${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+										</address>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- break -->
+						
+<%-- 			<form method="post" action="${flowExecutionUrl}">
+            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/> --%>												
               <div class="row">
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-head">
                             <h3>Message</h3>
-                        </div>
+                        </div>                                    
                         <div class="box-content">
-                            <form role="form">
+                            <!-- <form role="form"> -->
                                 <div class="form-group">
                                   <label for="message">If you would like to add a comment about your order, please write it below.</label>
-                                  <textarea rows="3" id="textarea" class="form-control"></textarea>
+                                  <textarea rows="3" name="message" id="message" class="form-control"></textarea>
                                 </div>
-                            </form>
                         </div>
                     </div>
-                   <form method="post" action="${flowExecutionUrl}">
-                   <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Confirm Order" />
-                    <!-- <a href="invoice" class="btn btn-primary" onclick="return confirm('Are you sure ?')">Proceed to Checkout</a> -->
-                    </form>
+                   <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Confirm Order" />                    
                 </div>
               </div>
               
@@ -273,6 +295,7 @@
           </div>
         </div>
         <!-- end:content -->
+		</form>
       </div>
       <!-- end:article -->
       

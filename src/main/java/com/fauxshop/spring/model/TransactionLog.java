@@ -2,7 +2,6 @@ package com.fauxshop.spring.model;
  
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -81,6 +80,19 @@ public class TransactionLog implements Serializable {
     
     @Column(name="ORDER_COST")
     private BigDecimal orderCost;    
+    
+    @Column(name="MESSAGE")
+    private String message;    
+    
+    @Column(name="CARD_TYPE")
+    private String cardType;   
+    
+    @Column(name="CARD_NUMBER")
+    private int cardNumber;
+    
+    @Column(name="CARD_SECURITY_CODE")
+    private int cardSecurityCode;               
+    
     
     public int getTransactionId() {
         return transactionId;
@@ -234,6 +246,38 @@ public class TransactionLog implements Serializable {
     	this.orderCost = orderCost;
     }     
     
+    public String getMessage() {
+    	return message;
+    }
+    
+    public void setMessage(String message) {
+    	this.message = message;
+    }   
+    
+    public String getCardType() {
+    	return cardType;
+    }
+    
+    public void setCardType(String cardType) {
+    	this.cardType = cardType;
+    }
+    
+    public int getCardNumber() {
+    	return cardNumber;
+    }
+    
+    public void setCardNumber(int cardNumber) {
+    	this.cardNumber = cardNumber;
+    }               
+    
+    public int getCardSecurityCode() {
+    	return cardSecurityCode;
+    }
+    
+    public void setCardSecurityCode(int cardSecurityCode) {
+    	this.cardSecurityCode = cardSecurityCode;
+    }                   
+    
     @Override
     public String toString(){
         return "transactionId="+transactionId+
@@ -252,7 +296,8 @@ public class TransactionLog implements Serializable {
         		", shipped="+shipped+
         		", trackingNumber="+trackingNumber+
         		", inventoryDetailId="+inventoryDetailId+
-        		", orderCost="+orderCost;
+        		", orderCost="+orderCost+
+        		", message="+message;
         		
     }
 }

@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 	
+	<var name="transactionLogValues" class="com.fauxshop.spring.model.TransactionLog"/>
+	
 	<on-start>
 		<set name="requestScope.currentUser" value="currentUser"/>
 		<set name="requestScope.cartService" value="cartService"/>
@@ -27,7 +29,7 @@
 		<transition on="next" to="payment"/>
 	</view-state>
 	
-	<view-state id="payment" view="payment">
+	<view-state id="payment" view="payment" model="transactionLogValues">
 		<on-render>
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
@@ -37,7 +39,7 @@
 	
 	<!-- The createTransactionsFromCartList method will create transactions for the row in the user's cart. -->
 	<action-state id="createTransaction">
-		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()))"/>
+		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()), transactionLogValues.message,transactionLogValues.cardType,transactionLogValues.cardNumber,transactionLogValues.cardSecurityCode)"/>
 		<!-- This method returns a boolean, thus the transaction works when it returns true: -->
 		<evaluate expression="cartService.removeCartFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()))">
 			<attribute name="removeCartExpression" value="last" />

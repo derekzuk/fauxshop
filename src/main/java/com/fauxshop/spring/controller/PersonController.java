@@ -108,7 +108,7 @@ public class PersonController {
         return "about";
     } 
 
-    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/account", method = {RequestMethod.POST,RequestMethod.GET})
     public String listAccount(Model model) {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
