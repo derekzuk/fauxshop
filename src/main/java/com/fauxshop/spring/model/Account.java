@@ -61,6 +61,33 @@ public class Account implements Serializable {
     @Column(name="ADDRESS2")
     private String address2;
     
+    @Column(name="ENABLED")
+    private boolean enabled;    
+    
+    @Column(name="SHIP_NAME")
+    private String shipName;
+    
+    @Column(name="SHIP_CITY")
+    private String shipCity;
+    
+    @Column(name="SHIP_STATE")
+    private String shipState;
+    
+    @Column(name="SHIP_ZIP")
+    private String shipZip;
+    
+    @Column(name="SHIP_PHONE")
+    private String shipPhone;
+    
+    @Column(name="SHIP_COUNTRY")
+    private String shipCountry;
+    
+    @Column(name="SHIP_ADDRESS")
+    private String shipAddress;
+    
+    @Column(name="SHIP_ADDRESS2")
+    private String shipAddress2;        
+    
     public int getAccountId() {
         return accountId;
     }
@@ -165,6 +192,79 @@ public class Account implements Serializable {
     	this.address2 = address2;
     }
     
+    public boolean getEnabled() {
+    	return enabled;
+    }
+    
+    public void setEnabled(boolean enabled) {
+    	this.enabled = enabled;
+    }    
+    
+    public String getShipName() {
+    	return shipName;
+    }
+    
+    public void setShipName(String shipName) {
+    	this.shipName = shipName;
+    }
+    
+    public String getShipCity() {
+    	return shipCity;
+    }
+    
+    public void setShipCity(String shipCity) {
+    	this.shipCity = shipCity;
+    }
+    
+    public String getShipState() {
+    	return shipState;
+    }
+    
+    public void setShipState(String shipState) {
+    	this.shipState = shipState;
+    }    
+
+    public String getShipZip() {
+    	return shipZip;
+    }
+    
+    public void setShipZip(String shipZip) {
+    	this.shipZip = shipZip;
+    }    
+    
+    public String getShipPhone() {
+    	return shipPhone;
+    }
+    
+    public void setShipPhone(String shipPhone) {
+    	this.shipPhone = shipPhone;
+    }    
+    
+    public String getShipCountry() {
+    	return shipCountry;
+    }
+    
+    public void setShipCountry(String shipCountry) {
+    	this.shipCountry = shipCountry;
+    }    
+    
+    public String getShipAddress() {
+    	return shipAddress;
+    }
+    
+    public void setShipAddress(String shipAddress) {
+    	this.shipAddress = shipAddress;
+    } 
+
+    public String getShipAddress2() {
+    	return shipAddress2;
+    }
+    
+    public void setShipAddress2(String shipAddress2) {
+    	this.shipAddress2 = shipAddress2;
+    }    
+    
+    
     @Override
     public String toString(){
         return "accountId="+accountId+
@@ -179,6 +279,14 @@ public class Account implements Serializable {
         		", phoneNumber="+phoneNumber+
         		", country="+country+
         		", address="+address+
-        		", address2="+address2;
+        		", address2="+address2+
+        		", shipName="+shipName+
+        		", shipCity="+shipCity+
+        		", shipState="+shipState+
+        		", shipZip="+shipZip+
+        		", shipPhone="+shipPhone+
+        		", shipCountry="+shipCountry+
+        		", shipAddress="+shipAddress+
+        		", shipAddress2="+shipAddress2;
     }
 }

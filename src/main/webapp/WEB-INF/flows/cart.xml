@@ -25,6 +25,7 @@
 	<view-state id="shipping" view="shipping">
 		<on-render>
 			<set name="requestScope.currentUser" value="currentUser"/>
+			<set name="requestScope.cartService" value="cartService"/>
 		</on-render>		
 		<transition on="next" to="payment"/>
 	</view-state>
@@ -32,6 +33,7 @@
 	<view-state id="payment" view="payment" model="transactionLogValues">
 		<on-render>
 			<set name="requestScope.accountService" value="accountService"/>
+			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
 		</on-render>	
 		<transition on="proceedToCheckout" to="createTransaction"/>

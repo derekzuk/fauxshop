@@ -4,6 +4,8 @@ import java.util.List;
  
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
+
+
 
 import com.fauxshop.spring.model.Account;
 
@@ -43,13 +47,21 @@ public class AccountDAOImpl implements AccountDAO {
         session.close();
         return accountList;
     }    
- 
+
     /*@Override*/
     public void addAccount(Account a) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(a);
-        logger.info("Account saved successfully, Account Details="+a);
-    }
+    	Session session = this.sessionFactory.getCurrentSession();
+    	session.persist(a);  
+    	a.setShipName((a.getFirstName() + " " + a.getLastName()));
+    	a.setShipCity(a.getCity());
+    	a.setShipState(a.getState());
+    	a.setShipZip(a.getZip());
+    	a.setShipPhone(a.getPhoneNumber());
+    	a.setShipCountry(a.getCountry());
+    	a.setShipAddress(a.getAddress());
+    	a.setShipAddress2(a.getAddress2());
+    	logger.info("Account saved successfully, Account Details="+a);
+    }   
  
     /*@Override*/
     public void updateAccount(Account a) {

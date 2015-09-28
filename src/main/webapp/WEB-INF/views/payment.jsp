@@ -1,4 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -214,16 +216,18 @@
               </ul>              
               
 				<h3>Payment</h3>
-						<!-- <form action=""> -->
-							<input type="radio" name="cardType" id="cardType" value="visa">Visa
-							<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
-						<!-- </form> -->
+						<input type="radio" name="cardType" id="cardType" value="visa">Visa
+						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
+						<br><br>
 						<table style="width: 100%">
 							<tr>
 								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
 								<td><input type="text" class="form-control"
 									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
 							</tr>
+						</table>
+						<br>
+						<table style="width: 100%">
 							<tr>
 								<td style="width: 20%"><strong>Security Code: </strong></td>
 								<td><input type="text" class="form-control"
@@ -231,6 +235,14 @@
 							</tr>
 						</table>
 						<hr>
+						
+<%--                  <c:url var="deleteAction" value="cartRemove/${cart.cartId}" ></c:url>					  
+                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
+                      <!-- Both the Edit and Delete buttons navigate away from SWF to a controller class: -->
+                      <form:form action="${deleteAction}" commandName="Cart">
+                      <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+                      </form:form> --%>						
+																		
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
@@ -240,9 +252,10 @@
 									<div class="box-content">
 										<address>
 											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
-												${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+											${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
 											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
 											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getZip()}<br>
 											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
 											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
@@ -257,13 +270,13 @@
 									</div>
 									<div class="box-content">
 										<address>
-											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
-												${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipName()}</strong><br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipZip()}<br> 
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipPhone()}
 										</address>
 									</div>
 								</div>

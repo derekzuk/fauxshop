@@ -26,10 +26,15 @@
 		<transition on="login2register" to="newRegistration"/>
 		<transition on="continueCheckout" to="exitHome"/>
 	</view-state>
-	
+		
 	<action-state id="newRegistration">
 		<evaluate expression="accountService.addAccount(accountCredentials)"/>
-		<transition to="exitHome"/>
+		<!-- When a new account is registered, we set the shipping information the same as the billing address. Users can change it later. -->		       
+<!-- 		<evaluate expression="accountService.setDuplicateShipping(accountCredentials)">
+			<attribute name="setDuplicateShipingValues" value="last" />
+        </evaluate>                
+        <transition on="yes" to="exitHome" /> -->	
+        <transition to="exitHome"/>	
 	</action-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->

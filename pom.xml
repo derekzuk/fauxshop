@@ -338,6 +338,7 @@
 									<include>src/test/sql/test-inventory_type_code.sql</include>
 									<include>src/test/sql/test-roles.sql</include>
 									<include>src/test/sql/test-sizing.sql</include>
+									<include>src/test/sql/test-shipping_address.sql</include>
 									<include>src/test/sql/test-transaction.sql</include>
 								</includes>
 							</fileset>
