@@ -16,4 +16,5 @@ public interface TransactionDAO {
     public void removeTransaction(int id);
     public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode);
     public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode);
+    public TransactionLog getLastTransactionByAccountId(int accountId);
 }

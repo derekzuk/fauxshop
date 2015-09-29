@@ -1,6 +1,7 @@
 package com.fauxshop.spring.controller;
  
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -22,10 +23,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 
 
+
+
+
 import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.Inventory;
+import com.fauxshop.spring.model.TransactionLog;
 import com.fauxshop.spring.service.InventoryService;
 import com.fauxshop.spring.service.InventoryDetailService;
+import com.fauxshop.spring.service.TransactionService;
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.service.AccountService;
 import com.fauxshop.spring.model.Cart;
@@ -38,6 +44,7 @@ public class PersonController {
     private InventoryDetailService inventoryDetailService;
     private AccountService accountService;
     private CartService cartService;
+    private TransactionService transactionService;
     
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
     
@@ -63,7 +70,13 @@ public class PersonController {
     @Qualifier(value="cartService")
     public void setCartService(CartService cs){
         this.cartService = cs;
-    }      
+    }  
+    
+    @Autowired(required=true)
+    @Qualifier(value="transactionService")
+    public void setTransactionService(TransactionService ts){
+        this.transactionService = ts;
+    }         
     
     /*Maps to welcome page*/
     @RequestMapping(value={"/", "index"}, method = RequestMethod.GET)
@@ -223,8 +236,16 @@ public class PersonController {
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
+    		SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm a");
+    		Account currentUser = this.accountService.getAccountByName(name);
+    		TransactionLog lastTransaction = this.transactionService.getLastTransactionByAccountId(this.accountService.getAccountByName(name).getAccountId());
+    		String date = dt.format(lastTransaction.getDate());
+    		
     		model.addAttribute("account", new Account());
-    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("currentUser", currentUser);
+        	model.addAttribute("lastTransaction", lastTransaction);
+        	model.addAttribute("date", date);
+
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
     	}    	    	

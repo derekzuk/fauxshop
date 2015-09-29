@@ -67,5 +67,9 @@ public class TransactionServiceImpl implements TransactionService {
 	public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode) {
 		this.transactionDAO.createTransactionsFromCartList(cartList, message, cardType, cardNumber, cardSecurityCode);
 	} 	
+	
+	public TransactionLog getLastTransactionByAccountId(int accountId) {
+		return this.transactionDAO.getLastTransactionByAccountId(accountId);
+	}
     	
 }

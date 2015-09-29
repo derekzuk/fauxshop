@@ -208,5 +208,15 @@ public class TransactionDAOImpl implements TransactionDAO {
     		createTransaction(cartRow.getCartId(),trackingNumber,message,cardType,cardNumber,cardSecurityCode);
     	}     	    	
     }     
- 
+        
+    public TransactionLog getLastTransactionByAccountId(int accountId) {
+        Session session = this.sessionFactory.openSession();
+        String hql = "FROM TransactionLog WHERE transactionId = (SELECT MAX(transactionId) FROM TransactionLog WHERE accountId = :accountId)";
+        Query query = session.createQuery(hql);
+        query.setParameter("accountId", accountId);
+        TransactionLog transaction = (TransactionLog) query.uniqueResult();      
+        session.close();
+        return transaction;   
+    }
+    
 }

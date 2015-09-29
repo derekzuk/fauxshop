@@ -222,12 +222,12 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Invoice</th>
-                        <th>CSKLQET4</th>
+                        <th>Invoice #:</th>
+                        <th>${lastTransaction.getTrackingNumber()}</th>
                       </tr>
                       <tr>
-                        <td>Order Date</td>
-                        <td>July 16th, 2012 at 4:49 pm</td>
+                        <td>Order Date:</td>
+                        <td>${date}</td>
                       </tr>
                     </thead>
                   </table>
