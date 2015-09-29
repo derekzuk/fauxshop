@@ -15,4 +15,5 @@ public interface AccountDAO {
     public Account getAccountById(int id);
     public Account getAccountByName(String name);
     public void removeAccount(int id);
+    public void createUserRole(String name);
 }

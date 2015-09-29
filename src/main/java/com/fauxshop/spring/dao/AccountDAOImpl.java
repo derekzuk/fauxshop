@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Repository;
 
 
 
+
 import com.fauxshop.spring.model.Account;
+import com.fauxshop.spring.model.Roles;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -51,7 +54,7 @@ public class AccountDAOImpl implements AccountDAO {
     /*@Override*/
     public void addAccount(Account a) {
     	Session session = this.sessionFactory.getCurrentSession();
-    	session.persist(a);  
+    	a.setEnabled(true);
     	a.setShipName((a.getFirstName() + " " + a.getLastName()));
     	a.setShipCity(a.getCity());
     	a.setShipState(a.getState());
@@ -60,6 +63,7 @@ public class AccountDAOImpl implements AccountDAO {
     	a.setShipCountry(a.getCountry());
     	a.setShipAddress(a.getAddress());
     	a.setShipAddress2(a.getAddress2());
+    	session.persist(a);  
     	logger.info("Account saved successfully, Account Details="+a);
     }   
  
@@ -111,5 +115,18 @@ public class AccountDAOImpl implements AccountDAO {
         }
         logger.info("Account deleted successfully, account details="+a);
     }
+    
+    /*@Override*/
+    public void createUserRole(String name) {
+    	Session session = this.sessionFactory.openSession();
+    	Transaction tx = session.beginTransaction();
+    	Roles roles = new Roles();
+    	roles.setRole("User");
+    	roles.setUserLogin(name);
+        session.save(roles);
+        tx.commit();
+    	session.close();
+    }        
+    
  
 }

@@ -210,7 +210,7 @@
                 <li class="active"><a href="payment">Payment</a></li>
               </ul>
               
-              <h3>Transaction Information</h3>
+              <h3>Transaction Completed</h3>
               <hr />
 
               <div class="box">

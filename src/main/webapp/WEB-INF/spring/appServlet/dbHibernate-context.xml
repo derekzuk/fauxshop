@@ -29,6 +29,8 @@
 				<value>com.fauxshop.spring.model.Inventory</value>
 				<value>com.fauxshop.spring.model.InventoryCategoryCode</value>
 				<value>com.fauxshop.spring.model.InventoryDetail</value>
+				<value>com.fauxshop.spring.model.InventoryTypeCode</value>
+				<value>com.fauxshop.spring.model.Roles</value>
 				<value>com.fauxshop.spring.model.TransactionLog
 				</value>
 			</list>

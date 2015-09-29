@@ -13,4 +13,5 @@ public interface AccountService {
     public Account getAccountById(int id);
     public Account getAccountByName(String name);
     public void removeAccount(int id);     
+    public boolean createUserRole(String name);
 }

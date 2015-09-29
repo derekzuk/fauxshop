@@ -29,12 +29,13 @@
 		
 	<action-state id="newRegistration">
 		<evaluate expression="accountService.addAccount(accountCredentials)"/>
-		<!-- When a new account is registered, we set the shipping information the same as the billing address. Users can change it later. -->		       
-<!-- 		<evaluate expression="accountService.setDuplicateShipping(accountCredentials)">
-			<attribute name="setDuplicateShipingValues" value="last" />
-        </evaluate>                
-        <transition on="yes" to="exitHome" /> -->	
-        <transition to="exitHome"/>	
+		<evaluate expression="accountService.createUserRole(accountCredentials.getUserLogin())">
+			<attribute name="createUserRole" value="last" />
+        </evaluate>
+        <transition on="yes" to="exitHome" />        
+        
+        
+
 	</action-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->

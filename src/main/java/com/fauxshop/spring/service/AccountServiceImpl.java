@@ -3,9 +3,11 @@ package com.fauxshop.spring.service;
 import java.util.List;
  
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 import com.fauxshop.spring.dao.AccountDAO;
 import com.fauxshop.spring.model.Account;
@@ -54,5 +56,11 @@ public class AccountServiceImpl implements AccountService {
     public void removeAccount(int id) {
         this.accountDAO.removeAccount(id);
     }
+    
+    public boolean createUserRole(String name) {
+    	this.accountDAO.createUserRole(name);
+    	return true;
+    }
+    
  
 }
