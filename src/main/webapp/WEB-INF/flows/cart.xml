@@ -26,6 +26,8 @@
 		<on-render>
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.cartService" value="cartService"/>
+			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 		</on-render>		
 		<transition on="next" to="payment"/>
 	</view-state>
@@ -35,19 +37,38 @@
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
+			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>			
 		</on-render>	
-		<transition on="proceedToCheckout" to="createTransaction"/>
+		<transition on="next" to="createTransaction"/>
 	</view-state>	
 	
 	<!-- The createTransactionsFromCartList method will create transactions for the row in the user's cart. -->
 	<action-state id="createTransaction">
 		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()), transactionLogValues.message,transactionLogValues.cardType,transactionLogValues.cardNumber,transactionLogValues.cardSecurityCode)"/>
-		<!-- This method returns a boolean, thus the transaction works when it returns true: -->
+        <transition to="review_order" />			
+	</action-state>	
+	
+	<view-state id="review_order" view="review_order">
+		<on-render>
+			<set name="requestScope.accountService" value="accountService"/>
+			<set name="requestScope.cartService" value="cartService"/>
+			<set name="requestScope.currentUser" value="currentUser"/>
+			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<set name="requestScope.transactionService" value="transactionService"/>				
+		</on-render>	
+		<transition on="proceedToCheckout" to="removeCart"/>
+	</view-state>			
+	
+	<action-state id="removeCart">
+		<evaluate expression="transactionService.setTransactionToConfirmed(transactionService.getLastTransactionByAccountId(accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getAccountId()).getTrackingNumber())" />
 		<evaluate expression="cartService.removeCartFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()))">
 			<attribute name="removeCartExpression" value="last" />
         </evaluate>
         <transition on="yes" to="invoice" />			
-	</action-state>
+	</action-state>	
+	
 		
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
 	<!-- See also http://jira.springframework.org/browse/SWF-588 -->

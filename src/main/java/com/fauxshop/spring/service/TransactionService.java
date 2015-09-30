@@ -19,5 +19,6 @@ public interface TransactionService {
     public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode);
     public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode);
     public TransactionLog getLastTransactionByAccountId(int accountId);
+    public void setTransactionToConfirmed(long trackingNumber);
      
 }

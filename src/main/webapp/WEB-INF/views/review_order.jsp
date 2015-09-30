@@ -1,4 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,7 +83,7 @@
           <div class="nav-menus">
             <ul class="nav nav-pills">
               <li class="active"><a href="index">Home</a></li>
-              <li><a href="#">Acessories</a></li>
+              <li><a href="#">Accessories</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Boy <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="menu1">
@@ -159,103 +161,117 @@
         </div>
         <!-- end:sidebar -->
 
-        <!-- begin:content -->
+        <!-- begin:content -->           
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
                   <li><a href="#">Home</a></li>
-                  <li class="active">Confirm</li>
+                  <li class="active">Payment</li>
                 </ol>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <h3>Payment Confirmation</h3>
-              <hr />
+              <ul class="nav nav-tabs">
+                  <li><a href="cart">Cart</a></li>
+                  <li><a href="login">Login</a></li>
+                  <li><a href="account">Account</a></li>
+                  <li><a href="shipping">Shipping</a></li>
+                  <li><a href="payment">Payment</a></li>
+                  <li class="active"><a href="#">Review Order</a></li>
+              </ul>              
+              
+				<h3>Review Order</h3>
+						<input type="radio" name="cardType" id="cardType" value="visa">Visa
+						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
+						<br><br>
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
+							</tr>
+						</table>
+						<br>
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Security Code: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardSecurityCode" id="cardSecurityCode" placeholder="Security Code (no spaces)"></td>
+							</tr>
+						</table>
+						<hr>				
+																		
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Billing Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
+											${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getZip()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+										</address>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Delivery Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipName()}</strong><br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress2()}<br>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipZip()}<br> 
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipPhone()}
+										</address>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- break -->
+			
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3>Message</h3>
+                        </div>                                    
+                        <div class="box-content">
+                            <!-- <form role="form"> -->
+                                <div class="form-group">
+                                  <textarea rows="3" name="message" id="message" class="form-control">${transactionService.getLastTransactionByAccountId(accountService.getAccountByName(pageContext.request.userPrincipal.name).getAccountId()).getMessage()}</textarea>
+                            </div>
+                        </div>
+                    </div>
 
-              <div class="box">
-                <div class="box-head">
-                  <h3>Send Payment Confirmation</h3>
-                </div>
-                <div class="box-content">
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Invoice</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Invoice Number">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Email address</label>
-                      <div class="col-sm-8">
-                        <input type="email" class="form-control" placeholder="Email address">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Name</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Name">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Phone number</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Phone number">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Bill</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Bill">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Date</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Date">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Time</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Time">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Bank</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="Bank">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Notes</label>
-                      <div class="col-sm-8">
-                        <textarea rows="4" class="form-control" placeholder="Notes : "></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Attach File</label>
-                      <div class="col-sm-8">
-                        <input type="file" id="fileInput" class="input-file">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-8 col-sm-offset-3">
-                        <input type="submit" class="btn btn-default">
-                      </div>
-                    </div>
-                  </form>
+                   <form method="post" action="${flowExecutionUrl}">	
+                   <input type="submit" class="btn btn-primary" name="_eventId_proceedToCheckout" value="Submit Order" />
+                   </form>     
+                                
                 </div>
               </div>
-                
+
             </div>
           </div>
         </div>
         <!-- end:content -->
       </div>
       <!-- end:article -->
-
+      
       <!-- begin:footer -->
       <div class="row">
         <div class="col-md-12 footer">
@@ -333,6 +349,7 @@
 
     </div>
     <!-- end:content -->
+
 
     <!-- Le javascript
     ================================================== -->

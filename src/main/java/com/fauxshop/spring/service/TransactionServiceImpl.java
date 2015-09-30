@@ -71,5 +71,9 @@ public class TransactionServiceImpl implements TransactionService {
 	public TransactionLog getLastTransactionByAccountId(int accountId) {
 		return this.transactionDAO.getLastTransactionByAccountId(accountId);
 	}
+	
+    public void setTransactionToConfirmed(long trackingNumber) {
+    	this.transactionDAO.setTransactionToConfirmed(trackingNumber);
+    }
     	
 }

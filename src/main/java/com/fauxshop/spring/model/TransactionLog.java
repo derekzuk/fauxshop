@@ -91,7 +91,10 @@ public class TransactionLog implements Serializable {
     private int cardNumber;
     
     @Column(name="CARD_SECURITY_CODE")
-    private int cardSecurityCode;               
+    private int cardSecurityCode;        
+    
+    @Column(name="CONFIRMED")
+    private boolean confirmed;        
     
     
     public int getTransactionId() {
@@ -276,7 +279,15 @@ public class TransactionLog implements Serializable {
     
     public void setCardSecurityCode(int cardSecurityCode) {
     	this.cardSecurityCode = cardSecurityCode;
-    }                   
+    }         
+    
+    public boolean getConfirmed() {
+    	return confirmed;
+    }
+    
+    public void setConfirmed(boolean confirmed) {
+    	this.confirmed = confirmed;
+    }   
     
     @Override
     public String toString(){
@@ -297,7 +308,7 @@ public class TransactionLog implements Serializable {
         		", trackingNumber="+trackingNumber+
         		", inventoryDetailId="+inventoryDetailId+
         		", orderCost="+orderCost+
-        		", message="+message;
-        		
+        		", message="+message+
+        		", confirmed="+confirmed;        		
     }
 }

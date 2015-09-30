@@ -33,9 +33,6 @@
 			<attribute name="createUserRole" value="last" />
         </evaluate>
         <transition on="yes" to="exitHome" />        
-        
-        
-
 	</action-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->

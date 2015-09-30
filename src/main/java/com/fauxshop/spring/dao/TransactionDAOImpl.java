@@ -219,4 +219,13 @@ public class TransactionDAOImpl implements TransactionDAO {
         return transaction;   
     }
     
+    public void setTransactionToConfirmed(long trackingNumber) {
+    	Session session = this.sessionFactory.openSession();
+    	String hql = "UPDATE TransactionLog SET confirmed = 1 where trackingNumber = :trackingNumber";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("trackingNumber", trackingNumber);
+    	query.executeUpdate();
+    	session.close();   
+    }
+    
 }
