@@ -32,6 +32,14 @@
 		com.fauxshop.spring.model, 
 		com.fauxshop.spring.service" />
 	
+	<!-- Error message configuration -->	
+    <beans:bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <beans:property name="basename"
+            value="messages"/>
+            <!-- value="/WEB-INF/resources/messages_en.properties" /> -->            
+    </beans:bean>		
+	
 	
 	<!-- ================================================================== -->
 	<!-- Database connection and Hibernate -->

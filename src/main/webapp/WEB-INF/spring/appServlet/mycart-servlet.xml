@@ -17,6 +17,14 @@
 		http://www.springframework.org/schema/tx 
         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
 	default-autowire="byName">
+	
+		<!-- Error message configuration -->	
+    <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"
+            value="messages"/>
+            <!-- value="/WEB-INF/resources/messages_en.properties" /> -->            
+    </bean>	
 
 
 	<!-- ================================================================== -->

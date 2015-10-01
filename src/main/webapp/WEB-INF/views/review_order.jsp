@@ -183,6 +183,10 @@
               </ul>              
               
 				<h3>Review Order</h3>
+				
+              		<!-- We pull the table from another view: -->
+              		<jsp:include page="carttable.jsp"/>				
+								
 						<input type="radio" name="cardType" id="cardType" value="visa">Visa
 						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
 						<br><br>

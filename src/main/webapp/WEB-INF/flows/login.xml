@@ -5,22 +5,27 @@
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 		
 	<var name="accountCredentials" class="com.fauxshop.spring.model.Account"/>
+	<var name="validate" class="com.fauxshop.spring.swf.Validate"/>
 	
 	<!-- By default, the first state is the start state. -->
-	<view-state id="login" view="login">
+	<view-state id="login" view="login" model="accountCredentials">
 		<on-render>
 			<!-- Carry cart from Spring app context to request scope -->
 			<set name="requestScope.cartService" value="cartService"/>
 		</on-render>	
-		<transition on="submitRegistration" to="registration"/>
-		<transition on="logIn" to="exitHome"/>
+		<transition on="submitRegistration" to="registration">
+			<set name="requestScope.emailValue" value="accountCredentials.email"/>
+			<evaluate expression="validate.validateRegistrationEmail(accountCredentials.email, messageContext)"/>
+        </transition>		
+		<transition on="logIn" to="exitHome"/>		
 	</view-state>
 	
 	<view-state id="registration" view="account" model="accountCredentials">
 		<on-render>
 			<!-- Carry cart from Spring app context to request scope -->
 			<set name="requestScope.cartService" value="cartService"/>
-			<set name="requestScope.accountService" value="accountService"/>					
+			<set name="requestScope.accountService" value="accountService"/>	
+			<set name="requestScope.emailValue" value="accountCredentials.email"/>				
 		</on-render>	
 		<transition on="cancel" to="exitHome"/>
 		<transition on="login2register" to="newRegistration"/>

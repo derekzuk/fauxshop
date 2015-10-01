@@ -342,16 +342,16 @@ public class PersonController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		
-    		List<Cart> userCartList = this.cartService.getCartByUserLogin(name);    	    		
+    		List<Cart> userCartList = this.cartService.getCartByUserLogin(name);    
     		List<Integer> userCartInventoryIdList = new ArrayList<Integer>();    		
-    		if (!userCartInventoryIdList.isEmpty()) {
+    		if (!userCartList.isEmpty()) {
         		int a = 0;
     			do {
     				int inventoryDetailId = userCartList.get(a).getInventoryDetailId();
     				userCartInventoryIdList.add(inventoryDetailId);
     				a++;
     			} 	
-    			while (a < userCartInventoryIdList.size());    			
+    			while (a < userCartList.size());    			
     		}
         	
     		/*If the inventory item already exists in the cart, we add the quantity to the existing record.*/

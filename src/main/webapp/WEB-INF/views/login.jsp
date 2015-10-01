@@ -182,15 +182,25 @@
                   <li><a href="#">Review Order</a></li>
               </ul>
 
-              <div class="row">
+				<!-- Display error messages -->
+						<c:forEach var="message"
+							items="${flowRequestContext.messageContext.getMessagesBySource('email')}">
+							<c:if test="${message.severity eq 'ERROR'}">
+								<br>
+								<span class="info"><font color="red">Error: ${message.text}</font></span>
+							</c:if>
+						</c:forEach>
+
+						<div class="row">
                 <div class="col-md-6 col-sm-6">
                   <h3>Create An Account</h3>
                   <hr />
                   <!-- <form role="form"> -->
                   <form role="form" method="post" action="${flowExecutionUrl}">
+                  <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
                     <div class="form-group">
                       <label for="email">Enter your email address</label>
-                      <input type="email" value="me@domainname.com" class="form-control" placeholder="Email">
+                      <input type="email" value="me@domainname.com" class="form-control" placeholder="Email" id="email" name="email">
                     </div>                    
                     <input type="submit" class="btn btn-default" name="_eventId_submitRegistration" value="Submit Registration" />
                   </form>                                

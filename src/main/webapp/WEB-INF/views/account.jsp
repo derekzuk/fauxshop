@@ -236,7 +236,7 @@
                   		<input type="email" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).email}" class="form-control" id=email name=email disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    <input type="email" value="me@domainname.com" class="form-control" placeholder="Email" id=email name=email>
+                    <input type="email" value="${emailValue}" class="form-control" placeholder="Email" id=email name=email>
                   	</c:otherwise>    
                   </c:choose>                  
                   </div>

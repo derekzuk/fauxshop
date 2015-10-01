@@ -1,7 +1,8 @@
-package com.fauxshop.spring.dao;
+package com.fauxshop.spring.service;
 
 import static org.junit.Assert.*;
 
+import org.jmock.Mockery;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,15 +11,17 @@ import org.slf4j.LoggerFactory;
 import com.fauxshop.spring.dao.AccountDAOImpl;
 import com.fauxshop.spring.model.Account;
 
-/*I don't know how to write JUnit tests.
-*/@Ignore
-public class DaoImplTest {	
-	private static final Logger log = LoggerFactory.getLogger(DaoImplTest.class);
+@Ignore
+public class AccountServiceTest {	
+	private static final Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
+	Mockery context = new Mockery();
 
-	private AccountDAOImpl accountDAOImpl;	
+/*	private AccountDAOImpl accountDAOImpl;	*/
 	
 	@Test
 	public void addAccountAcceptsOnlyAccountModel() {
+		// set up
+		final AccountDAOImpl accountDAOImpl = context.mock(AccountDAOImpl.class);
 		Account a = new Account();
 		a.setAccountId(-111);
 		a.setAddress("abc");
@@ -41,10 +44,7 @@ public class DaoImplTest {
 		a.setShipName("abc name");
 		a.setShipPhone("12345677");
 		a.setShipZip("123123");
-		log.error("a: " + a);
-		log.error("this.accountService: " + this.accountDAOImpl);
-		/*this.accountDAOImpl.addAccount(a);*/
-		fail("Not yet implemented");
+		accountDAOImpl.addAccount(a);
 	}
 
 }
