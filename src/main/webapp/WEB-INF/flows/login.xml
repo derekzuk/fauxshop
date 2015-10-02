@@ -5,7 +5,7 @@
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 		
 	<var name="accountCredentials" class="com.fauxshop.spring.model.Account"/>
-	<var name="validate" class="com.fauxshop.spring.swf.Validate"/>
+	<var name="accountValidation" class="com.fauxshop.spring.swf.AccountValidation"/>
 	
 	<!-- By default, the first state is the start state. -->
 	<view-state id="login" view="login" model="accountCredentials">
@@ -15,7 +15,7 @@
 		</on-render>	
 		<transition on="submitRegistration" to="registration">
 			<set name="requestScope.emailValue" value="accountCredentials.email"/>
-			<evaluate expression="validate.validateRegistrationEmail(accountCredentials.email, messageContext)"/>
+			<evaluate expression="accountValidation.validateRegistrationEmail(accountCredentials.email, messageContext)"/>
         </transition>		
 		<transition on="logIn" to="exitHome"/>		
 	</view-state>
@@ -25,10 +25,23 @@
 			<!-- Carry cart from Spring app context to request scope -->
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.accountService" value="accountService"/>	
-			<set name="requestScope.emailValue" value="accountCredentials.email"/>				
+			<set name="requestScope.userLoginValue" value="accountCredentials.userLogin"/>
+			<set name="requestScope.emailValue" value="accountCredentials.email"/>
+			<set name="requestScope.passwordValue" value="accountCredentials.password"/>
+			<set name="requestScope.firstNameValue" value="accountCredentials.firstName"/>
+			<set name="requestScope.lastNameValue" value="accountCredentials.lastName"/>
+			<set name="requestScope.cityValue" value="accountCredentials.city"/>
+			<set name="requestScope.stateValue" value="accountCredentials.state"/>
+			<set name="requestScope.zipValue" value="accountCredentials.zip"/>
+			<set name="requestScope.phoneNumberValue" value="accountCredentials.phoneNumber"/>
+			<set name="requestScope.countryValue" value="accountCredentials.country"/>
+			<set name="requestScope.addressValue" value="accountCredentials.address"/>
+			<set name="requestScope.address2Value" value="accountCredentials.address2"/>
 		</on-render>	
 		<transition on="cancel" to="exitHome"/>
-		<transition on="login2register" to="newRegistration"/>
+		<transition on="login2register" to="newRegistration">
+			<evaluate expression="accountValidation.validateAccountValues(accountCredentials.userLogin, accountCredentials.email, accountCredentials.password, accountCredentials.firstName, accountCredentials.lastName, accountCredentials.city, accountCredentials.state, accountCredentials.zip, accountCredentials.phoneNumber, accountCredentials.country, accountCredentials.address, accountCredentials.address2, messageContext)"/>
+        </transition>	
 		<transition on="continueCheckout" to="exitHome"/>
 	</view-state>
 		

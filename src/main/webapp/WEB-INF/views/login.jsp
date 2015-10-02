@@ -187,7 +187,7 @@
 							items="${flowRequestContext.messageContext.getMessagesBySource('email')}">
 							<c:if test="${message.severity eq 'ERROR'}">
 								<br>
-								<span class="info"><font color="red">Error: ${message.text}</font></span>
+								<span class="info"><font color="red">${message.text}</font></span>
 							</c:if>
 						</c:forEach>
 

@@ -185,6 +185,16 @@
                   <li><a href="#">Review Order</a></li>
               </ul>
               
+				<!-- Display error messages -->
+						<c:forEach var="message"
+							items="${flowRequestContext.messageContext.getMessagesBySource('account')}">
+							<c:if test="${message.severity eq 'ERROR'}">
+								<br>
+								<span class="info"><font color="red">${message.text}</font></span>
+								<br>
+							</c:if>
+						</c:forEach>              
+              
               <h3>Personal Information</h3>
               <hr />
               <form class="form-horizontal" method="post" action="${flowExecutionUrl}">
@@ -197,7 +207,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).userLogin}" id=userLogin name=userLogin disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="Username" id=userLogin name=userLogin>
+                    	<input type="text" class="form-control" value="${userLoginValue}" placeholder="User Login" id=userLogin name=userLogin>
                   	</c:otherwise>    
                   </c:choose>                  	                 
                   </div>
@@ -210,7 +220,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).firstName}" id=firstName name=firstName disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="First Name" id=firstName name=firstName>
+                    	<input type="text" class="form-control" value="${firstNameValue}" placeholder="First Name" id=firstName name=firstName>
                   	</c:otherwise>    
                   </c:choose>
                   </div>
@@ -223,7 +233,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).lastName}" id=lastName name=lastName disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="Last Name" id=lastName name=lastName>
+                    	<input type="text" class="form-control" value="${lastNameValue}" placeholder="Last Name" id=lastName name=lastName>
                   	</c:otherwise>    
                   </c:choose>                  
                   </div>
@@ -249,7 +259,7 @@
                   		<input type="password" class="form-control" value="password hidden" id=password name=password disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="password" class="form-control" placeholder="" id=password name=password>
+                    	<input type="password" class="form-control" value="${passwordValue}" placeholder="" id=password name=password>
                   	</c:otherwise>    
                   </c:choose>                                    
                   </div>
@@ -310,7 +320,7 @@
                     	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address}" id=address name=address disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="Address" id=address name=address>
+                    	<input type="text" class="form-control" value="${addressValue}" placeholder="Address" id=address name=address>
                     	<span class="help-block">Street address, P.O. box, company name, c/o</span>
                   	</c:otherwise>    
                   </c:choose>                                    
@@ -324,7 +334,7 @@
                     	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address2}" id=address2 name=address2 disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="Address (Line 2)" id=address2 name=address2>
+                    	<input type="text" class="form-control" value="${address2Value}" placeholder="Address (Line 2)" id=address2 name=address2>
                     	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
                   	</c:otherwise>    
                   </c:choose>                                                      
@@ -338,7 +348,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).city}" id=city name=city disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="City" id=city name=city>
+                    	<input type="text" class="form-control" value="${cityValue}" placeholder="City" id=city name=city>
                   	</c:otherwise>    
                   </c:choose>                                          
                   </div>
@@ -351,10 +361,17 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).country}" id=country name=country disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    <select class="form-control" id=country name=country>
-                      <option>United States</option>
-                      <option>Canada</option>
-                    </select>
+                    	<select class="form-control" id=country name=country>
+                    	<c:choose>
+                    		<c:when test="${null != countryValue}">
+								<option>${countryValue}
+							</c:when>   
+							<c:otherwise>                 
+                      			<option>United States</option>
+                      			<option>Canada</option>
+							</c:otherwise>  
+						</c:choose>                    
+                    	</select>                    
                   	</c:otherwise>    
                   </c:choose>                                                                              
                   </div>
@@ -367,7 +384,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).state}" id=state name=state disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="State" id=state name=state>
+                    	<input type="text" class="form-control" value="${stateValue}" placeholder="State" id=state name=state>
                   	</c:otherwise>    
                   </c:choose>                                                            
                   </div>
@@ -380,7 +397,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).zip}" id=zip name=zip disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="#####" id=zip name=zip>
+                    	<input type="text" class="form-control" value="${zipValue}" placeholder="#####" id=zip name=zip>
                   	</c:otherwise>    
                   </c:choose>                  
                   </div>
@@ -393,7 +410,7 @@
                   		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).phoneNumber}" id=phoneNumber name=phoneNumber disabled>
                   	</c:when>  
                   	<c:otherwise>
-                    	<input type="text" class="form-control" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
+                    	<input type="text" class="form-control" value="${phoneNumberValue}" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
                   	</c:otherwise>    
                   </c:choose>                                    
                   </div>
