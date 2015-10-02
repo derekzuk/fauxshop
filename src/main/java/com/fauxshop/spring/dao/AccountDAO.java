@@ -3,6 +3,7 @@ package com.fauxshop.spring.dao;
 import java.util.List;
  
 
+
 import com.fauxshop.spring.model.Account;
  
 public interface AccountDAO {
@@ -16,4 +17,5 @@ public interface AccountDAO {
     public Account getAccountByName(String name);
     public void removeAccount(int id);
     public void createUserRole(String name);
+    public boolean isUserLoginAlreadyRegistered(String name);
 }

@@ -20,38 +20,11 @@
 		<transition on="logIn" to="exitHome"/>		
 	</view-state>
 	
-	<view-state id="registration" view="account" model="accountCredentials">
-		<on-render>
-			<!-- Carry cart from Spring app context to request scope -->
-			<set name="requestScope.cartService" value="cartService"/>
-			<set name="requestScope.accountService" value="accountService"/>	
-			<set name="requestScope.userLoginValue" value="accountCredentials.userLogin"/>
-			<set name="requestScope.emailValue" value="accountCredentials.email"/>
-			<set name="requestScope.passwordValue" value="accountCredentials.password"/>
-			<set name="requestScope.firstNameValue" value="accountCredentials.firstName"/>
-			<set name="requestScope.lastNameValue" value="accountCredentials.lastName"/>
-			<set name="requestScope.cityValue" value="accountCredentials.city"/>
-			<set name="requestScope.stateValue" value="accountCredentials.state"/>
-			<set name="requestScope.zipValue" value="accountCredentials.zip"/>
-			<set name="requestScope.phoneNumberValue" value="accountCredentials.phoneNumber"/>
-			<set name="requestScope.countryValue" value="accountCredentials.country"/>
-			<set name="requestScope.addressValue" value="accountCredentials.address"/>
-			<set name="requestScope.address2Value" value="accountCredentials.address2"/>
-		</on-render>	
+	<subflow-state id="registration" subflow="account">	
 		<transition on="cancel" to="exitHome"/>
-		<transition on="login2register" to="newRegistration">
-			<evaluate expression="accountValidation.validateAccountValues(accountCredentials.userLogin, accountCredentials.email, accountCredentials.password, accountCredentials.firstName, accountCredentials.lastName, accountCredentials.city, accountCredentials.state, accountCredentials.zip, accountCredentials.phoneNumber, accountCredentials.country, accountCredentials.address, accountCredentials.address2, messageContext)"/>
-        </transition>	
-		<transition on="continueCheckout" to="exitHome"/>
-	</view-state>
-		
-	<action-state id="newRegistration">
-		<evaluate expression="accountService.addAccount(accountCredentials)"/>
-		<evaluate expression="accountService.createUserRole(accountCredentials.getUserLogin())">
-			<attribute name="createUserRole" value="last" />
-        </evaluate>
-        <transition on="yes" to="exitHome" />        
-	</action-state>
+		<transition on="exitHome" to="exitHome"/>
+		<transition on="ok" to="exitHome"/>
+	</subflow-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
 	<!-- See also http://jira.springframework.org/browse/SWF-588 -->

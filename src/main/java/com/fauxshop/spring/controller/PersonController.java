@@ -20,11 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
- 
-
-
-
-
 
 import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.Inventory;
@@ -123,21 +118,7 @@ public class PersonController {
 
     @RequestMapping(value = "/account", method = {RequestMethod.POST,RequestMethod.GET})
     public String listAccount(Model model) {
-    	model.addAttribute("cartService", this.cartService);
-    	model.addAttribute("inventoryService", this.inventoryService);
-    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
-    	
-    	// If no user is logged in, then the view will display accordingly.
-    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
-    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    		String name = user.getUsername(); //get logged in username
-    		model.addAttribute("account", new Account());
-    		model.addAttribute("accountService", this.accountService);
-    		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
-    	} else {
-    		model.addAttribute("currentUser", "No User Logged In");
-    	}
-    	return "account";
+        return "redirect:account.do";
     }    
     
     @RequestMapping(value = "/cart", method = RequestMethod.GET)

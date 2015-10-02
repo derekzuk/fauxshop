@@ -4,9 +4,11 @@ import java.util.List;
  
 
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 
 import com.fauxshop.spring.dao.AccountDAO;
@@ -60,6 +62,10 @@ public class AccountServiceImpl implements AccountService {
     public boolean createUserRole(String name) {
     	this.accountDAO.createUserRole(name);
     	return true;
+    }
+    
+    public boolean isUserLoginAlreadyRegistered(String name) {
+    	this.accountDAO.isUserLoginAlreadyRegistered(name);
     }
     
  

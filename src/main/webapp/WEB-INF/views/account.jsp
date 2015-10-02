@@ -290,26 +290,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-sm-9">
-                    <br>
-                    <br>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="option1" name="optionsCheckboxList1">
-                          Sign up for our newsletter
-                      </label>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="option2" name="optionsCheckboxList2">
-                          Receive special offers from our partners
-                      </label>
-                    </div>
-                  </div>
-                </div>
                 
-                <h3>Address Information</h3>
+                <h3>Billing Address Information</h3>
                 <hr />
                 
                 <div class="form-group">
@@ -415,11 +397,145 @@
                   </c:choose>                                    
                   </div>
                 </div>
+                
+                <!-- Shipping Address -->
+                <h3>Shipping Address Information</h3>
+				<div class="checkbox">
+					<label>
+                        <input type="checkbox" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox" checked/>
+                          Shipping address is the same as billing address
+                          <br>
+                          <br>
+                	</label>
+
+                </div>
+                   
+                <div id="shippingInfo" style="display:none;">     
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Name</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipName}" id=shipName name=shipName disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${firstNameValue}" placeholder="Ship Name" id=shipName name=shipName>
+                    	<span class="help-block">The name you would like to have packages shipped to.</span>
+                  	</c:otherwise>    
+                  </c:choose>                                    
+                  </div>
+                </div>                    
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Address</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipAddress}" id=shipAddress name=shipAddress disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${addressValue}" placeholder="Ship Address" id=shipAddress name=shipAddress>
+                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>
+                  	</c:otherwise>    
+                  </c:choose>                                    
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Address (Line 2)</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address2}" id=shipAddress2 name=shipAddress2 disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${address2Value}" placeholder="Ship Address (Line 2)" id=shipAddress2 name=shipAddress2>
+                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
+                  	</c:otherwise>    
+                  </c:choose>                                                      
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping City</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipCity}" id=shipCity name=shipCity disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${cityValue}" placeholder="Ship City" id=shipCity name=shipCity>
+                  	</c:otherwise>    
+                  </c:choose>                                          
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Country</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipCountry}" id=shipCountry name=shipCountry disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<select class="form-control" id=shipCountry name=shipCountry>
+                    	<c:choose>
+                    		<c:when test="${null != countryValue}">
+								<option>${countryValue}
+							</c:when>   
+							<c:otherwise>                 
+                      			<option>United States</option>
+                      			<option>Canada</option>
+							</c:otherwise>  
+						</c:choose>                    
+                    	</select>                    
+                  	</c:otherwise>    
+                  </c:choose>                                                                              
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping State</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipState}" id=shipState name=shipState disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${stateValue}" placeholder="Ship State" id=shipState name=shipState>
+                  	</c:otherwise>    
+                  </c:choose>                                                            
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Zip Code</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).zip}" id=zip name=zip disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${zipValue}" placeholder="#####" id=shipZip name=shipZip>
+                  	</c:otherwise>    
+                  </c:choose>                  
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Shipping Phone</label>
+                  <div class="col-sm-9">
+				  <c:choose>
+                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
+                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipPhone}" id=shipPhone name=shipPhone disabled>
+                  	</c:when>  
+                  	<c:otherwise>
+                    	<input type="text" class="form-control" value="${phoneNumberValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone>
+                  	</c:otherwise>    
+                  </c:choose>                                    
+                  </div>
+                </div>          
+                </div>        
+                    
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">					
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="submit" class="btn btn-primary" name="_eventId_continueCheckout" value="Continue Checkout" />
+                  		<input type="submit" class="btn btn-primary" name="_eventId_ok" value="OK" />
+                  		<input type="submit" class="btn btn-default" name="_eventId_editAccount" value="Edit" />
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
@@ -523,6 +639,20 @@
     <script src="<c:url value="/resources/js/masonry.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
+    
+    <script>
+    var checkbox = document.getElementById('shippingAddressCheckbox');
+    var shipping_div = document.getElementById('shippingInfo');
+    var showHiddenDiv = function(){
+       if(!checkbox.checked) {
+    	   shipping_div.style['display'] = 'block';
+       } else {
+    	   shipping_div.style['display'] = 'none';
+       } 
+    }
+    checkbox.onclick = showHiddenDiv;
+    showHiddenDiv();
+    </script>
 
   </body>
 </html>

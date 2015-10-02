@@ -2,6 +2,7 @@ package com.fauxshop.spring.swf;
 
 import java.io.Serializable;
 
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.binding.message.MessageBuilder;
@@ -9,6 +10,8 @@ import org.springframework.binding.message.MessageContext;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.webflow.action.EventFactorySupport;
 import org.springframework.webflow.execution.Event;
+
+import com.fauxshop.spring.service.AccountService;
 
 import java.lang.Object;
 import java.util.ArrayList;
@@ -21,6 +24,13 @@ import javax.mail.internet.InternetAddress;
 @SuppressWarnings("serial")
 public class AccountValidation implements Serializable {
 	private static final Logger logger = LoggerFactory.getLogger(AccountValidation.class);
+	
+	private AccountService accountService;	
+
+	public void setAccountService(AccountService accountService){
+		this.accountService = accountService;
+	}	
+	
 
 	// This method appears to be bypassed by spring security. Not certain how to validate login credentials yet. It's not particularly necessary.
 	public Event validateLoginForm(String userLogin, String password, MessageContext messageContext) {		
@@ -60,7 +70,15 @@ public class AccountValidation implements Serializable {
 			String phoneNumber,
 			String country,
 			String address,
-			String address2,			
+			String address2,		
+			String shipName,
+			String shipCity,
+			String shipState,
+			String shipZip,
+			String shipPhone,
+			String shipCountry,
+			String shipAddress,
+			String shipAddress2,	
 			MessageContext messageContext) {
 		
 		/*Validate account values:*/
@@ -70,6 +88,12 @@ public class AccountValidation implements Serializable {
 			errorMessageBuilder.source("account");
 			errorMessageBuilder.code("user_login_error");      
 			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}
+		if (accountService.isUserLoginAlreadyRegistered(userLogin)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("user_login_already_exists");      
+			messageContext.addMessage(errorMessageBuilder.build());				
 		}
 
 		/*email:*/
