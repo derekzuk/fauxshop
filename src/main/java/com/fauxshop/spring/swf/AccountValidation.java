@@ -84,13 +84,102 @@ public class AccountValidation implements Serializable {
 		}
 
 		/*password:*/
-		String check_password = "[a-zA-Z0-9!@#$%&*]{8,99}";
+		String check_password = "[a-zA-Z0-9!@#$%&*\\s-]{8,99}";
 		if (!password.matches(check_password)) {
 			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
 			errorMessageBuilder.source("account");
 			errorMessageBuilder.code("password_error");      
 			messageContext.addMessage(errorMessageBuilder.build());		 			
 		}
+		
+		/*firstName:*/
+		String check_firstName = "^[a-zA-Z\\s]{1,99}";
+		if (!firstName.matches(check_firstName)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("firstName_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*lastName:*/
+		String check_lastName = "^[a-zA-Z\\s]{1,99}";
+		if (!lastName.matches(check_lastName)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("lastName_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}
+		
+		/*city:*/
+		String check_city = "^[a-zA-Z-\\s]{1,99}";
+		if (!city.matches(check_city)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("city_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*state:*/
+		String check_state = "[a-zA-Z]{2}$";
+		if (!state.matches(check_state)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("state_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*state:*/
+		String check_zip = "[0-9-]{5,11}";
+		if (!zip.matches(check_zip)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("zip_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}			
+	    
+		/*phoneNumber:*/
+	    //validate phone numbers of format "1234567890"
+	    if (phoneNumber.matches("\\d{10}")){
+	    //validating phone number with -, . or spaces
+	    } else if (phoneNumber.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) {
+	    //validating phone number with extension length from 3 to 5
+	    } else if (phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {
+	    //validating phone number where area code is in braces ()
+	    } else if (phoneNumber.matches("\\(\\d{3}\\)-\\s\\d{3}-\\d{4}")) {
+	    //return false if nothing matches the input
+	    } else {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("phoneNumber_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		
+	    }
+		
+		/*country:*/
+		String check_country = "^[a-zA-Z\\s]*${2,99}";
+		if (!country.matches(check_country)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("country_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}		
+		
+		/*address:*/
+		String check_address = "[a-zA-Z0-9.!@#$%&*\\s-]{1,99}";
+		if (!address.matches(check_address)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("address_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*address2:*/
+		String check_address2 = "[a-zA-Z0-9.!@#$%&*\\s-]{0,99}";
+		if (!address2.matches(check_address2)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("address2_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}						
 
 		// We return all of the error messages to be displayed on the view.
 		if (messageContext.hasErrorMessages()){
