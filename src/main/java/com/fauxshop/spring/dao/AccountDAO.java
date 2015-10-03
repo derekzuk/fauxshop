@@ -8,7 +8,7 @@ import com.fauxshop.spring.model.Account;
  
 public interface AccountDAO {
  
-    public void save(Account a);    
+    public void saveAccount(Account a);    
     public List<Account> list();
     public void addAccount(Account a);
     public void updateAccount(Account a);
@@ -17,5 +17,5 @@ public interface AccountDAO {
     public Account getAccountByName(String name);
     public void removeAccount(int id);
     public void createUserRole(String name);
-    public boolean isUserLoginAlreadyRegistered(String name);
+    public boolean isUserLoginUnique(String name);
 }

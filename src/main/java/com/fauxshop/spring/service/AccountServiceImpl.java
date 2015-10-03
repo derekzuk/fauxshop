@@ -22,6 +22,12 @@ public class AccountServiceImpl implements AccountService {
     public void setAccountDAO(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
+    
+    /*@Override*/
+    @Transactional
+    public void saveAccount(Account a) {
+        this.accountDAO.saveAccount(a);
+    }     
  
     /*@Override*/
     @Transactional
@@ -64,8 +70,8 @@ public class AccountServiceImpl implements AccountService {
     	return true;
     }
     
-    public boolean isUserLoginAlreadyRegistered(String name) {
-    	this.accountDAO.isUserLoginAlreadyRegistered(name);
+    public boolean isUserLoginUnique(String name) {
+    	return this.accountDAO.isUserLoginUnique(name);
     }
     
  

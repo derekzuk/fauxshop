@@ -7,6 +7,7 @@ import com.fauxshop.spring.model.Account;
  
 public interface AccountService {
     
+	public void saveAccount(Account a);
     public void addAccount(Account a);
     public void updateAccount(Account a);
     public List<Account> listAccounts();
@@ -14,5 +15,5 @@ public interface AccountService {
     public Account getAccountByName(String name);
     public void removeAccount(int id);     
     public boolean createUserRole(String name);
-    public boolean isUserLoginAlreadyRegistered(String name);
+    public boolean isUserLoginUnique(String name);
 }

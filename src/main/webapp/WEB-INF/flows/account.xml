@@ -35,6 +35,10 @@
 		</on-render>	
 		<transition on="cancel" to="exitHome"/>
 		<transition on="login2register" to="newRegistration">
+		<!-- If the username is already registered, the account page will simply reload w/o an error message. There must be a way to fix this. -->
+			<evaluate expression="accountService.isUserLoginUnique(accountCredentials.userLogin)" result="flowScope.isUserLoginAlreadyRegistered">
+				<attribute name="isUserLoginAlreadyRegisteredExpression" value="first" />
+			</evaluate>	
 			<evaluate expression="accountValidation.validateAccountValues(accountCredentials.userLogin, 
 			accountCredentials.email, 
 			accountCredentials.password, 
@@ -55,7 +59,8 @@
 			accountCredentials.shipCountry, 
 			accountCredentials.shipAddress, 
 			accountCredentials.shipAddress2, 
-			messageContext)"/>
+			isUserLoginAlreadyRegistered,
+			messageContext)"/>			
         </transition>	
 		<transition on="ok" to="exitHome"/>
 		<transition on="editAccount" to="editAccount"/>
@@ -70,9 +75,9 @@
 	</action-state>	
 	
 	<action-state id="editAccount">
-		<evaluate expression="accountService.save((accountService.getAccountByName(accountCredentials.userLogin).getAccountId()),accountCredentials.userLogin, accountCredentials.email, accountCredentials.password, accountCredentials.firstName, accountCredentials.lastName, accountCredentials.city, accountCredentials.state, accountCredentials.zip, accountCredentials.phoneNumber, accountCredentials.country, accountCredentials.address, accountCredentials.address2)"/>
+		<evaluate expression="accountService.saveAccount(accountCredentials)"/>
         <transition to="exitHome" />        
-	</action-state>		
+	</action-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
 	<!-- Suppress leading slash to go servlet-relative? (Check docs) -->

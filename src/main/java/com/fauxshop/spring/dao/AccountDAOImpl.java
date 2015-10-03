@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,6 +17,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
 
 
 
@@ -38,10 +40,10 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	/*    @Override*/
-	public void save(Account a) {
+	public void saveAccount(Account a) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.persist(a);
+		session.saveOrUpdate(a);
 		tx.commit();
 		session.close();
 	}
@@ -148,15 +150,15 @@ public class AccountDAOImpl implements AccountDAO {
 		session.close();
 	}        
 	
-	@SuppressWarnings("unchecked")
-	public boolean isUserLoginAlreadyRegistered(String name) {
-		Session session = this.sessionFactory.getCurrentSession();      
+	public boolean isUserLoginUnique(String name) {
+		Session session = this.sessionFactory.openSession();      
 		String hql = "FROM Account WHERE userLogin = :username";
 		Query query = session.createQuery(hql);
 		query.setParameter("username", name);
-		List<Account> result = (List<Account>) query.list();
+		Account result = (Account) query.uniqueResult();
+		session.close();
 
-		return (!result.isEmpty());
+		return (null == result);
 	}
 
 
