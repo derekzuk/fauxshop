@@ -222,7 +222,7 @@ public class PersonController {
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
-    		SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm a");
+    		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
     		Account currentUser = this.accountService.getAccountByName(name);
     		TransactionLog lastTransaction = this.transactionService.getLastTransactionByAccountId(this.accountService.getAccountByName(name).getAccountId());
     		String date = dt.format(lastTransaction.getDate());

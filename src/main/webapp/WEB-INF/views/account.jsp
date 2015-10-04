@@ -410,13 +410,12 @@
                 
                 <!-- Shipping Address -->
                 <h3>Shipping Address Information</h3>
+                
 				<div class="checkbox">
-
 					<label>
 					<c:choose>
 					<c:when test="${pageContext.request.userPrincipal.name != null}">					
-                        <input type="checkbox" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox"/>
-                          Shipping address is the same as billing address
+                        <input type="hidden" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox"/>
 					</c:when>
                 	<c:otherwise>
                         <input type="checkbox" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox" checked/>
@@ -426,10 +425,6 @@
                           <br>
                           <br>
                 	</label>
-
-                	
-
-
                 </div>
                    
                 <div id="shippingInfo" style="display:none;">     
@@ -556,8 +551,8 @@
                   <div class="col-sm-offset-3 col-sm-9">					
 				  <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="submit" class="btn btn-primary" name="_eventId_ok" value="Cancel" />
                   		<input type="submit" class="btn btn-default" name="_eventId_editAccount" value="Save Changes" />
+                  		<input type="submit" class="btn btn-primary" name="_eventId_ok" value="Cancel" />                  		
                   	</c:when>  
                   	<c:otherwise>
                     	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />

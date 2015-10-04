@@ -48,7 +48,7 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="#">Your Account</a></h4>
+                  <h4><a href="account">Your Account</a></h4>
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
@@ -236,7 +236,7 @@
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
 									<div class="box-head">
-										<h3>Delivery Address</h3>
+										<h3>Shipping Address</h3>
 									</div>
 									<div class="box-content">
 										<address>

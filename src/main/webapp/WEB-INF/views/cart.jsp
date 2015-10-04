@@ -46,7 +46,7 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="#">Your Account</a></h4>                 
+                  <h4><a href="account">Your Account</a></h4>                 
                   <c:choose>
                   	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
