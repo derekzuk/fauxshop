@@ -32,7 +32,6 @@
                       <c:url var="updateAction" value="cart/updateQuantity/${cart.cartId}" ></c:url>
                       <c:url var="deleteAction" value="cartRemove/${cart.cartId}" ></c:url>					  
 
-                      <%-- <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a> --%>
                       <!-- Both the Edit and Delete buttons navigate away from SWF to a controller class: -->
                       <form:form action="${deleteAction}" commandName="Cart">
                       <button type="submit" style="float: right" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></button>

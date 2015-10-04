@@ -186,15 +186,21 @@
 				
               		<!-- We pull the table from another view: -->
               		<jsp:include page="carttable.jsp"/>				
-								
-						<input type="radio" name="cardType" id="cardType" value="visa">Visa
-						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
-						<br><br>
+							
+						<!-- Card info: -->	
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Credit Card Type: </strong></td>
+								<td><input type="text" class="form-control" name="cardType" id="cardType" value="${lastTransaction.getCardType()}" disabled/>
+								</td>
+							</tr>
+						</table>
+						<br>												
 						<table style="width: 100%">
 							<tr>
 								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
 								<td><input type="text" class="form-control"
-									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
+									name="cardNumber" id="cardNumber" value="${lastTransaction.getCardNumber()}" disabled></td>
 							</tr>
 						</table>
 						<br>
@@ -202,7 +208,7 @@
 							<tr>
 								<td style="width: 20%"><strong>Security Code: </strong></td>
 								<td><input type="text" class="form-control"
-									name="cardSecurityCode" id="cardSecurityCode" placeholder="Security Code (no spaces)"></td>
+									name="cardSecurityCode" id="cardSecurityCode" value="${lastTransaction.getCardSecurityCode()}" disabled></td>
 							</tr>
 						</table>
 						<hr>				
@@ -215,14 +221,14 @@
 									</div>
 									<div class="box-content">
 										<address>
-											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
-											${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getZip()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<strong>${account.getFirstName()}
+											${account.getLastName()}</strong><br>
+											${account.getAddress()}<br>
+											${account.getAddress2()}<br>
+											${account.getCity()}, ${account.getState()} ${account.getZip()}<br>
+											${account.getCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+											${account.getPhoneNumber()}
 										</address>
 									</div>
 								</div>
@@ -234,13 +240,13 @@
 									</div>
 									<div class="box-content">
 										<address>
-											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipName()}</strong><br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress2()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipZip()}<br> 
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCountry()}<br>
+											<strong>${account.getShipName()}</strong><br>
+											${account.getShipAddress()}<br>
+											${account.getShipAddress2()}<br>
+											${account.getShipCity()}, ${account.getShipState()} ${account.getShipZip()}<br> 
+											${account.getShipCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipPhone()}
+											${account.getShipPhone()}
 										</address>
 									</div>
 								</div>
@@ -257,7 +263,7 @@
                         <div class="box-content">
                             <!-- <form role="form"> -->
                                 <div class="form-group">
-                                  <textarea rows="3" name="message" id="message" class="form-control">${transactionService.getLastTransactionByAccountId(accountService.getAccountByName(pageContext.request.userPrincipal.name).getAccountId()).getMessage()}</textarea>
+                                  <textarea disabled rows="3" name="message" id="message" class="form-control">${lastTransaction.getMessage()}</textarea>
                             </div>
                         </div>
                     </div>

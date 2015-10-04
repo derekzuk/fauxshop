@@ -221,14 +221,14 @@
 									</div>
 									<div class="box-content">
 										<address>
-											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getFirstName()}
-											${accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getLastName()}</strong><br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getAddress2()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getZip()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getCountry()}<br>
+											<strong>${account.getFirstName()}
+											${account.getLastName()}</strong><br>
+											${account.getAddress()}<br>
+											${account.getAddress2()}<br>
+											${account.getCity()}, ${account.getState()} ${account.getZip()}<br>
+											${account.getCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getPhoneNumber()}
+											${account.getPhoneNumber()}
 										</address>
 									</div>
 								</div>
@@ -240,13 +240,13 @@
 									</div>
 									<div class="box-content">
 										<address>
-											<strong>${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipName()}</strong><br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipAddress2()}<br>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCity()}, ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipState()} ${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipZip()}<br> 
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipCountry()}<br>
+											<strong>${account.getShipName()}</strong><br>
+											${account.getShipAddress()}<br>
+											${account.getShipAddress2()}<br>
+											${account.getShipCity()}, ${account.getShipState()} ${account.getShipZip()}<br> 
+											${account.getShipCountry()}<br>
 											<abbr title="Phone">Phone :</abbr>
-											${accountService.getAccountByName(pageContext.request.userPrincipal.name).getShipPhone()}
+											${account.getShipPhone()}
 										</address>
 									</div>
 								</div>
