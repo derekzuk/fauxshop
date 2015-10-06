@@ -171,6 +171,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         
         TransactionLog transactionLog = new TransactionLog();
         transactionLog.setAccountId(accountId);
+        transactionLog.setCartId(cartId);
         transactionLog.setOrderQuantity(orderQuantity);
         transactionLog.setShipName(shipName);
         transactionLog.setShipAddress(shipAddress);

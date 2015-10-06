@@ -7,6 +7,10 @@
 	<var name="transactionLogValues" class="com.fauxshop.spring.model.TransactionLog"/>
 	
 	<on-start>
+		<evaluate expression="externalContext.nativeRequest.session.id" result="flowScope.currentSession"/>
+		<!-- <set name="requestScope.currentSession" value = "externalContext.nativeRequest.session.id"/> -->
+		<!-- <set name="requestScope.currentSession" value = "externalContext.sessionMap.getId()"/> -->
+		<!-- String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId(); -->
 		<set name="requestScope.currentUser" value="currentUser"/>
 		<set name="requestScope.cartService" value="cartService"/>
 	</on-start>			
@@ -14,6 +18,7 @@
 	<!-- By default, the first state is the start state. -->
 	<view-state id="cart" view="cart">
 		<on-render>
+			<!-- <set name="flowScope.currentSession" value="currentSession"/> -->
 			<set name="requestScope.cartService" value="cartService"/>	
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>

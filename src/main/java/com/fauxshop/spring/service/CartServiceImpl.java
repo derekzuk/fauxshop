@@ -50,9 +50,21 @@ public class CartServiceImpl implements CartService {
     
     /*@Override*/
     @Transactional
+    public Cart getCartByIdAndSessionId(int cartId, String sessionId) {
+        return this.cartDAO.getCartByIdAndSessionId(cartId, sessionId);
+    }    
+    
+    /*@Override*/
+    @Transactional
     public Cart getCartByInventoryDetailIdAndAccountId(int inventoryDetailId, int accountId) {
         return this.cartDAO.getCartByInventoryDetailIdAndAccountId(inventoryDetailId, accountId);
-    }    
+    }
+    
+    /*@Override*/
+    @Transactional
+    public Cart getCartByInventoryDetailIdAndSessionId(int inventoryDetailId, String sessionId) {
+        return this.cartDAO.getCartByInventoryDetailIdAndSessionId(inventoryDetailId, sessionId);
+    }        
     
     /*@Override*/
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem,String shippingCost, String tax) {
@@ -92,6 +104,12 @@ public class CartServiceImpl implements CartService {
     
     /*@Override*/
     @Transactional
+    public List<Cart> getCartBySessionId(String sessionId) {
+        return this.cartDAO.getCartBySessionId(sessionId);
+    }    
+    
+    /*@Override*/
+    @Transactional
     public BigDecimal getCartShippingCostByUserLogin(String name) {
         return this.cartDAO.getCartShippingCostByUserLogin(name);
     }  
@@ -106,6 +124,30 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public BigDecimal getCartTotalByUserLogin(String name) {
         return this.cartDAO.getCartTotalByUserLogin(name);
+    }      
+    
+    /*@Override*/
+    @Transactional
+    public BigDecimal getCartItemCostBySessionId(String sessionId) {
+        return this.cartDAO.getCartItemCostBySessionId(sessionId);
+    }
+    
+    /*@Override*/
+    @Transactional
+    public BigDecimal getCartShippingCostBySessionId(String sessionId) {
+        return this.cartDAO.getCartShippingCostBySessionId(sessionId);
+    }  
+    
+    /*@Override*/
+    @Transactional
+    public BigDecimal getCartTaxCostBySessionId(String sessionId) {
+        return this.cartDAO.getCartTaxCostBySessionId(sessionId);
     }         
+    
+    /*@Override*/
+    @Transactional
+    public BigDecimal getCartTotalBySessionId(String sessionId) {
+        return this.cartDAO.getCartTotalBySessionId(sessionId);
+    }       
         
 }

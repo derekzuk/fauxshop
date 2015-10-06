@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+import org.springframework.web.context.request.RequestContextHolder;
+
 import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.Inventory;
 import com.fauxshop.spring.model.TransactionLog;
@@ -154,8 +156,13 @@ public class PersonController {
         		this.cartService.removeCart(cartId);
         	}
     	} else {
-    		/*No user is logged in.*/
-    		return "redirect:/cart";    		
+    		String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    
+    		Cart cartItemToBeRemoved = this.cartService.getCartByIdAndSessionId(cartId, sessionId);
+    		
+    		/*The item is only removed if both the cartId and sessionId provided are valid.*/
+        	if (null != cartItemToBeRemoved) {
+        		this.cartService.removeCart(cartId);
+        	};    		
     	}   
     	return "redirect:/cart";    		
     }         
@@ -324,7 +331,7 @@ public class PersonController {
     	/*We need to check if an inventory detail record already exists in the cart for this user. If so, we will add to the quantity.*/   	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    		String name = user.getUsername(); //get logged in username
+    		String name = user.getUsername(); //get logged in username    		
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		
@@ -361,7 +368,40 @@ public class PersonController {
     		this.cartService.save(newCartRecord);
     		}
     	} else {
-    		return "redirect:/login";
+    		/*The user is not logged in. In this case, we populate the ACCOUNT_ID column in the CART table with their session id.*/
+    		String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
+    		
+    		List<Cart> userCartList = this.cartService.getCartBySessionId(sessionId);    
+    		List<Integer> userCartInventoryIdList = new ArrayList<Integer>();    		
+    		if (!userCartList.isEmpty()) {
+        		int a = 0;
+    			do {
+    				int inventoryDetailId = userCartList.get(a).getInventoryDetailId();
+    				userCartInventoryIdList.add(inventoryDetailId);
+    				a++;
+    			} 	
+    			while (a < userCartList.size());    			
+    		}
+        	
+    		/*If the inventory item already exists in the cart, we add the quantity to the existing record.*/
+        	int inventoryDetailId = this.inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId();
+    		if (userCartInventoryIdList.contains(inventoryDetailId)) {
+    			Cart existingCart = this.cartService.getCartByInventoryDetailIdAndSessionId(inventoryDetailId, sessionId);
+    			this.cartService.updateQuantity(existingCart.getCartId(), (existingCart.getQuantity() + Integer.parseInt(request.getParameter("quantity"))));
+    		/*If the inventory item does not already exist in the user's cart, we create a new cart record.*/    		
+    		} else {
+    		// We add the selected inventory item to the user's cart.
+    		// This method isn't finished. Needs work.
+    		Cart newCartRecord = new Cart();
+    		Inventory product = this.inventoryService.getInventoryById(inventoryId);
+    		newCartRecord.setSessionId(sessionId);
+    		newCartRecord.setInventoryDetailId(inventoryDetailService.getInventoryDetailByIdColorSize(inventoryId, invdet.getColor(), invdet.getSize()).getInventoryDetailId());
+    		newCartRecord.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+    		newCartRecord.setPricePerItem(product.getPriceUsd());
+    		newCartRecord.setShippingCost(BigDecimal.valueOf(22.22));
+    		newCartRecord.setTax(BigDecimal.valueOf(11.11));
+    		this.cartService.save(newCartRecord);
+    		}    		    		
     	}    	    	
         return "redirect:/cart";
     }    

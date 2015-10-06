@@ -29,6 +29,9 @@ public class Cart implements Serializable {
     @Column(name="ACCOUNT_ID")
     private int accountId;
     
+    @Column(name="SESSION_ID")
+    private String sessionId;    
+    
     @Column(name="INVENTORY_DETAIL_ID")
     private int inventoryDetailId;
     
@@ -60,6 +63,14 @@ public class Cart implements Serializable {
         this.accountId = accountId;
     }
  
+    public String getSessionId() {
+        return sessionId;
+    }
+ 
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }    
+    
     public int getInventoryDetailId() {
         return inventoryDetailId;
     }
@@ -104,6 +115,7 @@ public class Cart implements Serializable {
     public String toString(){
         return "cartId="+cartId+
         		", accountId="+accountId+
+        		", sessionId="+sessionId+
         		", inventoryDetailId="+inventoryDetailId+
         		", quantity="+quantity+
         		", pricePerItem="+pricePerItem+
