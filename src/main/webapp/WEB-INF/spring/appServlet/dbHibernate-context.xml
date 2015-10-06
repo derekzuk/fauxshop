@@ -31,6 +31,7 @@
 				<value>com.fauxshop.spring.model.InventoryDetail</value>
 				<value>com.fauxshop.spring.model.InventoryTypeCode</value>
 				<value>com.fauxshop.spring.model.Roles</value>
+				<value>com.fauxshop.spring.model.SessionAccount</value>
 				<value>com.fauxshop.spring.model.TransactionLog
 				</value>
 			</list>
