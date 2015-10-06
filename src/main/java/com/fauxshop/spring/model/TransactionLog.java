@@ -30,6 +30,9 @@ public class TransactionLog implements Serializable {
     @Column(name="ACCOUNT_ID")
     private int accountId;
     
+    @Column(name="SESSION_ID")
+    private String sessionId;    
+    
     @Column(name="CART_ID")
     private int cartId;    
     
@@ -115,6 +118,14 @@ public class TransactionLog implements Serializable {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+    
+    public String getSessionId() {
+    	return sessionId;
+    }
+    
+    public void setSessionId(String sessionId) {
+    	this.sessionId = sessionId;
+    }    
     
     public int getCartId() {
         return cartId;
@@ -304,6 +315,7 @@ public class TransactionLog implements Serializable {
     public String toString(){
         return "transactionId="+transactionId+
         		", accountId="+accountId+
+        		", sessionId="+sessionId+
         		", cartId="+cartId+
         		", orderQuantity="+orderQuantity+
         		", shipName="+shipName+

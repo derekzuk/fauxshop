@@ -3,6 +3,9 @@ package com.fauxshop.spring.service;
 import java.util.List;
  
 
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import com.fauxshop.spring.model.Account;
  
 public interface AccountService {
@@ -16,4 +19,5 @@ public interface AccountService {
     public void removeAccount(int id);     
     public boolean createUserRole(String name);
     public boolean isUserLoginUnique(String name);
+    public boolean isUserLoggedIn(UsernamePasswordAuthenticationToken name);
 }

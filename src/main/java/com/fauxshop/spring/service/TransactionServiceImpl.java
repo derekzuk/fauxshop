@@ -58,19 +58,23 @@ public class TransactionServiceImpl implements TransactionService {
 
 	/*@Override*/
 	@Transactional
-	public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode) {
-		this.transactionDAO.createTransaction(cartId, trackingNumber, message, cardType, cardNumber, cardSecurityCode);
+	public void createTransaction(int cartId, String sessionId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode) {
+		this.transactionDAO.createTransaction(cartId, sessionId, trackingNumber, message, cardType, cardNumber, cardSecurityCode);
 	}    	
 	
 	/*@Override*/
 	@Transactional
-	public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode) {
-		this.transactionDAO.createTransactionsFromCartList(cartList, message, cardType, cardNumber, cardSecurityCode);
+	public void createTransactionsFromCartList(List<Cart> cartList, String sessionId, String message, String cardType, int cardNumber, int cardSecurityCode) {
+		this.transactionDAO.createTransactionsFromCartList(cartList, sessionId, message, cardType, cardNumber, cardSecurityCode);
 	} 	
 	
 	public TransactionLog getLastTransactionByAccountId(int accountId) {
 		return this.transactionDAO.getLastTransactionByAccountId(accountId);
 	}
+	
+	public TransactionLog getLastTransactionBySessionId(String sessionId) {
+		return this.transactionDAO.getLastTransactionBySessionId(sessionId);
+	}	
 	
     public void setTransactionToConfirmed(long trackingNumber) {
     	this.transactionDAO.setTransactionToConfirmed(trackingNumber);

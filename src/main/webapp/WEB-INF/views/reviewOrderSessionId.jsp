@@ -1,4 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,20 +48,8 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="account">Your Account</a></h4>                 
-                  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
-					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
-						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
-						<form action="${logoutAction}" method="post">
-						<a href="fauxshop/j_spring_security_logout">Log Out</a>
-						</form>
-					</c:when>
-					<c:otherwise>										
+                  <h4><a href="account">Your Account</a></h4>										
                   	<p><a href="login">Log in</a></p>
-                  </c:otherwise>
-                  </c:choose>                  
-                    
                 </div>
                 <div class="visible-xs">
                   <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
@@ -68,7 +58,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size()} Product(s)</strong></p>
+                  <p><strong>${cartService.getCartBySessionId(currentSession).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -86,7 +76,7 @@
           <div class="nav-menus">
             <ul class="nav nav-pills">
               <li class="active"><a href="index">Home</a></li>
-              <li><a href="#">Acessories</a></li>
+              <li><a href="#">Accessories</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Boy <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="menu1">
@@ -139,7 +129,7 @@
               		<jsp:include page="cartlist.jsp"/>
 
               	</div>
-              <!-- break -->
+              	<!-- break -->
               <div class="widget">
                 <div class="widget-title">
                   <h3>Category</h3>
@@ -164,48 +154,127 @@
         </div>
         <!-- end:sidebar -->
 
-        <!-- begin:content -->
+        <!-- begin:content -->           
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
                   <li><a href="#">Home</a></li>
-                  <li class="active">Cart</li>
+                  <li class="active">Payment</li>
                 </ol>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <ul class="nav nav-tabs">
-                  <li class="active"><a href="cart">Cart</a></li>
+                  <li><a href="cart">Cart</a></li>
                   <li><a href="login">Login</a></li>
                   <li><a href="account">Account</a></li>
-                  <li><a href="#">Shipping</a></li>
-                  <li><a href="#">Payment</a></li>
-                  <li><a href="#">Review Order</a></li>
-              </ul>
-
-              <h3>Your Cart</h3>
-              <hr />
+                  <li><a href="shipping">Shipping</a></li>
+                  <li><a href="payment">Payment</a></li>
+                  <li class="active"><a href="#">Review Order</a></li>
+              </ul>              
               
-              <!-- We pull the table from another view: -->
-              <jsp:include page="carttable.jsp"/>
-                             
-              <form role="form" method="post" action="${flowExecutionUrl}">
-              <input type="submit" class="btn btn-default" name="_eventId_continueShopping" value="Continue Shopping" />
-			  <c:choose>
-              <c:when test="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size() > 0 || cartService.getCartBySessionId(currentSession).size() > 0}">               
-              <input type="submit" class="btn btn-primary pull-right" name="_eventId_next" value="Next" />
-              </c:when>
-              </c:choose>
-              </form>
+				<h3>Review Order</h3>
+				
+              		<!-- We pull the table from another view: -->
+              		<jsp:include page="carttable.jsp"/>				
+							
+						<!-- Card info: -->	
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Credit Card Type: </strong></td>
+								<td><input type="text" class="form-control" name="cardType" id="cardType" value="${lastTransaction.getCardType()}" disabled/>
+								</td>
+							</tr>
+						</table>
+						<br>												
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardNumber" id="cardNumber" value="${lastTransaction.getCardNumber()}" disabled></td>
+							</tr>
+						</table>
+						<br>
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 20%"><strong>Security Code: </strong></td>
+								<td><input type="text" class="form-control"
+									name="cardSecurityCode" id="cardSecurityCode" value="${lastTransaction.getCardSecurityCode()}" disabled></td>
+							</tr>
+						</table>
+						<hr>				
+																		
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Billing Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${account.getFirstName()}
+											${account.getLastName()}</strong><br>
+											${account.getAddress()}<br>
+											${account.getAddress2()}<br>
+											${account.getCity()}, ${account.getState()} ${account.getZip()}<br>
+											${account.getCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${account.getPhoneNumber()}
+										</address>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<div class="box">
+									<div class="box-head">
+										<h3>Delivery Address</h3>
+									</div>
+									<div class="box-content">
+										<address>
+											<strong>${account.getShipName()}</strong><br>
+											${account.getShipAddress()}<br>
+											${account.getShipAddress2()}<br>
+											${account.getShipCity()}, ${account.getShipState()} ${account.getShipZip()}<br> 
+											${account.getShipCountry()}<br>
+											<abbr title="Phone">Phone :</abbr>
+											${account.getShipPhone()}
+										</address>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- break -->
+			
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-head">
+                            <h3>Message</h3>
+                        </div>                                    
+                        <div class="box-content">
+                            <!-- <form role="form"> -->
+                                <div class="form-group">
+                                  <textarea disabled rows="3" name="message" id="message" class="form-control">${lastTransaction.getMessage()}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                   <form method="post" action="${flowExecutionUrl}">	
+                   <input type="submit" class="btn btn-primary" name="_eventId_proceedToCheckout" value="Submit Order" />
+                   </form>     
+                                
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
         <!-- end:content -->
       </div>
       <!-- end:article -->
-
+      
       <!-- begin:footer -->
       <div class="row">
         <div class="col-md-12 footer">
@@ -283,6 +352,7 @@
 
     </div>
     <!-- end:content -->
+
 
     <!-- Le javascript
     ================================================== -->

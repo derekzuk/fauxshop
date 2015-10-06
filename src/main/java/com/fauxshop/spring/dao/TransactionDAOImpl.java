@@ -95,7 +95,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
     
     /*@Override*/
-    public void createTransaction(int cartId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode){
+    public void createTransaction(int cartId, String sessionId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode){
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
@@ -171,6 +171,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         
         TransactionLog transactionLog = new TransactionLog();
         transactionLog.setAccountId(accountId);
+        transactionLog.setSessionId(sessionId);
         transactionLog.setCartId(cartId);
         transactionLog.setOrderQuantity(orderQuantity);
         transactionLog.setShipName(shipName);
@@ -200,13 +201,13 @@ public class TransactionDAOImpl implements TransactionDAO {
     }   
     
     /*@Override*/
-    public void createTransactionsFromCartList(List<Cart> cartList, String message, String cardType, int cardNumber, int cardSecurityCode){
+    public void createTransactionsFromCartList(List<Cart> cartList, String sessionId, String message, String cardType, int cardNumber, int cardSecurityCode){
 /*    	Random randomGenerator = new Random();
     	int trackingNumber = randomGenerator.nextInt(1000000000);*/
     	long trackingNumber = (long) Math.floor(Math.random() * 9000000000L) + 1000000000L;
     	for (Cart cartRow : cartList) {
     		/*We assign a random number for the tracking number to each TransactionLog record we created:*/
-    		createTransaction(cartRow.getCartId(),trackingNumber,message,cardType,cardNumber,cardSecurityCode);
+    		createTransaction(cartRow.getCartId(),sessionId,trackingNumber,message,cardType,cardNumber,cardSecurityCode);
     	}     	    	
     }     
         
@@ -219,6 +220,16 @@ public class TransactionDAOImpl implements TransactionDAO {
         session.close();
         return transaction;   
     }
+    
+    public TransactionLog getLastTransactionBySessionId(String sessionId) {
+        Session session = this.sessionFactory.openSession();
+        String hql = "FROM TransactionLog WHERE transactionId = (SELECT MAX(transactionId) FROM TransactionLog WHERE sessionId = :sessionId)";
+        Query query = session.createQuery(hql);
+        query.setParameter("sessionId", sessionId);
+        TransactionLog transaction = (TransactionLog) query.uniqueResult();      
+        session.close();
+        return transaction;   
+    }    
     
     public void setTransactionToConfirmed(long trackingNumber) {
     	Session session = this.sessionFactory.openSession();
