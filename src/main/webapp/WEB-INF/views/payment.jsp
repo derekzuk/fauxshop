@@ -161,10 +161,7 @@
         </div>
         <!-- end:sidebar -->
 
-        <!-- begin:content -->
-			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>        
-        
+        <!-- begin:content -->             
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
@@ -183,36 +180,12 @@
                   <li><a href="shipping">Shipping</a></li>
                   <li class="active"><a href="payment">Payment</a></li>
                   <li><a href="#">Review Order</a></li>
-              </ul>              
-              
-				<h3>Payment</h3>
-						<input type="radio" name="cardType" id="cardType" value="visa">Visa
-						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
-						<br><br>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
-							</tr>
-						</table>
-						<br>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Security Code: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardSecurityCode" id="cardSecurityCode" placeholder="Security Code (no spaces)"></td>
-							</tr>
-						</table>
-						<hr>
-						
-<%--                  <c:url var="deleteAction" value="cartRemove/${cart.cartId}" ></c:url>					  
-                      <a href="${flowExecutionUrl}&_eventId=removeFromCart&cartId=${cart.cartId}" type="submit" style="float: right" rel="tooltip" title="Delete" class="btn btn-primary"><i class="fa fa-trash-o"></i></a>
-                      <!-- Both the Edit and Delete buttons navigate away from SWF to a controller class: -->
-                      <form:form action="${deleteAction}" commandName="Cart">
-                      <button type="submit" style="float: right" title="Update" class="btn btn-default"><i class="fa fa-pencil"></i></button>
-                      </form:form> --%>						
-																		
+              </ul>                           					
+									
+				
+				<h3>Billing and Shipping Address</h3>					
+			<form method="post" action="${flowExecutionUrl}">
+            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>  																		
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
@@ -253,9 +226,7 @@
 							</div>
 						</div>
 						<!-- break -->
-						
-<%-- 			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/> --%>												
+												
               <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -270,18 +241,18 @@
                                 </div>
                         </div>
                     </div>
-                   <!-- <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Confirm Order" /> -->
+        
                    <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
                 </div>
               </div>
-              
+			</form>                          
             </div>
           </div>
         </div>
         <!-- end:content -->
-		</form>
+
       </div>
-      <!-- end:article -->
+      <!-- end:article -->         
       
       <!-- begin:footer -->
       <div class="row">

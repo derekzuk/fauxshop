@@ -127,6 +127,11 @@ public class CartServiceImpl implements CartService {
     }      
     
     /*@Override*/
+    public Long getCartQuantityByUserLogin(String name) {
+        return this.cartDAO.getCartQuantityByUserLogin(name);
+    }                 
+    
+    /*@Override*/
     @Transactional
     public BigDecimal getCartItemCostBySessionId(String sessionId) {
         return this.cartDAO.getCartItemCostBySessionId(sessionId);
@@ -149,5 +154,10 @@ public class CartServiceImpl implements CartService {
     public BigDecimal getCartTotalBySessionId(String sessionId) {
         return this.cartDAO.getCartTotalBySessionId(sessionId);
     }       
+    
+    /*@Override*/
+    public Long getCartQuantityBySessionId(String name) {
+        return this.cartDAO.getCartQuantityBySessionId(name);
+    }     
         
 }

@@ -33,12 +33,14 @@ public interface CartService {
     public BigDecimal getCartShippingCostByUserLogin(String name);
     public BigDecimal getCartTaxCostByUserLogin(String name);    
     public BigDecimal getCartTotalByUserLogin(String name);
+    public Long getCartQuantityByUserLogin(String name);
     
     /*By Session Id:*/
     public List<Cart> getCartBySessionId(String sessionId);    
     public BigDecimal getCartItemCostBySessionId(String sessionId);
     public BigDecimal getCartShippingCostBySessionId(String sessionId);
     public BigDecimal getCartTaxCostBySessionId(String sessionId);    
-    public BigDecimal getCartTotalBySessionId(String sessionId);    
+    public BigDecimal getCartTotalBySessionId(String sessionId);
+    public Long getCartQuantityBySessionId(String sessionId);
      
 }

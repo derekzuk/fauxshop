@@ -177,94 +177,7 @@
                   <li class="active"><a href="payment">Payment</a></li>
                   <li><a href="#">Review Order</a></li>
               </ul>              
-              
-				<h3>Payment</h3>
-						<input type="radio" name="cardType" id="cardType" value="visa">Visa
-						<input type="radio" name="cardType" id="cardType" value="mastercard" style="margin-left: 3em">MasterCard
-						<br><br>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardNumber" id="cardNumber" placeholder="Credit Card Number (no spaces)"></td>
-							</tr>
-						</table>
-						<br>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Security Code: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardSecurityCode" id="cardSecurityCode" placeholder="Security Code (no spaces)"></td>
-							</tr>
-						</table>
-						<hr>
-																		
-<!-- 						<div class="row">
-							<div class="col-md-6 col-sm-6">
-								<div class="box"> -->
-								
-                <h3>Billing Address Information</h3>
-                <hr />
-                
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Address</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${addressValue}" placeholder="Address" id=address name=address>
-                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>                                  
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Address (Line 2)</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${address2Value}" placeholder="Address (Line 2)" id=address2 name=address2>
-                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">City</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${cityValue}" placeholder="City" id=city name=city><br>
-                  </div>
-                </div>
-                <br>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Country</label>
-                  <div class="col-sm-9">
-                    	<select class="form-control" id=country name=country>
-                    	<c:choose>
-                    		<c:when test="${null != countryValue}">
-								<option>${countryValue}
-							</c:when>   
-							<c:otherwise>                 
-                      			<option>United States</option>
-                      			<option>Canada</option>
-							</c:otherwise>  
-						</c:choose>                    
-                    	</select>     
-                    	<br>               
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">State</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${stateValue}" placeholder="State" id=state name=state><br>
-                  </div>
-                </div>
-                <br>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Zip Code</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${zipValue}" placeholder="#####" id=zip name=zip><br>
-                  </div>
-                </div>              
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Phone</label>
-                  <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${phoneNumberValue}" placeholder="(###)###-####" id=phoneNumber name=phoneNumber><br>
-                  </div>
-                </div>
-                
-                
+                                              
                 <!-- Shipping Address -->
                 <h3>Shipping Address Information</h3>
                 
@@ -343,9 +256,7 @@
                 </div>          
                 </div>  
 						<!-- break -->
-						
-<%-- 			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/> --%>												
+												
               <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -353,14 +264,12 @@
                             <h3>Message</h3>
                         </div>                                    
                         <div class="box-content">
-                            <!-- <form role="form"> -->
                                 <div class="form-group">
                                   <label for="message">If you would like to add a comment about your order, please write it below.</label>
                                   <textarea rows="3" name="message" id="message" class="form-control"></textarea>
                                 </div>
                         </div>
                     </div>
-                   <!-- <input type="submit" class="btn btn-primary" onclick="return confirm('Are you sure ?')" name="_eventId_proceedToCheckout" value="Confirm Order" /> -->
                    <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
                 </div>
               </div>

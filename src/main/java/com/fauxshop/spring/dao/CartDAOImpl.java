@@ -255,6 +255,19 @@ public class CartDAOImpl implements CartDAO {
         return cartSum;        
     }
     
+    /*@Override*/
+    public Long getCartQuantityByUserLogin(String name) {
+        Session session = this.sessionFactory.openSession();      
+        String hql = "SELECT SUM(quantity) FROM Cart WHERE accountId = ("
+        		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
+        Query query = session.createQuery(hql);
+        query.setParameter("userLogin", name);
+        Long cartQuantity = (Long) query.uniqueResult();
+      
+        session.close();
+        return cartQuantity;        
+    }    
+    
     
     /*@Override*/
     public BigDecimal getCartItemCostBySessionId(String sessionId) {
@@ -299,4 +312,16 @@ public class CartDAOImpl implements CartDAO {
         
         return cartSum;        
     }          
+    
+    /*@Override*/
+    public Long getCartQuantityBySessionId(String sessionId) {
+        Session session = this.sessionFactory.openSession();      
+        String hql = "SELECT SUM(quantity) FROM Cart WHERE sessionId = :sessionId";
+        Query query = session.createQuery(hql);
+        query.setParameter("sessionId", sessionId);
+        Long cartQuantity = (Long) query.uniqueResult();
+      
+        session.close();
+        return cartQuantity;        
+    }        
 }

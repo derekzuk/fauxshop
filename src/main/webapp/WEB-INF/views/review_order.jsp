@@ -186,31 +186,7 @@
 				
               		<!-- We pull the table from another view: -->
               		<jsp:include page="carttable.jsp"/>				
-							
-						<!-- Card info: -->	
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Credit Card Type: </strong></td>
-								<td><input type="text" class="form-control" name="cardType" id="cardType" value="${lastTransaction.getCardType()}" disabled/>
-								</td>
-							</tr>
-						</table>
-						<br>												
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Credit Card Number: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardNumber" id="cardNumber" value="${lastTransaction.getCardNumber()}" disabled></td>
-							</tr>
-						</table>
-						<br>
-						<table style="width: 100%">
-							<tr>
-								<td style="width: 20%"><strong>Security Code: </strong></td>
-								<td><input type="text" class="form-control"
-									name="cardSecurityCode" id="cardSecurityCode" value="${lastTransaction.getCardSecurityCode()}" disabled></td>
-							</tr>
-						</table>
+
 						<hr>				
 																		
 						<div class="row">
@@ -268,9 +244,16 @@
                         </div>
                     </div>
 
-                   <form method="post" action="${flowExecutionUrl}">	
-                   <input type="submit" class="btn btn-primary" name="_eventId_proceedToCheckout" value="Submit Order" />
-                   </form>     
+							<!-- stripe checkout button -->
+								<form action="${flowExecutionUrl}" method="POST">
+								<input type="hidden" name="_eventId_proceedToCheckout"/>
+									<script src="https://checkout.stripe.com/checkout.js"
+										class="stripe-button"
+										data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100}"
+										data-name="FauxShop" data-description="${cartService.getCartQuantityByUserLogin(currentUser.getPrincipal().getUsername())} items"
+										data-image="/128x128.png" data-locale="auto">										
+									</script>
+								</form>
                                 
                 </div>
               </div>
@@ -369,6 +352,38 @@
     <script src="<c:url value="/resources/js/masonry.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
+    
+	<!-- Stripe: -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    
+    <script>
+    Stripe.setPublishableKey('pk_test_kZTn53XkpSdxD32MAPgFkMzB');
+    
+    Stripe.card.createToken({
+    	  number: $('.card-number').val(),
+    	  cvc: $('.card-cvc').val(),
+    	  exp_month: $('.cc-exp').val(),
+    	  exp_year: $('.cc-csc').val()
+    	}, stripeResponseHandler);
+    
+    function stripeResponseHandler(status, response) {
+    	  var $form = $('#checkoutView');
+
+    	  if (response.error) {
+    	    // Show the errors on the form
+    	    $form.find('.payment-errors').text(response.error.message);
+    	    $form.find('button').prop('disabled', false);
+    	  } else {
+    	    // response contains id and card, which contains additional card details
+    	    var token = response.id;
+    	    // Insert the token into the form so it gets submitted to the server
+    	    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+    	    // and submit
+    	    $form.get(0).submit();
+    	  }
+    	}    
+    
+    </script>
 
   </body>
 </html>

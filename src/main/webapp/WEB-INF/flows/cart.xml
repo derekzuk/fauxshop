@@ -5,6 +5,7 @@
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 	
 	<var name="transactionLogValues" class="com.fauxshop.spring.model.TransactionLog"/>
+	<var name="stripe" class="com.fauxshop.spring.swf.Stripe"/>
 	
 	<on-start>
 		<evaluate expression="externalContext.nativeRequest.session.id" result="flowScope.currentSession"/>
@@ -75,12 +76,14 @@
 	
 	<view-state id="review_order" view="review_order">
 		<on-render>							
+			<!-- <evaluate expression="externalContext.nativeRequest.session" result="flowScope.currentSession"/> -->
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<set name="requestScope.transactionService" value="transactionService"/>
+			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />
 			<evaluate expression="transactionService.getLastTransactionByAccountId(account.getAccountId())" result="flowScope.lastTransaction" />							
 		</on-render>	
@@ -88,20 +91,24 @@
 	</view-state>	
 	
 	<view-state id="reviewOrderSessionId" view="reviewOrderSessionId">
-		<on-render>							
+		<on-render>						
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<set name="requestScope.transactionService" value="transactionService"/>
-			<!-- <evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" /> -->
+			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 			<evaluate expression="transactionService.getLastTransactionBySessionId(currentSession)" result="flowScope.lastTransaction" />							
 		</on-render>	
 		<transition on="proceedToCheckout" to="removeCartSessionId"/>
 	</view-state>			
 	
 	<action-state id="removeCart">
+	<on-entry>
+	<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
+	</on-entry>
+		<evaluate expression="stripe.processStripePayment((cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100), stripeToken)" />
 		<evaluate expression="transactionService.setTransactionToConfirmed(transactionService.getLastTransactionByAccountId(accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getAccountId()).getTrackingNumber())" />
 		<evaluate expression="cartService.removeCartFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()))">
 			<attribute name="removeCartExpression" value="last" />
@@ -110,6 +117,10 @@
 	</action-state>	
 	
 	<action-state id="removeCartSessionId">
+	<on-entry>
+	<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
+	</on-entry>	
+		<evaluate expression="stripe.processStripePayment((cartService.getCartTotalBySessionId(currentSession) * 100), stripeToken)" />
 		<evaluate expression="transactionService.setTransactionToConfirmed(transactionService.getLastTransactionBySessionId(currentSession).getTrackingNumber())" />
 		<evaluate expression="cartService.removeCartFromCartList(cartService.getCartBySessionId(currentSession))">
 			<attribute name="removeCartExpression" value="last" />
