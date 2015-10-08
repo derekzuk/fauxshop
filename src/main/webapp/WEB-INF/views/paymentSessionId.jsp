@@ -180,17 +180,15 @@
                                               
                 <!-- Shipping Address -->
                 <h3>Shipping Address Information</h3>
-                
-				<div class="checkbox">
-					<label>
-                        <input type="checkbox" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox" checked/>
-                          Shipping address is the same as billing address                	
-                          <br>
-                          <br>
-                	</label>
-                </div>
-                   
-                <div id="shippingInfo" style="display:none;">     
+                <input type="hidden" value="${currentSession}" name="sessionId" id="sessionId"/>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Email</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${email}" placeholder="Email address" id=email name=email>
+                    	<span class="help-block">The email address you would like a confirmation email delivered to. This is the email address we will use to contact you if there are any issues with your order.</span>
+                  </div>
+                </div> 
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Name</label>
                   <div class="col-sm-9">
@@ -259,26 +257,15 @@
 												
               <div class="row">
                 <div class="col-md-12">
-                    <div class="box">
-                        <div class="box-head">
-                            <h3>Message</h3>
-                        </div>                                    
-                        <div class="box-content">
-                                <div class="form-group">
-                                  <label for="message">If you would like to add a comment about your order, please write it below.</label>
-                                  <textarea rows="3" name="message" id="message" class="form-control"></textarea>
-                                </div>
-                        </div>
-                    </div>
+
                    <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
                 </div>
-              </div>
-              
+              </div>              
             </div>
           </div>
+          </form>
         </div>
         <!-- end:content -->
-		</form>
       </div>
       <!-- end:article -->
       
@@ -357,7 +344,6 @@
       </div>
       <!-- end:copyright -->
 
-    </div>
     <!-- end:content -->
 
 
@@ -370,19 +356,5 @@
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
 
-    <script>
-    var checkbox = document.getElementById('shippingAddressCheckbox');
-    var shipping_div = document.getElementById('shippingInfo');
-    var showHiddenDiv = function(){
-       if(!checkbox.checked) {
-    	   shipping_div.style['display'] = 'block';
-       } else {
-    	   shipping_div.style['display'] = 'none';
-       } 
-    }
-    checkbox.onclick = showHiddenDiv;
-    showHiddenDiv();
-    </script>
-    
   </body>
 </html>

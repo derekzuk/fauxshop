@@ -4,14 +4,17 @@ import java.util.List;
  
 
 
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.fauxshop.spring.model.Account;
+import com.fauxshop.spring.model.SessionAccount;
  
 public interface AccountService {
     
 	public void saveAccount(Account a);
     public void addAccount(Account a);
+    public void addSessionAccount(SessionAccount sa);
     public void updateAccount(Account a);
     public List<Account> listAccounts();
     public Account getAccountById(int id);

@@ -19,44 +19,21 @@ import javax.persistence.Table;
 public class SessionAccount implements Serializable {
 	
 	private static final long serialVersionUID = 6182390898687671093L;
-	 
+	
     @Id
+    @Column(name="SESSION_ACCOUNT_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int sessionAccountId;
+	 
     @Column(name="SESSION_ID")
     private String sessionId;
      
     @Column(name="EMAIL")
     private String email;
         
-    @Column(name="FIRST_NAME")
-    private String firstName;
-    
-    @Column(name="LAST_NAME")
-    private String lastName;
-    
-    @Column(name="CITY")
-    private String city;
-    
-    @Column(name="STATE")
-    private String state;
-    
-    @Column(name="ZIP")
-    private String zip;
-    
-    @Column(name="PHONE_NUMBER")
-    private String phoneNumber;
-    
-    @Column(name="COUNTRY")
-    private String country;
-    
-    @Column(name="ADDRESS")
-    private String address;
-    
-    @Column(name="ADDRESS2")
-    private String address2;
-    
     @Column(name="SHIP_NAME")
     private String shipName;
-    
+
     @Column(name="SHIP_CITY")
     private String shipCity;
     
@@ -76,7 +53,15 @@ public class SessionAccount implements Serializable {
     private String shipAddress;
     
     @Column(name="SHIP_ADDRESS2")
-    private String shipAddress2;        
+    private String shipAddress2;  
+    
+    public int getSessionAccountId() {
+        return sessionAccountId;
+    }
+ 
+    public void setSessionAccountId(int sessionAccountId) {
+        this.sessionAccountId = sessionAccountId;
+    }    
     
     public String getSessionId() {
         return sessionId;
@@ -92,79 +77,7 @@ public class SessionAccount implements Serializable {
  
     public void setEmail(String email) {
         this.email = email;
-    }
-        
-    public String getFirstName() {
-    	return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-    	this.firstName = firstName;
-    }
-    
-    public String getLastName() {
-    	return lastName;
-    }
-    
-    public void setLastName(String lastName) {
-    	this.lastName = lastName;
-    }
-    
-    public String getCity() {
-    	return city;
-    }
-    
-    public void setCity(String city) {
-    	this.city = city;
-    }
-    
-    public String getState() {
-    	return state;
-    }
-    
-    public void setState(String state) {
-    	this.state = state;
-    }    
-
-    public String getZip() {
-    	return zip;
-    }
-    
-    public void setZip(String zip) {
-    	this.zip = zip;
-    }    
-    
-    public String getPhoneNumber() {
-    	return phoneNumber;
-    }
-    
-    public void setPhoneNumber(String phoneNumber) {
-    	this.phoneNumber = phoneNumber;
-    }    
-    
-    public String getCountry() {
-    	return country;
-    }
-    
-    public void setCountry(String country) {
-    	this.country = country;
-    }    
-    
-    public String getAddress() {
-    	return address;
-    }
-    
-    public void setAddress(String address) {
-    	this.address = address;
-    } 
-
-    public String getAddress2() {
-    	return address2;
-    }
-    
-    public void setAddress2(String address2) {
-    	this.address2 = address2;
-    }    
+    }        
     
     public String getShipName() {
     	return shipName;
@@ -233,17 +146,9 @@ public class SessionAccount implements Serializable {
     
     @Override
     public String toString(){
-        return "sessionId="+sessionId+
+        return "sessionAccountId="+sessionAccountId+
+        		"sessionId="+sessionId+
         		", email="+email+
-        		", firstName="+firstName+
-        		", lastName="+lastName+
-        		", city="+city+
-        		", state="+state+
-        		", zip="+zip+
-        		", phoneNumber="+phoneNumber+
-        		", country="+country+
-        		", address="+address+
-        		", address2="+address2+
         		", shipName="+shipName+
         		", shipCity="+shipCity+
         		", shipState="+shipState+

@@ -95,7 +95,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
     
     /*@Override*/
-    public void createTransaction(int cartId, String sessionId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode){
+    public void createTransaction(int cartId, String sessionId, long trackingNumber){
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
@@ -190,10 +190,6 @@ public class TransactionDAOImpl implements TransactionDAO {
         transactionLog.setTrackingNumber(trackingNumber);
         transactionLog.setInventoryDetailId(inventoryDetailId);
         transactionLog.setOrderCost(orderCost);            	   
-        transactionLog.setMessage(message);
-        transactionLog.setCardType(cardType);
-        transactionLog.setCardNumber(cardNumber);
-        transactionLog.setCardSecurityCode(cardSecurityCode);
         
         session.save(transactionLog);
         tx.commit();
@@ -201,13 +197,13 @@ public class TransactionDAOImpl implements TransactionDAO {
     }   
     
     /*@Override*/
-    public void createTransactionsFromCartList(List<Cart> cartList, String sessionId, String message, String cardType, int cardNumber, int cardSecurityCode){
+    public void createTransactionsFromCartList(List<Cart> cartList, String sessionId){
 /*    	Random randomGenerator = new Random();
     	int trackingNumber = randomGenerator.nextInt(1000000000);*/
     	long trackingNumber = (long) Math.floor(Math.random() * 9000000000L) + 1000000000L;
     	for (Cart cartRow : cartList) {
     		/*We assign a random number for the tracking number to each TransactionLog record we created:*/
-    		createTransaction(cartRow.getCartId(),sessionId,trackingNumber,message,cardType,cardNumber,cardSecurityCode);
+    		createTransaction(cartRow.getCartId(),sessionId,trackingNumber);
     	}     	    	
     }     
         
@@ -239,5 +235,15 @@ public class TransactionDAOImpl implements TransactionDAO {
     	query.executeUpdate();
     	session.close();   
     }
+    
+    /*    @Override*/
+    public void updateMessage(TransactionLog transaction, String message) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        transaction.setMessage(message);
+        session.saveOrUpdate(transaction);
+        tx.commit();
+        session.close();
+    }    
     
 }

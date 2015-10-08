@@ -229,18 +229,6 @@
 												
               <div class="row">
                 <div class="col-md-12">
-                    <div class="box">
-                        <div class="box-head">
-                            <h3>Message</h3>
-                        </div>                                    
-                        <div class="box-content">
-                            <!-- <form role="form"> -->
-                                <div class="form-group">
-                                  <label for="message">If you would like to add a comment about your order, please write it below.</label>
-                                  <textarea rows="3" name="message" id="message" class="form-control"></textarea>
-                                </div>
-                        </div>
-                    </div>
         
                    <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
                 </div>

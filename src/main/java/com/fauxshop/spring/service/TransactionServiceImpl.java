@@ -6,9 +6,11 @@ import java.util.List;
 
 
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 
 
@@ -58,14 +60,14 @@ public class TransactionServiceImpl implements TransactionService {
 
 	/*@Override*/
 	@Transactional
-	public void createTransaction(int cartId, String sessionId, long trackingNumber, String message, String cardType, int cardNumber, int cardSecurityCode) {
-		this.transactionDAO.createTransaction(cartId, sessionId, trackingNumber, message, cardType, cardNumber, cardSecurityCode);
+	public void createTransaction(int cartId, String sessionId, long trackingNumber) {
+		this.transactionDAO.createTransaction(cartId, sessionId, trackingNumber);
 	}    	
 	
 	/*@Override*/
 	@Transactional
-	public void createTransactionsFromCartList(List<Cart> cartList, String sessionId, String message, String cardType, int cardNumber, int cardSecurityCode) {
-		this.transactionDAO.createTransactionsFromCartList(cartList, sessionId, message, cardType, cardNumber, cardSecurityCode);
+	public void createTransactionsFromCartList(List<Cart> cartList, String sessionId) {
+		this.transactionDAO.createTransactionsFromCartList(cartList, sessionId);
 	} 	
 	
 	public TransactionLog getLastTransactionByAccountId(int accountId) {
@@ -78,6 +80,10 @@ public class TransactionServiceImpl implements TransactionService {
 	
     public void setTransactionToConfirmed(long trackingNumber) {
     	this.transactionDAO.setTransactionToConfirmed(trackingNumber);
+    }
+    
+    public void updateMessage(TransactionLog transaction, String message) {
+    	this.transactionDAO.updateMessage(transaction, message);
     }
     	
 }

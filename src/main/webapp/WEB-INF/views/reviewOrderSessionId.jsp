@@ -154,6 +154,9 @@
         </div>
         <!-- end:sidebar -->
 
+								<form action="${flowExecutionUrl}" method="POST">
+								<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>								
+								<input type="hidden" name="_eventId_proceedToCheckout"/>
         <!-- begin:content -->           
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
@@ -232,28 +235,25 @@
                         <div class="box-content">
                             <!-- <form role="form"> -->
                                 <div class="form-group">
-                                  <textarea disabled rows="3" name="message" id="message" class="form-control">${lastTransaction.getMessage()}</textarea>
+                                  <textarea rows="3" name="message" id="message" class="form-control" placeholder="Please use this textbox if you have any comments or special requests to go with your order."></textarea>
                             </div>
                         </div>
                     </div>                    
 								
 							<!-- stripe checkout button -->
-								<form action="${flowExecutionUrl}" method="POST">
-								<input type="hidden" name="_eventId_proceedToCheckout"/>
 									<script src="https://checkout.stripe.com/checkout.js"
 										class="stripe-button"
-										data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100}"
-										data-name="FauxShop" data-description="${cartService.getCartQuantityByUserLogin(currentUser.getPrincipal().getUsername())} items"
+										data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalBySessionId(currentSession) * 100}"
+										data-name="FauxShop" data-description="${cartService.getCartQuantityBySessionId(currentSession)} items"
 										data-image="/128x128.png" data-locale="auto">										
-									</script>
-								</form>								              
+									</script>						              
                                 
                 </div>
               </div>
-
             </div>
           </div>
         </div>
+        </form>
         <!-- end:content -->
       </div>
       <!-- end:article -->

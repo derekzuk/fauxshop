@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,8 +26,10 @@ import org.springframework.stereotype.Repository;
 
 
 
+
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.Roles;
+import com.fauxshop.spring.model.SessionAccount;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -89,6 +92,15 @@ public class AccountDAOImpl implements AccountDAO {
 		logger.info("Account saved successfully, Account Details="+a);
 	}   
 
+	/*@Override*/
+	public void addSessionAccount(SessionAccount sa) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.persist(sa);  
+		tx.commit();
+		session.close();
+	}   	
+	
 	/*@Override*/
 	public void updateAccount(Account a) {
 		Session session = this.sessionFactory.getCurrentSession();

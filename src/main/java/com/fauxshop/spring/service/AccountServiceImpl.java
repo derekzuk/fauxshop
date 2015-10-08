@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
 import com.fauxshop.spring.dao.AccountDAO;
 import com.fauxshop.spring.model.Account;
+import com.fauxshop.spring.model.SessionAccount;
  
 @Service
 public class AccountServiceImpl implements AccountService {	
@@ -37,6 +40,12 @@ public class AccountServiceImpl implements AccountService {
     public void addAccount(Account a) {
         this.accountDAO.addAccount(a);
     }     
+    
+    /*@Override*/
+    @Transactional
+    public void addSessionAccount(SessionAccount sa) {
+        this.accountDAO.addSessionAccount(sa);
+    }         
  
     /*@Override*/
     @Transactional

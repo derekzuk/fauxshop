@@ -5,6 +5,7 @@
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 	
 	<var name="transactionLogValues" class="com.fauxshop.spring.model.TransactionLog"/>
+	<var name="sessionAccountValues" class="com.fauxshop.spring.model.SessionAccount"/>	
 	<var name="stripe" class="com.fauxshop.spring.swf.Stripe"/>
 	
 	<on-start>
@@ -51,7 +52,7 @@
 		<transition on="next" to="createTransaction"/>
 	</view-state>	
 	
-	<view-state id="paymentSessionId" view="paymentSessionId" model="transactionLogValues">
+	<view-state id="paymentSessionId" view="paymentSessionId" model="sessionAccountValues">
 		<on-render>
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
@@ -59,22 +60,24 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>			
 		</on-render>	
-		<transition on="next" to="createTransactionFromSessionId"/>
+		<transition on="next" to="createTransactionFromSessionId">
+			<evaluate expression="accountService.addSessionAccount(sessionAccountValues)"/>
+		</transition>
 	</view-state>		
 	
 	<!-- The createTransactionsFromCartList method will create transactions for the row in the user's cart. -->
 	<action-state id="createTransaction">
-		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()),currentSession,transactionLogValues.message,transactionLogValues.cardType,transactionLogValues.cardNumber,transactionLogValues.cardSecurityCode)"/>
+		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()),currentSession)"/>
         <transition to="review_order" />			
 	</action-state>	
 	
 	<!-- If the user is not logged in, we create the transaction using their Session Id. -->
 	<action-state id="createTransactionFromSessionId">
-		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartBySessionId(currentSession),currentSession,transactionLogValues.message,transactionLogValues.cardType,transactionLogValues.cardNumber,transactionLogValues.cardSecurityCode)"/>
+		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartBySessionId(currentSession),currentSession)"/>
         <transition to="reviewOrderSessionId" />			
 	</action-state>		
 	
-	<view-state id="review_order" view="review_order">
+	<view-state id="review_order" view="review_order" model="transactionLogValues">
 		<on-render>							
 			<!-- <evaluate expression="externalContext.nativeRequest.session" result="flowScope.currentSession"/> -->
 			<set name="requestScope.accountService" value="accountService"/>
@@ -83,14 +86,17 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<set name="requestScope.transactionService" value="transactionService"/>
+			<set name="requestScope.message" value="accountCredentials.message"/>
 			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />
 			<evaluate expression="transactionService.getLastTransactionByAccountId(account.getAccountId())" result="flowScope.lastTransaction" />							
 		</on-render>	
-		<transition on="proceedToCheckout" to="removeCart"/>
+		<transition on="proceedToCheckout" to="removeCart">
+			<evaluate expression="transactionService.updateMessage(lastTransaction, transactionLogValues.message)"/>		
+		</transition>		
 	</view-state>	
 	
-	<view-state id="reviewOrderSessionId" view="reviewOrderSessionId">
+	<view-state id="reviewOrderSessionId" view="reviewOrderSessionId" model="transactionLogValues">
 		<on-render>						
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
@@ -98,10 +104,13 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<set name="requestScope.transactionService" value="transactionService"/>
+			<set name="requestScope.message" value="transactionLogValues.message"/>
 			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 			<evaluate expression="transactionService.getLastTransactionBySessionId(currentSession)" result="flowScope.lastTransaction" />							
 		</on-render>	
-		<transition on="proceedToCheckout" to="removeCartSessionId"/>
+		<transition on="proceedToCheckout" to="removeCartSessionId">
+			<evaluate expression="transactionService.updateMessage(lastTransaction, transactionLogValues.message)"/>		
+		</transition>	
 	</view-state>			
 	
 	<action-state id="removeCart">
