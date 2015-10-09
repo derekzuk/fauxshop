@@ -21,4 +21,6 @@ public interface AccountDAO {
     public void removeAccount(int id);
     public void createUserRole(String name);
     public boolean isUserLoginUnique(String name);
+    public boolean isSessionAccountAlreadyRegistered(String sessionId);
+    public SessionAccount getSessionAccountBySessionId(String sessionId);
 }

@@ -368,7 +368,7 @@ public class PersonController {
     		this.cartService.save(newCartRecord);
     		}
     	} else {
-    		/*The user is not logged in. In this case, we populate the ACCOUNT_ID column in the CART table with their session id.*/
+    		/*The user is not logged in. In this case, we populate the SESSION_ID column in the CART table with their session id.*/
     		String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
     		
     		List<Cart> userCartList = this.cartService.getCartBySessionId(sessionId);    

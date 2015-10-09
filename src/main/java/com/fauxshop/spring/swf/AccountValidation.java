@@ -208,4 +208,115 @@ public class AccountValidation implements Serializable {
 		
 		return new EventFactorySupport().success(this);	
 	}			
+	
+	public Event validateSessionAccountValues(String email,		
+			String shipName,
+			String shipCity,
+			String shipState,
+			String shipZip,
+			String shipPhone,
+			String shipCountry,
+			String shipAddress,
+			String shipAddress2,	
+			MessageContext messageContext) {
+
+		/*email:*/
+		try {
+			InternetAddress emailAddr = new InternetAddress(email);
+			emailAddr.validate();
+		} catch (AddressException ex) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("email_format");      
+			messageContext.addMessage(errorMessageBuilder.build());		 		
+		}
+		
+		/*firstName:*/
+		String check_shipName = "^[a-zA-Z\\s]{1,99}";
+		if (!shipName.matches(check_shipName)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("shipName_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*city:*/
+		String check_city = "^[a-zA-Z-\\s]{1,99}";
+		if (!shipCity.matches(check_city)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("city_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*state:*/
+		String check_state = "[a-zA-Z]{2}$";
+		if (!shipState.matches(check_state)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("state_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*state:*/
+		String check_zip = "[0-9-]{5,11}";
+		if (!shipZip.matches(check_zip)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("zip_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}			
+	    
+		/*phoneNumber:*/
+	    //validate phone numbers of format "1234567890"
+	    if (shipPhone.matches("\\d{10}")){
+	    //validating phone number with -, . or spaces
+	    } else if (shipPhone.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) {
+	    //validating phone number with extension length from 3 to 5
+	    } else if (shipPhone.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {
+	    //validating phone number where area code is in braces ()
+	    } else if (shipPhone.matches("\\(\\d{3}\\)-\\s\\d{3}-\\d{4}")) {
+	    //return false if nothing matches the input
+	    } else {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("phoneNumber_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		
+	    }
+		
+		/*country:*/
+		String check_country = "^[a-zA-Z\\s]*${2,99}";
+		if (!shipCountry.matches(check_country)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("country_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}		
+		
+		/*address:*/
+		String check_address = "[a-zA-Z0-9.!@#$%&*\\s-]{1,99}";
+		if (!shipAddress.matches(check_address)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("address_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}	
+		
+		/*address2:*/
+		String check_address2 = "[a-zA-Z0-9.!@#$%&*\\s-]{0,99}";
+		if (!shipAddress2.matches(check_address2)) {
+			MessageBuilder errorMessageBuilder = new MessageBuilder().error();
+			errorMessageBuilder.source("account");
+			errorMessageBuilder.code("address2_error");      
+			messageContext.addMessage(errorMessageBuilder.build());		 			
+		}						
+
+		// We return all of the error messages to be displayed on the view.
+		if (messageContext.hasErrorMessages()){
+			return new EventFactorySupport().error(this);	
+		}
+		
+		return new EventFactorySupport().success(this);	
+	}			
+	
 }

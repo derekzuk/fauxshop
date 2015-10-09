@@ -154,9 +154,10 @@
         </div>
         <!-- end:sidebar -->
 
-								<form action="${flowExecutionUrl}" method="POST">
-								<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>								
-								<input type="hidden" name="_eventId_proceedToCheckout"/>
+	<form action="${flowExecutionUrl}" method="POST">
+	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>								
+	<input type="hidden" name="_eventId_proceedToCheckout"/>
+	
         <!-- begin:content -->           
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
@@ -186,25 +187,6 @@
 						<hr>				
 																		
 						<div class="row">
-							<div class="col-md-6 col-sm-6">
-								<div class="box">
-									<div class="box-head">
-										<h3>Billing Address</h3>
-									</div>
-									<div class="box-content">
-										<address>
-											<strong>${account.getFirstName()}
-											${account.getLastName()}</strong><br>
-											${account.getAddress()}<br>
-											${account.getAddress2()}<br>
-											${account.getCity()}, ${account.getState()} ${account.getZip()}<br>
-											${account.getCountry()}<br>
-											<abbr title="Phone">Phone :</abbr>
-											${account.getPhoneNumber()}
-										</address>
-									</div>
-								</div>
-							</div>
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
 									<div class="box-head">

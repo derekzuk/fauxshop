@@ -29,7 +29,7 @@
 	</logger>
 
 	<logger name="org.hibernate">
-		<level value="all" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.beans">

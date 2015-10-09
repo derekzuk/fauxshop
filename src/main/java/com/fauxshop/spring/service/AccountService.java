@@ -22,5 +22,7 @@ public interface AccountService {
     public void removeAccount(int id);     
     public boolean createUserRole(String name);
     public boolean isUserLoginUnique(String name);
+    public boolean isSessionAccountAlreadyRegistered(String sessionId);
     public boolean isUserLoggedIn(UsernamePasswordAuthenticationToken name);
+    public SessionAccount getSessionAccountBySessionId(String sessionId);
 }

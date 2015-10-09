@@ -62,13 +62,26 @@ public class TransactionServiceImpl implements TransactionService {
 	@Transactional
 	public void createTransaction(int cartId, String sessionId, long trackingNumber) {
 		this.transactionDAO.createTransaction(cartId, sessionId, trackingNumber);
-	}    	
+	}
+	
+	/*@Override*/
+	@Transactional
+	public void createTransactionFromSessionId(int cartId, String sessionId, long trackingNumber) {
+		this.transactionDAO.createTransactionFromSessionId(cartId, sessionId, trackingNumber);
+	}    		
 	
 	/*@Override*/
 	@Transactional
 	public void createTransactionsFromCartList(List<Cart> cartList, String sessionId) {
 		this.transactionDAO.createTransactionsFromCartList(cartList, sessionId);
 	} 	
+	
+	/*@Override*/
+	@Transactional
+	public boolean createTransactionsFromSessionCartList(List<Cart> cartList, String sessionId) {
+		this.transactionDAO.createTransactionsFromSessionCartList(cartList, sessionId);
+		return true;
+	} 		
 	
 	public TransactionLog getLastTransactionByAccountId(int accountId) {
 		return this.transactionDAO.getLastTransactionByAccountId(accountId);

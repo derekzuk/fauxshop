@@ -11,6 +11,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,6 +19,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
 
 
 
@@ -172,6 +174,28 @@ public class AccountDAOImpl implements AccountDAO {
 
 		return (null == result);
 	}
+	
+	public boolean isSessionAccountAlreadyRegistered(String sessionId) {
+		Session session = this.sessionFactory.openSession();      
+		String hql = "FROM SessionAccount WHERE sessionId = :sessionId";
+		Query query = session.createQuery(hql);
+		query.setParameter("sessionId", sessionId);
+		Account result = (Account) query.uniqueResult();
+		session.close();
 
+		return (null == result);		
+	}
+
+	/*@Override*/
+	public SessionAccount getSessionAccountBySessionId(String sessionId) {
+		Session session = this.sessionFactory.openSession();      
+		String hql = "FROM SessionAccount WHERE sessionId = :sessionId";
+		Query query = session.createQuery(hql);
+		query.setParameter("sessionId", sessionId);
+		SessionAccount result = (SessionAccount) query.uniqueResult();
+		session.close();
+		
+		return result;
+	}    	
 
 }

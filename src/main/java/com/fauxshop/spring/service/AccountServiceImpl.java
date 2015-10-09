@@ -7,10 +7,12 @@ import java.util.List;
 
 
 
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
+
 
 
 
@@ -86,9 +88,16 @@ public class AccountServiceImpl implements AccountService {
     	return this.accountDAO.isUserLoginUnique(name);
     }
     
+    public boolean isSessionAccountAlreadyRegistered(String sessionId) {
+    	return this.accountDAO.isSessionAccountAlreadyRegistered(sessionId);
+    }
+    
     public boolean isUserLoggedIn(UsernamePasswordAuthenticationToken name) {
     	return (null != name);
     }
     
- 
+    public SessionAccount getSessionAccountBySessionId(String sessionId) {
+    	return this.accountDAO.getSessionAccountBySessionId(sessionId);
+    }
+     
 }

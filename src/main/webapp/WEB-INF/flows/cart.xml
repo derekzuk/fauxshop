@@ -6,6 +6,7 @@
 	
 	<var name="transactionLogValues" class="com.fauxshop.spring.model.TransactionLog"/>
 	<var name="sessionAccountValues" class="com.fauxshop.spring.model.SessionAccount"/>	
+	<var name="accountValidation" class="com.fauxshop.spring.swf.AccountValidation"/>
 	<var name="stripe" class="com.fauxshop.spring.swf.Stripe"/>
 	
 	<on-start>
@@ -58,10 +59,28 @@
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
-			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>			
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<set name="requestScope.email" value="sessionAccountValues.email"/>
+			<set name="requestScope.shipNameValue" value="sessionAccountValues.shipName"/>
+			<set name="requestScope.shipCityValue" value="sessionAccountValues.shipCity"/>
+			<set name="requestScope.shipStateValue" value="sessionAccountValues.shipState"/>
+			<set name="requestScope.shipZipValue" value="sessionAccountValues.shipZip"/>
+			<set name="requestScope.shipPhoneValue" value="sessionAccountValues.shipPhone"/>
+			<set name="requestScope.shipCountryValue" value="sessionAccountValues.shipCountry"/>
+			<set name="requestScope.shipAddressValue" value="sessionAccountValues.shipAddress"/>
+			<set name="requestScope.shipAddress2Value" value="sessionAccountValues.shipAddress2"/>			
 		</on-render>	
 		<transition on="next" to="createTransactionFromSessionId">
-			<evaluate expression="accountService.addSessionAccount(sessionAccountValues)"/>
+			<evaluate expression="accountValidation.validateSessionAccountValues(sessionAccountValues.email, 
+			sessionAccountValues.shipName, 
+			sessionAccountValues.shipCity, 
+			sessionAccountValues.shipState, 
+			sessionAccountValues.shipZip, 
+			sessionAccountValues.shipPhone, 
+			sessionAccountValues.shipCountry, 
+			sessionAccountValues.shipAddress, 
+			sessionAccountValues.shipAddress2, 
+			messageContext)"/>					
 		</transition>
 	</view-state>		
 	
@@ -73,13 +92,15 @@
 	
 	<!-- If the user is not logged in, we create the transaction using their Session Id. -->
 	<action-state id="createTransactionFromSessionId">
-		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartBySessionId(currentSession),currentSession)"/>
-        <transition to="reviewOrderSessionId" />			
+		<evaluate expression="accountService.addSessionAccount(sessionAccountValues)"/>			
+		<evaluate expression="transactionService.createTransactionsFromSessionCartList(cartService.getCartBySessionId(currentSession),currentSession)">
+			<attribute name="createTransactionsFromSessionCart" value="last" />
+		</evaluate>		
+        <transition on="yes" to="reviewOrderSessionId" />			
 	</action-state>		
 	
 	<view-state id="review_order" view="review_order" model="transactionLogValues">
 		<on-render>							
-			<!-- <evaluate expression="externalContext.nativeRequest.session" result="flowScope.currentSession"/> -->
 			<set name="requestScope.accountService" value="accountService"/>
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.currentUser" value="currentUser"/>
@@ -106,6 +127,7 @@
 			<set name="requestScope.transactionService" value="transactionService"/>
 			<set name="requestScope.message" value="transactionLogValues.message"/>
 			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
+			<evaluate expression="accountService.getSessionAccountBySessionId(currentSession)" result="flowScope.account" />
 			<evaluate expression="transactionService.getLastTransactionBySessionId(currentSession)" result="flowScope.lastTransaction" />							
 		</on-render>	
 		<transition on="proceedToCheckout" to="removeCartSessionId">

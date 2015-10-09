@@ -152,7 +152,7 @@
             </div>
           </div>
         </div>
-        <!-- end:sidebar -->
+        <!-- end:sidebar -->                
 
         <!-- begin:content -->
 			<form method="post" action="${flowExecutionUrl}">
@@ -167,6 +167,17 @@
                 </ol>
             </div>
           </div>
+          
+				<!-- Display error messages -->
+						<c:forEach var="message"
+							items="${flowRequestContext.messageContext.getMessagesBySource('account')}">
+							<c:if test="${message.severity eq 'ERROR'}">
+								<br>
+								<span class="info"><font color="red">${message.text}</font></span>
+								<br>
+							</c:if>
+						</c:forEach>            
+          
           <div class="row">
             <div class="col-md-12">
               <ul class="nav nav-tabs">
@@ -249,7 +260,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Phone</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${shipPhoneNumberValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone><br><br>
+                    	<input type="text" class="form-control" value="${shipPhoneValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone><br><br>
                   </div>
                 </div>          
                 </div>  
