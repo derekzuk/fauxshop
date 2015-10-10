@@ -88,16 +88,7 @@ public class TransactionLog implements Serializable {
     private BigDecimal orderCost;    
     
     @Column(name="MESSAGE")
-    private String message;    
-    
-    @Column(name="CARD_TYPE")
-    private String cardType;   
-    
-    @Column(name="CARD_NUMBER")
-    private int cardNumber;
-    
-    @Column(name="CARD_SECURITY_CODE")
-    private int cardSecurityCode;        
+    private String message;       
     
     @Column(name="CONFIRMED")
     private boolean confirmed;        
@@ -277,31 +268,7 @@ public class TransactionLog implements Serializable {
     
     public void setMessage(String message) {
     	this.message = message;
-    }   
-    
-    public String getCardType() {
-    	return cardType;
-    }
-    
-    public void setCardType(String cardType) {
-    	this.cardType = cardType;
-    }
-    
-    public int getCardNumber() {
-    	return cardNumber;
-    }
-    
-    public void setCardNumber(int cardNumber) {
-    	this.cardNumber = cardNumber;
-    }               
-    
-    public int getCardSecurityCode() {
-    	return cardSecurityCode;
-    }
-    
-    public void setCardSecurityCode(int cardSecurityCode) {
-    	this.cardSecurityCode = cardSecurityCode;
-    }         
+    }       
     
     public boolean getConfirmed() {
     	return confirmed;

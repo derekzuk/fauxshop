@@ -161,9 +161,6 @@
         </div>
         <!-- end:sidebar -->
 
-								<form action="${flowExecutionUrl}" method="POST">
-								<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>		
-								<input type="hidden" name="_eventId_proceedToCheckout"/>
         <!-- begin:content -->           
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
@@ -232,7 +229,10 @@
 							</div>
 						</div>
 						<!-- break -->
-				
+						
+	<form action="${flowExecutionUrl}" method="POST">
+	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>		
+	<input type="hidden" name="_eventId_proceedToCheckout"/>				
               <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -257,11 +257,10 @@
                                 
                 </div>
               </div>
-
+			</form>	
             </div>
-          </div>
+          </div>          
         </div>        
-		</form>
         <!-- end:content -->
       </div>
       <!-- end:article -->
