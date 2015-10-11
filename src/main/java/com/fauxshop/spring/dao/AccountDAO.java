@@ -10,7 +10,8 @@ import com.fauxshop.spring.model.SessionAccount;
  
 public interface AccountDAO {
  
-    public void saveAccount(Account a);    
+    public void saveAccount(Account a);
+    public void saveSessionAccount(SessionAccount sa);  
     public List<Account> list();
     public void addAccount(Account a);
     public void addSessionAccount(SessionAccount sa);

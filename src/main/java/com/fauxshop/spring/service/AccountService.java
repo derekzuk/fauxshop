@@ -13,6 +13,7 @@ import com.fauxshop.spring.model.SessionAccount;
 public interface AccountService {
     
 	public void saveAccount(Account a);
+	public void saveSessionAccount(SessionAccount sa);
     public void addAccount(Account a);
     public void addSessionAccount(SessionAccount sa);
     public void updateAccount(Account a);

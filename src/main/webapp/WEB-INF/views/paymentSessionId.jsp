@@ -156,7 +156,7 @@
 
         <!-- begin:content -->
 			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>        
+            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>         
         
         <div class="col-md-9 col-sm-8 content">
           <div class="row">

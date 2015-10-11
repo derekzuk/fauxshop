@@ -36,6 +36,12 @@ public class AccountServiceImpl implements AccountService {
     public void saveAccount(Account a) {
         this.accountDAO.saveAccount(a);
     }     
+    
+    /*@Override*/
+    @Transactional
+    public void saveSessionAccount(SessionAccount sa) {
+        this.accountDAO.saveSessionAccount(sa);
+    }  
  
     /*@Override*/
     @Transactional

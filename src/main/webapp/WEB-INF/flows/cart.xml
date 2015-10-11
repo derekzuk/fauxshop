@@ -49,7 +49,8 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>	
 			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />		
-		</on-render>	
+		</on-render>
+		<transition on="editAccount" to="editAccountFromPayment"/>
 		<transition on="next" to="createTransaction"/>
 	</view-state>	
 	
@@ -70,7 +71,7 @@
 			<set name="requestScope.shipAddressValue" value="sessionAccountValues.shipAddress"/>
 			<set name="requestScope.shipAddress2Value" value="sessionAccountValues.shipAddress2"/>			
 		</on-render>	
-		<transition on="next" to="createTransactionFromSessionId">
+		<transition on="next" to="sessionAccountDecision">
 			<evaluate expression="accountValidation.validateSessionAccountValues(sessionAccountValues.email, 
 			sessionAccountValues.shipName, 
 			sessionAccountValues.shipCity, 
@@ -88,14 +89,25 @@
 	<action-state id="createTransaction">
 		<evaluate expression="transactionService.createTransactionsFromCartList(cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()),currentSession)"/>
         <transition to="review_order" />			
+	</action-state>
+	
+	<decision-state id="sessionAccountDecision">
+    	<if test="accountService.isSessionAccountAlreadyRegistered(currentSession)" then="editSessionAccount" else="addSessionAccount" />
+	</decision-state>	
+	
+	<action-state id="editSessionAccount">
+		<evaluate expression="accountService.saveSessionAccount(sessionAccountValues)"/>		
+		<transition to="createTransactionFromSessionId" />			
+	</action-state>		
+	
+	<action-state id="addSessionAccount">
+		<evaluate expression="accountService.addSessionAccount(sessionAccountValues)"/>		
+		<transition to="createTransactionFromSessionId" />			
 	</action-state>	
 	
 	<!-- If the user is not logged in, we create the transaction using their Session Id. -->
 	<action-state id="createTransactionFromSessionId">
-		<evaluate expression="accountService.addSessionAccount(sessionAccountValues)"/>			
-		<evaluate expression="transactionService.createTransactionsFromSessionCartList(cartService.getCartBySessionId(currentSession),currentSession)">
-			<attribute name="createTransactionsFromSessionCart" value="last" />
-		</evaluate>		
+		<evaluate expression="transactionService.createTransactionsFromSessionCartList(cartService.getCartBySessionId(currentSession),currentSession)"/>	
         <transition on="yes" to="reviewOrderSessionId" />			
 	</action-state>		
 	
@@ -107,11 +119,12 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<set name="requestScope.transactionService" value="transactionService"/>
-			<set name="requestScope.message" value="accountCredentials.message"/>
+			<set name="requestScope.message" value="transactionLogValues.message"/>
 			<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />
 			<evaluate expression="transactionService.getLastTransactionByAccountId(account.getAccountId())" result="flowScope.lastTransaction" />							
 		</on-render>	
+		<transition on="editAccount" to="editAccount"/>
 		<transition on="proceedToCheckout" to="removeCart">
 			<evaluate expression="transactionService.updateMessage(lastTransaction, transactionLogValues.message)"/>		
 		</transition>		
@@ -133,11 +146,23 @@
 		<transition on="proceedToCheckout" to="removeCartSessionId">
 			<evaluate expression="transactionService.updateMessage(lastTransaction, transactionLogValues.message)"/>		
 		</transition>	
-	</view-state>			
+	</view-state>		
+	
+	<subflow-state id="editAccount" subflow="account">
+		<!-- This is where we go when the subflow returns. productAdded is
+		     the name of an end-state. -->
+		<transition on="exitHome" to="review_order"/>
+	</subflow-state>
+	
+	<subflow-state id="editAccountFromPayment" subflow="account">
+		<!-- This is where we go when the subflow returns. productAdded is
+		     the name of an end-state. -->
+		<transition on="exitHome" to="payment"/>
+	</subflow-state>			
 	
 	<action-state id="removeCart">
 	<on-entry>
-	<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
+		<set name="flowScope.stripeToken" value="requestParameters.stripeToken"/>
 	</on-entry>
 		<evaluate expression="stripe.processStripePayment((cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100), stripeToken)" />
 		<evaluate expression="transactionService.setTransactionToConfirmed(transactionService.getLastTransactionByAccountId(accountService.getAccountByName(currentUser.getPrincipal().getUsername()).getAccountId()).getTrackingNumber())" />

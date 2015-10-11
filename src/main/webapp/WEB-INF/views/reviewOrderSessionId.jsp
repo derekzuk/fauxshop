@@ -186,8 +186,13 @@
 							<div class="col-md-12 col-sm-6">
 								<div class="box">
 									<div class="box-head">
-										<h3>Delivery Address</h3>
-									</div>
+										<h3>Delivery Address
+										<button type="submit" style="float: right" title="Edit"
+											onclick="history.back()" class="btn btn-default">
+											<i class="fa fa-pencil"></i>
+										</button>										
+										</h3>
+									</div>								
 									<div class="box-content">
 										<address>
 											<strong>${account.getShipName()}</strong><br>

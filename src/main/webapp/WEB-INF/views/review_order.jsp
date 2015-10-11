@@ -184,6 +184,10 @@
               
 				<h3>Review Order</h3>
 				
+						
+	<form action="${flowExecutionUrl}" method="POST">
+	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>							
+				
               		<!-- We pull the table from another view: -->
               		<jsp:include page="carttable.jsp"/>				
 
@@ -193,7 +197,12 @@
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
 									<div class="box-head">
-										<h3>Billing Address</h3>
+										<h3>Billing Address
+										<button type="submit" style="float: right" title="Edit"
+											name="_eventId_editAccount" class="btn btn-default">
+											<i class="fa fa-pencil"></i>
+										</button>										
+										</h3>										
 									</div>
 									<div class="box-content">
 										<address>
@@ -212,7 +221,12 @@
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
 									<div class="box-head">
-										<h3>Delivery Address</h3>
+										<h3>Delivery Address
+										<button type="submit" style="float: right" title="Edit"
+											name="_eventId_editAccount" class="btn btn-default">
+											<i class="fa fa-pencil"></i>
+										</button>													
+										</h3>										
 									</div>
 									<div class="box-content">
 										<address>
@@ -228,11 +242,12 @@
 								</div>
 							</div>
 						</div>
+						</form>
 						<!-- break -->
-						
-	<form action="${flowExecutionUrl}" method="POST">
-	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>		
-	<input type="hidden" name="_eventId_proceedToCheckout"/>				
+			
+			<form action="${flowExecutionUrl}" method="POST">
+			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+			<input type="hidden" name="_eventId_proceedToCheckout"/>			
               <div class="row">
                 <div class="col-md-12">
                     <div class="box">
@@ -248,16 +263,16 @@
                     </div>
 
 							<!-- stripe checkout button -->
-									<script src="https://checkout.stripe.com/checkout.js"
-										class="stripe-button"
-										data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100}"
-										data-name="FauxShop" data-description="${cartService.getCartQuantityByUserLogin(currentUser.getPrincipal().getUsername())} items"
-										data-image="/128x128.png" data-locale="auto">										
-									</script>
-                                
+				<script src="https://checkout.stripe.com/checkout.js"
+					class="stripe-button"
+					data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100}"
+					data-name="FauxShop" data-description="${cartService.getCartQuantityByUserLogin(currentUser.getPrincipal().getUsername())} items"
+					data-image="/128x128.png" data-locale="auto">										
+				</script>
+				                                
                 </div>
               </div>
-			</form>	
+			</form>
             </div>
           </div>          
         </div>        

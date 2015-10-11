@@ -52,6 +52,15 @@ public class AccountDAOImpl implements AccountDAO {
 		tx.commit();
 		session.close();
 	}
+	
+	public void saveSessionAccount(SessionAccount sa) {
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		sa.setSessionAccountId(getSessionAccountBySessionId(sa.getSessionId()).getSessionAccountId());
+		session.saveOrUpdate(sa);
+		tx.commit();
+		session.close();		
+	}
 
 	@SuppressWarnings("unchecked")
 	/*    @Override*/
@@ -180,10 +189,10 @@ public class AccountDAOImpl implements AccountDAO {
 		String hql = "FROM SessionAccount WHERE sessionId = :sessionId";
 		Query query = session.createQuery(hql);
 		query.setParameter("sessionId", sessionId);
-		Account result = (Account) query.uniqueResult();
-		session.close();
+		SessionAccount result = (SessionAccount) query.uniqueResult();
+		session.close();			
 
-		return (null == result);		
+		return (null != result);		
 	}
 
 	/*@Override*/
