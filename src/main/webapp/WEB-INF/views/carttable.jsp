@@ -109,8 +109,7 @@
 				</c:forEach>
 
 				<c:choose>
-					<c:when
-						test="${not empty cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
+					<c:when test="${not empty cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 						<tr>
 							<td colspan="6">&nbsp;</td>
 						</tr>

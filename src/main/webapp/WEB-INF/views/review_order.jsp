@@ -196,13 +196,12 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
-									<div class="box-head">
-										<h3>Billing Address
 										<button type="submit" style="float: right" title="Edit"
 											name="_eventId_editAccount" class="btn btn-default">
 											<i class="fa fa-pencil"></i>
-										</button>										
-										</h3>										
+										</button>								
+									<div class="box-head">
+										<h3>Billing Address</h3>										
 									</div>
 									<div class="box-content">
 										<address>
@@ -220,13 +219,12 @@
 							</div>
 							<div class="col-md-6 col-sm-6">
 								<div class="box">
-									<div class="box-head">
-										<h3>Delivery Address
 										<button type="submit" style="float: right" title="Edit"
 											name="_eventId_editAccount" class="btn btn-default">
 											<i class="fa fa-pencil"></i>
-										</button>													
-										</h3>										
+										</button>									
+									<div class="box-head">
+										<h3>Delivery Address</h3>										
 									</div>
 									<div class="box-content">
 										<address>
