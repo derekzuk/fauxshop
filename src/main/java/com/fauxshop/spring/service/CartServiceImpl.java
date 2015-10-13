@@ -23,24 +23,6 @@ public class CartServiceImpl implements CartService {
     public void save(Cart c) {
         this.cartDAO.save(c);
     }           
- 
-    /*@Override*/
-    @Transactional
-    public void updateCart(Cart c) {
-        this.cartDAO.updateCart(c);
-    }
- 
-    /*@Override*/
-    @Transactional
-    public List<Cart> listCarts() {
-        return this.cartDAO.listCarts();
-    }
- 
-    /*@Override*/
-    @Transactional
-    public Cart getCartById(int id) {
-        return this.cartDAO.getCartById(id);
-    }
     
     /*@Override*/
     @Transactional

@@ -36,8 +36,8 @@ import com.fauxshop.spring.model.SessionAccount;
     TransactionalTestExecutionListener.class,
     DbUnitTestExecutionListener.class })
 @Transactional
-public class AccountServiceImplTest {	
-	private static final Logger log = LoggerFactory.getLogger(AccountServiceImplTest.class);
+public class AccountServiceTest {	
+	private static final Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
 	Mockery context = new Mockery();	
 	
 	@Autowired

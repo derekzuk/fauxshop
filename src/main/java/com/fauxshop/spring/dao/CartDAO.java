@@ -8,10 +8,6 @@ import com.fauxshop.spring.model.Cart;
 public interface CartDAO {
  
     public void save(Cart c);
-    public List<Cart> list();
-    public void updateCart(Cart c);
-    public List<Cart> listCarts();
-    public Cart getCartById(int id);
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem, String shippingCost, String tax);    
     public void removeCart(int cartId);
     public Cart getCartByIdAndAccountId(int cartId, int accountId);

@@ -15,13 +15,11 @@ import com.fauxshop.spring.model.Cart;
 public interface CartService {
     
 	public void save(Cart c);
-    public void updateCart(Cart c);
-    public List<Cart> listCarts();
-    public Cart getCartById(int id);
     public Cart getCartByIdAndAccountId(int cartId, int accountId);
     public Cart getCartByIdAndSessionId(int cartId, String sessionId);
     public Cart getCartByInventoryDetailIdAndAccountId(int inventoryDetailId, int accountId);
     public Cart getCartByInventoryDetailIdAndSessionId(int inventoryDetailId, String sessionId);
+    /*This method is currently not in use, but we could potentially use it in a webflow.*/
     public void addToCart(int accountId,int inventoryId,int quantity, String pricePerItem,String shippingCost,String tax);
     public void removeCart(int cartId);
     public void updateQuantity(int cartId, int quantity);

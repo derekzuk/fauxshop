@@ -28,45 +28,10 @@ public class CartDAOImpl implements CartDAO {
     public void save(Cart c) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.persist(c);
+        session.saveOrUpdate(c);
         tx.commit();
         session.close();
-    }
- 
-    @SuppressWarnings("unchecked")
-/*    @Override*/
-    public List<Cart> list() {
-        Session session = this.sessionFactory.openSession();
-        List<Cart> cartList = session.createQuery("from Cart").list();
-        session.close();
-        return cartList;
-    }    
- 
-    /*@Override*/
-    public void updateCart(Cart c) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(c);
-        logger.info("Cart updated successfully, Cart Details="+c);
-    }
- 
-    @SuppressWarnings("unchecked")
-    /*@Override*/
-    public List<Cart> listCarts() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<Cart> cartsList = session.createQuery("from Cart").list();
-        for(Cart c : cartsList){
-            logger.info("Cart List::"+c);
-        }
-        return cartsList;
-    }
- 
-    /*@Override*/
-    public Cart getCartById(int id) {
-        Session session = this.sessionFactory.getCurrentSession();      
-        Cart c = (Cart) session.load(Cart.class, new Integer(id));
-        logger.info("Cart loaded successfully, Cart details="+c);
-        return c;
-    }   
+    } 
     
     /*@Override*/
     public Cart getCartByIdAndAccountId(int cartId, int accountId) {
@@ -76,6 +41,7 @@ public class CartDAOImpl implements CartDAO {
     	query.setParameter("cartId", cartId);
     	query.setParameter("accountId", accountId);    	
     	Cart result = (Cart) query.uniqueResult();  
+    	session.close();
     	return result;
     }    
     
@@ -87,6 +53,7 @@ public class CartDAOImpl implements CartDAO {
     	query.setParameter("cartId", cartId);
     	query.setParameter("sessionId", sessionId);    	
     	Cart result = (Cart) query.uniqueResult();  
+    	session.close();
     	return result;
     }     
     
@@ -97,7 +64,8 @@ public class CartDAOImpl implements CartDAO {
     	Query query = session.createQuery(hql);
     	query.setParameter("inventoryDetailId", inventoryDetailId);
     	query.setParameter("accountId", accountId);    	
-    	Cart result = (Cart) query.uniqueResult();  
+    	Cart result = (Cart) query.uniqueResult(); 
+    	session.close();
     	return result;
     }    
     
@@ -109,6 +77,7 @@ public class CartDAOImpl implements CartDAO {
     	query.setParameter("inventoryDetailId", inventoryDetailId);
     	query.setParameter("sessionId", sessionId);    	
     	Cart result = (Cart) query.uniqueResult();  
+    	session.close();
     	return result;
     }     
     
@@ -133,12 +102,15 @@ public class CartDAOImpl implements CartDAO {
  
     /*@Override*/
     public void removeCart(int cartId) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         Cart c = (Cart) session.load(Cart.class, new Integer(cartId));
         if(null != c){
             session.delete(c);
         }
-        logger.info("Cart deleted successfully, cart details="+c);
+        tx.commit();
+        session.close();
+        logger.debug("Cart deleted successfully, cart details="+c);
     } 
     
     /*@Override*/
@@ -146,7 +118,7 @@ public class CartDAOImpl implements CartDAO {
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	
-        logger.info("updateQuantity quantity variable value: " + quantity); 
+        logger.debug("updateQuantity quantity variable value: " + quantity); 
     	
     	String hql = "UPDATE Cart SET quantity = :quantity WHERE cartId = :cartId";
     	Query query = session.createQuery(hql);
@@ -159,11 +131,11 @@ public class CartDAOImpl implements CartDAO {
     
     /*@Override*/
     public void removeCartFromCartList(List<Cart> cartList) {
-    	logger.info("in removeCartFromCartList.");
+    	logger.debug("in removeCartFromCartList.");
     	for (Cart cartRow : cartList) {
     		removeCart(cartRow.getCartId());
     	}   
-    	logger.info("Cart removed.");
+    	logger.debug("Cart removed.");
     }       
     
     /*@Override*/
@@ -177,11 +149,11 @@ public class CartDAOImpl implements CartDAO {
         List<Cart> cartList = (List<Cart>) query.list();
 
         for(Cart c : cartList){
-            logger.info("Cart List::"+c);
+            logger.debug("Cart List::"+c);
         }
         
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + cartList.toString());        
+        logger.debug("getCartByUserLogin query: " + query.toString());
+        logger.debug("getCartByUserLogin query results (toString()): " + cartList.toString());        
         return cartList;        
     }
     
@@ -208,8 +180,8 @@ public class CartDAOImpl implements CartDAO {
         query.setParameter("userLogin", name);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query: " + query.toString());
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
         return cartSum;        
     }
     
@@ -222,8 +194,8 @@ public class CartDAOImpl implements CartDAO {
         query.setParameter("userLogin", name);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query: " + query.toString());
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
         return cartSum;        
     }         
     
@@ -236,8 +208,8 @@ public class CartDAOImpl implements CartDAO {
         query.setParameter("userLogin", name);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query: " + query.toString());
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
         return cartSum;        
     }      
     
@@ -250,8 +222,8 @@ public class CartDAOImpl implements CartDAO {
         query.setParameter("userLogin", name);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
-        logger.info("getCartByUserLogin query: " + query.toString());
-        logger.info("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query: " + query.toString());
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
         return cartSum;        
     }
     
