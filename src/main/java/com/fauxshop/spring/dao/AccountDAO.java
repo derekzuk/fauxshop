@@ -19,9 +19,7 @@ public interface AccountDAO {
     public List<Account> list();
     public void addAccount(Account a);
     public void addSessionAccount(SessionAccount sa);
-    public void updateAccount(Account a);
     public List<Account> listAccounts();
-    public Account getAccountById(int id);
     public Account getAccountByName(String name);
     public void removeAccount(int id);
     public void createUserRole(String name);

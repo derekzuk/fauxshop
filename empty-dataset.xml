@@ -1,4 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 <account/>
+<cart/>
+<inventory/>
+<inventory_category_code/>
+<inventory_detail/>
+<inventory_type_code/>
+<roles/>
+<session_account/>
+<sizing/>
+<transaction/>
 </dataset>

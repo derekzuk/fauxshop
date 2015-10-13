@@ -3,34 +3,18 @@ package com.fauxshop.spring.service;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import junit.framework.TestCase;
-
 import org.dbunit.Assertion;
-import org.dbunit.DatabaseUnitException;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.hibernate.SessionFactory;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.action.ReturnValueAction;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.internal.runners.JUnit38ClassRunner;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +25,9 @@ import org.springframework.test.context.support.*;
 import org.springframework.test.context.junit4.*;
 import org.springframework.test.context.transaction.*;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.test.*;
-
 import com.github.springtestdbunit.*;
-import com.fauxshop.spring.dao.AccountDAO;
-import com.fauxshop.spring.dao.AccountDAOImpl;
 import com.fauxshop.spring.model.Account;
+import com.fauxshop.spring.model.SessionAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/dbHibernate-context.xml")
@@ -60,9 +41,10 @@ public class AccountServiceImplTest {
 	Mockery context = new Mockery();	
 	
 	@Autowired
-	private AccountDAO accountDAO;
+	private AccountService accountService;
 	
 	private Account account;	
+	private SessionAccount sessionAccount;
 
 /*	We aren't using this at the moment:
 	public AccountServiceImplTest() {
@@ -128,7 +110,7 @@ public class AccountServiceImplTest {
 			account.setShipName("shipnametest");
 			account.setShipPhone("shipphonetest");
 			account.setShipZip("shipziptest");
-			accountDAO.addAccount(account);			   
+			accountService.addAccount(account);
 		   		   
 		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("account-dataset.xml"));
 		ITable expectedTable = expds.getTable("account");
@@ -145,16 +127,52 @@ public class AccountServiceImplTest {
 	   
 	   @Test
 	   @Transactional
+	   public void addSessionAccountTest() throws Exception {
+		   sessionAccount = new SessionAccount();
+
+		   // expectations
+		   context.checking(new Expectations() {{
+			   /*Assertion is made at the end of this test*/
+		   }});		   
+		   
+	      // test	
+		   	sessionAccount.setSessionId("ABC123");
+		   	sessionAccount.setEmail("emailtest@emailtest.com");
+		   	sessionAccount.setShipAddress("shipaddresstest");
+		   	sessionAccount.setShipAddress2("shipaddress2test");
+		   	sessionAccount.setShipCity("shipcitytest");
+		   	sessionAccount.setShipState("shipstatetest");
+		   	sessionAccount.setShipCountry("shipcountrytest");
+		   	sessionAccount.setShipName("shipnametest");
+		   	sessionAccount.setShipPhone("shipphonetest");
+		   	sessionAccount.setShipZip("shipziptest");
+		   	accountService.addSessionAccount(sessionAccount);		   
+		   		   
+		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("account-dataset.xml"));
+		ITable expectedTable = expds.getTable("session_account");
+		IDatabaseConnection connection = databaseTester.getConnection();
+		IDataSet databaseDataSet = connection.createDataSet();
+		ITable actualTable = databaseDataSet.getTable("session_account");
+		String[] ignoredColumns = new String[1];
+		ignoredColumns[0] = "session_account_id";
+		Assertion.assertEqualsIgnoreCols(expectedTable, actualTable, ignoredColumns);
+
+	    // verify
+	    context.assertIsSatisfied();
+	   }	   
+	   
+	   @Test
+	   @Transactional
 	   public void getAccountByNameTest() throws Exception {
 		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 
-		   // test	
-		   accountDAO.getAccountByName("userlogintest");	
+		   // test			   
+		   accountService.getAccountByName("userlogintest");	
 
 		   // expectations
 		   context.checking(new Expectations() {{			   
-			   assertNotNull(accountDAO.getAccountByName("userlogintest"));
+			   assertNotNull(accountService.getAccountByName("userlogintest"));
 		   }});					
 
 		   // verify
@@ -163,21 +181,80 @@ public class AccountServiceImplTest {
 	   
 	   @Test
 	   @Transactional
+	   public void createUserRoleTest() throws Exception {
+
+		   // expectations
+		   context.checking(new Expectations() {{
+			   /*Assertion is made at the end of this test*/
+		   }});		   
+		   
+	      // test	
+		   accountService.createUserRole("userlogintest");			   
+		   		   
+		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("account-dataset.xml"));
+		ITable expectedTable = expds.getTable("roles");
+		IDatabaseConnection connection = databaseTester.getConnection();
+		IDataSet databaseDataSet = connection.createDataSet();
+		ITable actualTable = databaseDataSet.getTable("roles");
+		Assertion.assertEquals(expectedTable, actualTable);
+
+	    // verify
+	    context.assertIsSatisfied();		   
+	   }
+	   
+	   @Test
+	   @Transactional
 	   public void isUserLoginUniqueTest() throws Exception {
 		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 
 		   // test	
-		   accountDAO.isUserLoginUnique("userlogintest");	
+		   accountService.isUserLoginUnique("userlogintest");	
 
 		   // expectations
 		   context.checking(new Expectations() {{			
-			   assertFalse(accountDAO.isUserLoginUnique("userlogintest"));
+			   assertFalse(accountService.isUserLoginUnique("userlogintest"));
 		   }});					
 
 		   // verify
 		   context.assertIsSatisfied();
 	   }	   
+	   
+	   @Test
+	   @Transactional
+	   public void isSessionAccountAlreadyRegistered() throws Exception {
+		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+
+		   // test	
+		   accountService.isSessionAccountAlreadyRegistered("testuser");	
+
+		   // expectations
+		   context.checking(new Expectations() {{			
+			   assertFalse(accountService.isSessionAccountAlreadyRegistered("testuser"));
+		   }});					
+
+		   // verify
+		   context.assertIsSatisfied();
+	   }
+	   
+	   @Test
+	   @Transactional
+	   public void getSessionAccountBySessionId() throws Exception {
+		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+
+		   // test	
+		   accountService.getSessionAccountBySessionId("ABC123");	
+
+		   // expectations
+		   context.checking(new Expectations() {{			
+			   assertNotNull(accountService.getSessionAccountBySessionId("ABC123"));
+		   }});					
+
+		   // verify
+		   context.assertIsSatisfied();
+	   }
 	   
 }
 	

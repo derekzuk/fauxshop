@@ -91,17 +91,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public void addSessionAccount(SessionAccount sa) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.persist(sa);  
+		session.saveOrUpdate(sa);  
 		tx.commit();
 		session.close();
 	}   	
-	
-	/*@Override*/
-	public void updateAccount(Account a) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(a);
-		logger.debug("Account updated successfully, Account Details="+a);
-	}
 
 	@SuppressWarnings("unchecked")
 	/*@Override*/
@@ -112,14 +105,6 @@ public class AccountDAOImpl implements AccountDAO {
 			logger.debug("Account List::"+a);
 		}
 		return accountsList;
-	}
-
-	/*@Override*/
-	public Account getAccountById(int id) {
-		Session session = this.sessionFactory.getCurrentSession(); 
-		Account a = (Account) session.load(Account.class, new Integer(id));
-		logger.debug("Account loaded successfully, Account details="+a);
-		return a;
 	}
 
 	/*@Override*/

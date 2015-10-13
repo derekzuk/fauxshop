@@ -57,20 +57,8 @@ public class AccountServiceImpl implements AccountService {
  
     /*@Override*/
     @Transactional
-    public void updateAccount(Account a) {
-        this.accountDAO.updateAccount(a);
-    }
- 
-    /*@Override*/
-    @Transactional
     public List<Account> listAccounts() {
         return this.accountDAO.listAccounts();
-    }
- 
-    /*@Override*/
-    @Transactional
-    public Account getAccountById(int id) {
-        return this.accountDAO.getAccountById(id);
     }
     
     /*@Override*/
