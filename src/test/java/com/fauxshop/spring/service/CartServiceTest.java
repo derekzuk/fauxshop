@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dbunit.Assertion;
@@ -87,8 +88,6 @@ public class CartServiceTest {
 			   shipping_cost="12.34" tax="1.23"/>*/
 	   
 /*	    Tests that need to be created:       
-	    public void updateQuantity(int cartId, int quantity);
-	    public void removeCartFromCartList(List<Cart> cartList);
 	    public List<Cart> getCartByUserLogin(String name);
 	    public List<Cart> getCartBySessionId(String sessionId);
 	    
@@ -230,8 +229,57 @@ public class CartServiceTest {
 
 		   // verify
 		   context.assertIsSatisfied();   
-	   }		   
+	   }	
 	   
+	   @Test
+	   @Transactional
+	   public void updateQuantityTest() throws Exception {
+		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+		   
+		   // test			   
+		   cartService.updateQuantity(-1, 5);
+
+		   // expectations
+		   context.checking(new Expectations() {{			
+			   assertEquals(5, cartService.getCartByIdAndAccountId(-1, -1).getQuantity());
+		   }});				   
+
+		   // verify
+		   context.assertIsSatisfied();   
+	   }
+	   
+	   @Test
+	   @Transactional
+	   public void removeCartFromCartListTest() throws Exception {
+		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+
+		   // test			   
+		   List<Cart> cartList = new ArrayList<Cart>();
+		   Cart cart = new Cart();
+		   BigDecimal pricePerItem = new BigDecimal("123.45");
+		   BigDecimal shippingCost = new BigDecimal("12.34");
+		   BigDecimal tax = new BigDecimal("1.23");
+		   cart.setCartId(-1);
+		   cart.setAccountId(-1);
+		   cart.setSessionId("ABC123");
+		   cart.setInventoryDetailId(-10);
+		   cart.setQuantity(2);
+		   cart.setPricePerItem(pricePerItem);
+		   cart.setShippingCost(shippingCost);
+		   cart.setTax(tax);
+		   cartList.add(cart);
+		   cartService.removeCartFromCartList(cartList);
+
+		   // expectations
+		   context.checking(new Expectations() {{			
+			   assertNull(cartService.getCartByIdAndAccountId(-1, -1));
+		   }});				   
+
+		   // verify
+		   context.assertIsSatisfied();   
+	   }		   	  
 	   
 }
 	
