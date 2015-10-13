@@ -5,11 +5,15 @@ import java.util.List;
 
 
 
+
+import org.hibernate.SessionFactory;
+
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.SessionAccount;
  
 public interface AccountDAO {
  
+	public void setSessionFactory(SessionFactory sf);
     public void saveAccount(Account a);
     public void saveSessionAccount(SessionAccount sa);  
     public List<Account> list();

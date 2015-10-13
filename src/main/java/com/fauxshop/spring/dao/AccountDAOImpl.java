@@ -2,16 +2,6 @@ package com.fauxshop.spring.dao;
 
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,15 +9,6 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-
-
-
-
-
-
-
-
 
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.model.Roles;
@@ -72,8 +53,9 @@ public class AccountDAOImpl implements AccountDAO {
 	}    
 
 	/*@Override*/
-	public void addAccount(Account a) {
-		Session session = this.sessionFactory.getCurrentSession();
+	public void addAccount(Account a) {	
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		a.setEnabled(true);
 		if (null == a.getShipName()) {
 			a.setShipName((a.getFirstName() + " " + a.getLastName()));
@@ -99,8 +81,10 @@ public class AccountDAOImpl implements AccountDAO {
 		if (null == a.getShipAddress2()) {
 			a.setShipAddress2(a.getAddress2());
 		}		
-		session.persist(a);  
-		logger.info("Account saved successfully, Account Details="+a);
+		session.saveOrUpdate(a);  
+		tx.commit();
+		session.close();
+		logger.debug("Account saved successfully, Account Details="+a);
 	}   
 
 	/*@Override*/
@@ -116,7 +100,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public void updateAccount(Account a) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(a);
-		logger.info("Account updated successfully, Account Details="+a);
+		logger.debug("Account updated successfully, Account Details="+a);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -125,29 +109,30 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Account> accountsList = session.createQuery("from Account").list();
 		for(Account a : accountsList){
-			logger.info("Account List::"+a);
+			logger.debug("Account List::"+a);
 		}
 		return accountsList;
 	}
 
 	/*@Override*/
 	public Account getAccountById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();      
+		Session session = this.sessionFactory.getCurrentSession(); 
 		Account a = (Account) session.load(Account.class, new Integer(id));
-		logger.info("Account loaded successfully, Account details="+a);
+		logger.debug("Account loaded successfully, Account details="+a);
 		return a;
 	}
 
 	/*@Override*/
 	public Account getAccountByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();      
+		Session session = this.sessionFactory.openSession();      
 		String hql = "FROM Account WHERE userLogin = :username";
 		Query query = session.createQuery(hql);
 		query.setParameter("username", name);
 		Account result = (Account) query.uniqueResult();
+		session.close();
 
-		logger.info("getAccountByName query: " + query.toString());
-		logger.info("getAccountByName query results (toString()): " + result.toString());
+		logger.debug("getAccountByName query: " + query.toString());
+		logger.debug("getAccountByName query results (toString()): " + result.toString());
 		return result;
 	}    
 
@@ -158,7 +143,7 @@ public class AccountDAOImpl implements AccountDAO {
 		if(null != a){
 			session.delete(a);
 		}
-		logger.info("Account deleted successfully, account details="+a);
+		logger.debug("Account deleted successfully, account details="+a);
 	}
 
 	/*@Override*/
