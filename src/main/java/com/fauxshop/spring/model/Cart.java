@@ -45,7 +45,7 @@ public class Cart implements Serializable {
     private BigDecimal shippingCost;
     
     @Column(name="TAX")
-    private BigDecimal tax;
+    private BigDecimal tax;      
     
     public int getCartId() {
         return cartId;
@@ -122,4 +122,39 @@ public class Cart implements Serializable {
         		", shippingCost="+shippingCost+
         		", tax="+tax;
     }
+    
+	/*We override the equals and hashCode methods for use in unit and integration testing. This still needs work:*/
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Cart))
+            return false;
+        Cart other = (Cart) o;
+        return (other.cartId == cartId &&
+               other.accountId == accountId &&
+               other.sessionId == sessionId &&
+               other.inventoryDetailId == inventoryDetailId &&
+               other.quantity == quantity &&
+               other.pricePerItem == pricePerItem &&
+               other.shippingCost == shippingCost &&
+               other.tax == tax);
+    }
+    
+    @Override
+     public int hashCode() {
+       final int prime = 31;
+       int result = 1;
+       result = prime * result + (int) (cartId ^ (cartId >>> 32));
+       result = prime * result + (int) (accountId ^ (accountId >>> 32));
+       result = prime * result
+               + ((sessionId == null) ? 0 : sessionId.hashCode());
+       result = prime * result + (int) (inventoryDetailId ^ (inventoryDetailId >>> 32));
+       result = prime * result + (int) (quantity ^ (quantity >>> 32));
+       result = prime * result
+               + ((pricePerItem == null) ? 0 : pricePerItem.hashCode());
+       result = prime * result
+               + ((shippingCost == null) ? 0 : shippingCost.hashCode());
+       result = prime * result
+               + ((tax == null) ? 0 : tax.hashCode());       
+       return result;
+     }    
 }
