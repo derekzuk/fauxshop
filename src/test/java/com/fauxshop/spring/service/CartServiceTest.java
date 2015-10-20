@@ -85,25 +85,8 @@ public class CartServiceTest {
 		   databaseTester.setDataSet(getEmptyDataSet()); databaseTester.onSetup();
 	   }
 	   
-/*	   <cart cart_id="-1" account_id="-1" session_id="ABC123" 
-			   inventory_detail_id="-10" quantity="2" price_per_item="123.45" 
-			   shipping_cost="12.34" tax="1.23"/>*/
-	   
-/*	    Tests that need to be created:       
-	    public List<Cart> getCartBySessionId(String sessionId);
-	    
-	    By User Login:
-	    public BigDecimal getCartItemCostByUserLogin(String name);
-	    public BigDecimal getCartShippingCostByUserLogin(String name);
-	    public BigDecimal getCartTaxCostByUserLogin(String name);
-	    public BigDecimal getCartTotalByUserLogin(String name);
+/*	    Tests that need to be created:       	    
 	    public Long getCartQuantityByUserLogin(String name);
-	    
-	    By Session Id:
-	    public BigDecimal getCartItemCostBySessionId(String sessionId);
-	    public BigDecimal getCartShippingCostBySessionId(String sessionId);
-	    public BigDecimal getCartTaxCostBySessionId(String sessionId);
-	    public BigDecimal getCartTotalBySessionId(String sessionId);
 	    public Long getCartQuantityBySessionId(String sessionId);	*/   
 	   
 	   @Test
@@ -312,6 +295,92 @@ public class CartServiceTest {
 
 		   // verify
 		   context.assertIsSatisfied();  		   
-	   }	   
-}
+	   }	  
+	   
+	   @Test
+	   public void getCartBySessionIdTest() throws Exception {
+		   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 
+		   // test			   
+		   String sessionId = "ABC123";
+		   final List<Cart> actualCartList = (List<Cart>) cartService.getCartBySessionId(sessionId);		   
+	       Cart expectedCart = new Cart();
+				   BigDecimal pricePerItem = new BigDecimal("123.45");
+				   BigDecimal shippingCost = new BigDecimal("12.34");
+				   BigDecimal tax = new BigDecimal("1.23");				   
+				   expectedCart.setCartId(-1);
+				   expectedCart.setAccountId(-1);
+				   expectedCart.setSessionId("ABC123");
+				   expectedCart.setInventoryDetailId(-10);
+				   expectedCart.setQuantity(2);
+				   expectedCart.setPricePerItem(pricePerItem);
+				   expectedCart.setShippingCost(shippingCost);
+				   expectedCart.setTax(tax);
+		   final List<Cart> expectedCartList = new ArrayList<Cart>();
+		   		   expectedCartList.add(expectedCart);
+		   		   
+		   // expectations
+		   context.checking(new Expectations() {{
+			   assertEquals(expectedCartList.get(0).toString(), actualCartList.get(0).toString());
+		   }});
+
+		   // verify
+		   context.assertIsSatisfied();  		   
+	   }	  	   
+	    
+	    @Test
+	    public void userLogginCartCostTests() throws Exception {
+			   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+			   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+
+			   // test			   
+			   final BigDecimal expectedCartItemCost = new BigDecimal("246.90");
+			   final BigDecimal actualCartItemCost = cartService.getCartItemCostByUserLogin("userlogintest");
+			   final BigDecimal expectedCartShippingCost = new BigDecimal("24.68");
+			   final BigDecimal actualCartShippingCost = cartService.getCartShippingCostByUserLogin("userlogintest");
+			   final BigDecimal expectedCartTaxCost = new BigDecimal("2.46");
+			   final BigDecimal actualCartTaxCost = cartService.getCartTaxCostByUserLogin("userlogintest");
+			   final BigDecimal expectedCartTotal = new BigDecimal("274.04");
+			   final BigDecimal actualCartTotal = cartService.getCartTotalByUserLogin("userlogintest");
+			   		   
+			   // expectations
+			   context.checking(new Expectations() {{
+				   assertEquals(expectedCartItemCost, actualCartItemCost);
+				   assertEquals(expectedCartShippingCost, actualCartShippingCost);
+				   assertEquals(expectedCartTaxCost, actualCartTaxCost);
+				   assertEquals(expectedCartTotal, actualCartTotal);
+			   }});
+
+			   // verify
+			   context.assertIsSatisfied();  
+	    }
+	    
+	    @Test
+	    public void userLogginCartCostSessionIdTests() throws Exception {
+			   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+			   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+
+			   // test			   
+			   final BigDecimal expectedCartItemCost = new BigDecimal("246.90");
+			   final BigDecimal actualCartItemCost = cartService.getCartItemCostBySessionId("ABC123");
+			   final BigDecimal expectedCartShippingCost = new BigDecimal("24.68");
+			   final BigDecimal actualCartShippingCost = cartService.getCartShippingCostBySessionId("ABC123");
+			   final BigDecimal expectedCartTaxCost = new BigDecimal("2.46");
+			   final BigDecimal actualCartTaxCost = cartService.getCartTaxCostBySessionId("ABC123");
+			   final BigDecimal expectedCartTotal = new BigDecimal("274.04");
+			   final BigDecimal actualCartTotal = cartService.getCartTotalBySessionId("ABC123");
+			   		   
+			   // expectations
+			   context.checking(new Expectations() {{
+				   assertEquals(expectedCartItemCost, actualCartItemCost);
+				   assertEquals(expectedCartShippingCost, actualCartShippingCost);
+				   assertEquals(expectedCartTaxCost, actualCartTaxCost);
+				   assertEquals(expectedCartTotal, actualCartTotal);
+			   }});
+
+			   // verify
+			   context.assertIsSatisfied();  
+	    }	    
+	   
+}
