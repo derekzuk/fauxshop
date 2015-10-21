@@ -85,10 +85,6 @@ public class CartServiceTest {
 		   databaseTester.setDataSet(getEmptyDataSet()); databaseTester.onSetup();
 	   }
 	   
-/*	    Tests that need to be created:       	    
-	    public Long getCartQuantityByUserLogin(String name);
-	    public Long getCartQuantityBySessionId(String sessionId);	*/   
-	   
 	   @Test
 	   @Transactional
 	   public void saveTest() throws Exception {
@@ -382,5 +378,23 @@ public class CartServiceTest {
 			   // verify
 			   context.assertIsSatisfied();  
 	    }	    
+	    
+	    @Test
+	    public void getCartQuantityTests() throws Exception {
+			   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+			   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
+			   
+			   // test
+			   final long expectedCartQuantity = 2;
+			   final long actualCartQuantityUserLogin = cartService.getCartQuantityByUserLogin("userlogintest");			   
+			   final long actualCartQuantitySessionId = cartService.getCartQuantityBySessionId("ABC123");
+			   
+			   // expectations
+			   context.checking(new Expectations() {{
+				   assertEquals(expectedCartQuantity, actualCartQuantityUserLogin);
+				   assertEquals(expectedCartQuantity, actualCartQuantitySessionId);
+			   }});
+			   
+	    }
 	   
 }
