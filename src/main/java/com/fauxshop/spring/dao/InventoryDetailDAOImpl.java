@@ -28,17 +28,6 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
         this.sessionFactory = sf;
     }       
  
-    @SuppressWarnings("unchecked")
-    /*@Override*/
-    public List<InventoryDetail> listInventoryDetail() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<InventoryDetail> inventoryDetailList = session.createQuery("from InventoryDetail").list();
-        for(InventoryDetail i : inventoryDetailList){
-            logger.info("InventoryDetail List::"+i);
-        }
-        return inventoryDetailList;
-    }
- 
     @SuppressWarnings("unchecked")    
     /*@Override*/
     public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId) {

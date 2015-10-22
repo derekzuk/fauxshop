@@ -23,12 +23,6 @@ public class InventoryDetailServiceImpl implements InventoryDetailService {
  
     /*@Override*/
     @Transactional
-    public List<InventoryDetail> listInventoryDetail() {
-        return this.inventoryDetailDAO.listInventoryDetail();
-    }
- 
-    /*@Override*/
-    @Transactional
     public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId) {
         return this.inventoryDetailDAO.getInventoryDetailByInventoryId(inventoryId);
     }
