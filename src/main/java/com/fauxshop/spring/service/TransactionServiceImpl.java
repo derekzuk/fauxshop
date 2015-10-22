@@ -42,12 +42,6 @@ public class TransactionServiceImpl implements TransactionService {
  
     /*@Override*/
     @Transactional
-    public List<TransactionLog> listTransactions() {
-        return this.transactionDAO.listTransactions();
-    }
- 
-    /*@Override*/
-    @Transactional
     public TransactionLog getTransactionById(int id) {
         return this.transactionDAO.getTransactionById(id);
     }

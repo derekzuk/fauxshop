@@ -54,27 +54,20 @@ public class TransactionDAOImpl implements TransactionDAO {
  
     /*@Override*/
     public void addTransaction(TransactionLog t) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         session.persist(t);
-        logger.info("Transaction saved successfully, Transaction Details="+t);
+        tx.commit();
+        session.close();
     }
  
     /*@Override*/
     public void updateTransaction(TransactionLog t) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(t);
-        logger.info("Transaction updated successfully, Transaction Details="+t);
-    }
- 
-    @SuppressWarnings("unchecked")
-    /*@Override*/
-    public List<TransactionLog> listTransactions() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<TransactionLog> transactionsList = session.createQuery("from Transaction").list();
-        for(TransactionLog t : transactionsList){
-            logger.info("Transaction List::"+t);
-        }
-        return transactionsList;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(t);
+        tx.commit();
+        session.close();
     }
  
     /*@Override*/
