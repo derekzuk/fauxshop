@@ -55,7 +55,7 @@ public class TransactionServiceTest {
 	@Autowired
 	private TransactionService transactionService;
 
-	private TransactionLog transactionLog;	
+	private TransactionLog transactionLog;		
 
 	/*	We aren't using this at the moment:
 	public AccountServiceImplTest() {
@@ -88,25 +88,49 @@ public class TransactionServiceTest {
 		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		databaseTester.setDataSet(getEmptyDataSet()); databaseTester.onSetup();
 	}
+	
+	public TransactionLog getExpectedTransaction() throws Exception {
+		TransactionLog expectedTransaction = new TransactionLog();
+		BigDecimal shippingCost = new BigDecimal("12.34");
+		BigDecimal tax = new BigDecimal("1.23");
+		BigDecimal orderCost = new BigDecimal("274.04");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = sdf.parse("01/01/2010");
+		expectedTransaction.setAccountId(-1);
+		expectedTransaction.setSessionId("ABC123");
+		expectedTransaction.setCartId(-1);
+		expectedTransaction.setOrderQuantity(2);
+		expectedTransaction.setShipName("shipnametest");
+		expectedTransaction.setShipAddress("shipaddresstest");
+		expectedTransaction.setShipAddress2("shipaddress2test");
+		expectedTransaction.setCity("shipcitytest");
+		expectedTransaction.setState("shipstatetest");
+		expectedTransaction.setZip("12345");
+		expectedTransaction.setCountry("shipcountrytest");
+		expectedTransaction.setPhone("shipphonetest");
+		expectedTransaction.setShippingCost(shippingCost);
+		expectedTransaction.setTax(tax);
+		expectedTransaction.setOrderEmail("emailtest@emailtest.com");
+		expectedTransaction.setDate(date);
+		expectedTransaction.setShipped(false);
+		expectedTransaction.setTrackingNumber(1234567890);
+		expectedTransaction.setInventoryDetailId(-1);
+		expectedTransaction.setOrderCost(orderCost);
+		expectedTransaction.setMessage("messagetest");
+		expectedTransaction.setConfirmed(false);		
+		return expectedTransaction;
+	}
 
 	// methods left to test:
 	///*	
 	//	    public List<TransactionLog> listTransactions();
-
-
+	
 	//	    public void createTransaction(int cartId, String sessionId, long trackingNumber);
-	//	    public void createTransactionFromSessionId(int cartId, String sessionId, long trackingNumber);
-	//	    public void createTransactionsFromCartList(List<Cart> cartList, String sessionId);
-	//	    public boolean createTransactionsFromSessionCartList(List<Cart> cartList, String sessionId);
-	//	    public TransactionLog getLastTransactionByAccountId(int accountId);
-	//	    public TransactionLog getLastTransactionBySessionId(String sessionId);
-	//	    public void setTransactionToConfirmed(long trackingNumber);
-	//	    public void updateMessage(TransactionLog transaction, String message);*/	   
+	//	    public void createTransactionFromSessionId(int cartId, String sessionId, long trackingNumber);*/	   
 
 	@Test
 	@Transactional
 	public void addTransactionTest() throws Exception {
-		transactionLog = new TransactionLog();
 
 		// expectations
 		context.checking(new Expectations() {{
@@ -114,34 +138,8 @@ public class TransactionServiceTest {
 		}});		   
 
 		// test	
-		BigDecimal shippingCost = new BigDecimal("12.34");
-		BigDecimal tax = new BigDecimal("1.23");
-		BigDecimal orderCost = new BigDecimal("274.04");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("01/01/2010");
-		transactionLog.setAccountId(-1);
-		transactionLog.setSessionId("ABC123");
-		transactionLog.setCartId(-1);
-		transactionLog.setOrderQuantity(2);
-		transactionLog.setShipName("shipnametest");
-		transactionLog.setShipAddress("shipaddresstest");
-		transactionLog.setShipAddress2("shipaddress2test");
-		transactionLog.setCity("citytest");
-		transactionLog.setState("statetest");
-		transactionLog.setZip("12345");
-		transactionLog.setCountry("countrytest");
-		transactionLog.setPhone("phonenumbertest");
-		transactionLog.setShippingCost(shippingCost);
-		transactionLog.setTax(tax);
-		transactionLog.setOrderEmail("emailtest@emailtest.com");
-		transactionLog.setDate(date);
-		transactionLog.setShipped(false);
-		transactionLog.setTrackingNumber(1234567890);
-		transactionLog.setInventoryDetailId(-1);
-		transactionLog.setOrderCost(orderCost);
-		transactionLog.setMessage("messagetest");
-		transactionLog.setConfirmed(false);
-		transactionService.addTransaction(transactionLog);
+		TransactionLog expectedTransaction = getExpectedTransaction();			
+		transactionService.addTransaction(expectedTransaction);
 
 		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("transaction-dataset.xml"));
 		ITable expectedTable = expds.getTable("transaction");
@@ -159,7 +157,6 @@ public class TransactionServiceTest {
 	@Test
 	@Transactional
 	public void updateTransactionTest() throws Exception {
-		transactionLog = new TransactionLog();
 
 		// expectations
 		context.checking(new Expectations() {{
@@ -167,34 +164,8 @@ public class TransactionServiceTest {
 		}});		   
 
 		// test	
-		BigDecimal shippingCost = new BigDecimal("12.34");
-		BigDecimal tax = new BigDecimal("1.23");
-		BigDecimal orderCost = new BigDecimal("274.04");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("01/01/2010");
-		transactionLog.setAccountId(-1);
-		transactionLog.setSessionId("ABC123");
-		transactionLog.setCartId(-1);
-		transactionLog.setOrderQuantity(2);
-		transactionLog.setShipName("shipnametest");
-		transactionLog.setShipAddress("shipaddresstest");
-		transactionLog.setShipAddress2("shipaddress2test");
-		transactionLog.setCity("citytest");
-		transactionLog.setState("statetest");
-		transactionLog.setZip("12345");
-		transactionLog.setCountry("countrytest");
-		transactionLog.setPhone("phonenumbertest");
-		transactionLog.setShippingCost(shippingCost);
-		transactionLog.setTax(tax);
-		transactionLog.setOrderEmail("emailtest@emailtest.com");
-		transactionLog.setDate(date);
-		transactionLog.setShipped(false);
-		transactionLog.setTrackingNumber(1234567890);
-		transactionLog.setInventoryDetailId(-1);
-		transactionLog.setOrderCost(orderCost);
-		transactionLog.setMessage("messagetest");
-		transactionLog.setConfirmed(false);
-		transactionService.updateTransaction(transactionLog);
+		TransactionLog expectedTransaction = getExpectedTransaction();
+		transactionService.updateTransaction(expectedTransaction);
 
 		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("transaction-dataset.xml"));
 		ITable expectedTable = expds.getTable("transaction");
@@ -210,48 +181,21 @@ public class TransactionServiceTest {
 	}
 
 	@Test
-	@Transactional
 	public void getTransactionByIdTest() throws Exception {	
 		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
 
 		// test	
-		final TransactionLog transactionLog = new TransactionLog();
-		BigDecimal shippingCost = new BigDecimal("12.34");
-		BigDecimal tax = new BigDecimal("1.23");
-		BigDecimal orderCost = new BigDecimal("274.04");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.S", Locale.ENGLISH);
-		Date date = dateFormat.parse("2010-01-01 00:00:00.0");
-		transactionLog.setTransactionId(-1);
-		transactionLog.setAccountId(-1);
-		transactionLog.setSessionId("ABC123");
-		transactionLog.setCartId(-1);
-		transactionLog.setOrderQuantity(2);
-		transactionLog.setShipName("shipnametest");
-		transactionLog.setShipAddress("shipaddresstest");
-		transactionLog.setShipAddress2("shipaddress2test");
-		transactionLog.setCity("citytest");
-		transactionLog.setState("statetest");
-		transactionLog.setZip("12345");
-		transactionLog.setCountry("countrytest");
-		transactionLog.setPhone("phonenumbertest");
-		transactionLog.setShippingCost(shippingCost);
-		transactionLog.setTax(tax);
-		transactionLog.setOrderEmail("emailtest@emailtest.com");
-		transactionLog.setDate(date);
-		transactionLog.setShipped(false);
-		transactionLog.setTrackingNumber(1234567890);
-		transactionLog.setInventoryDetailId(-1);
-		transactionLog.setOrderCost(orderCost);
-		transactionLog.setMessage("messagetest");
-		transactionLog.setConfirmed(false);
+		final TransactionLog expectedTransaction = getExpectedTransaction();
+		expectedTransaction.setTransactionId(-1);
 
 		final TransactionLog actualTransactionLog = transactionService.getTransactionById(-1);	
 
 		// expectations
 		context.checking(new Expectations() {{
-			assertEquals(transactionLog.toString(), actualTransactionLog.toString());
-		}});		   
+			assertEquals(expectedTransaction.toString(), actualTransactionLog.toString());
+		}});		  
+		
 		// verify
 		context.assertIsSatisfied();	
 	}
@@ -279,7 +223,7 @@ public class TransactionServiceTest {
 
 	@Test
 	@Transactional
-	public void createTransactionTest() throws Exception {		
+	public void createTransactionsFromCartListTest() throws Exception {		
 		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();		
 		
@@ -319,4 +263,131 @@ public class TransactionServiceTest {
 		// verify
 		context.assertIsSatisfied();	
 	}
+	
+	@Test
+	@Transactional
+	public void createTransactionsFromSessionCartListTest() throws Exception {		
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();		
+		
+		// first, we have to remove the existing transaction from the test database:
+		transactionService.removeTransaction(-1);
+
+		// test	
+		List<Cart> cartList = new ArrayList<Cart>();
+		Cart cart = new Cart();
+		BigDecimal pricePerItem = new BigDecimal("123.45");
+		BigDecimal shippingCost = new BigDecimal("12.34");
+		BigDecimal tax = new BigDecimal("1.23");
+		cart.setCartId(-1);
+//		cart.setAccountId(-1);
+		cart.setSessionId("ABC123");
+		cart.setInventoryDetailId(-10);
+		cart.setQuantity(2);
+		cart.setPricePerItem(pricePerItem);
+		cart.setShippingCost(shippingCost);
+		cart.setTax(tax);
+		cartList.add(cart);
+		transactionService.createTransactionsFromSessionCartList(cartList, "ABC123"); 		
+
+		// expectations
+		IDataSet expds = new FlatXmlDataSetBuilder().build(new FileInputStream("transaction-dataset.xml"));
+		ITable expectedTable = expds.getTable("transaction");
+		IDatabaseConnection connection = databaseTester.getConnection();
+		IDataSet databaseDataSet = connection.createDataSet();
+		final ITable actualTable = databaseDataSet.getTable("transaction");
+		String[] ignoredColumns = new String[5];
+		ignoredColumns[0] = "transaction_id";
+		ignoredColumns[1] = "date";
+		ignoredColumns[2] = "message";
+		ignoredColumns[3] = "tracking_number";
+		ignoredColumns[4] = "account_id";
+		Assertion.assertEqualsIgnoreCols(expectedTable, actualTable, ignoredColumns);
+
+		// We also check that the account_id is set to 0 in this case:
+		context.checking(new Expectations() {{
+			assertEquals(0, actualTable.getValue(0, "account_id"));
+		}});		
+
+		// verify
+		context.assertIsSatisfied();	
+	}
+	
+	@Test
+	public void getLastTransactionByAccountIdTest() throws Exception {	
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
+
+		// test
+		final TransactionLog expectedTransaction = getExpectedTransaction();
+		expectedTransaction.setTransactionId(-1);				
+		
+		final TransactionLog actualTransaction = transactionService.getLastTransactionByAccountId(-1);	
+
+		// expectations
+		context.checking(new Expectations() {{
+			assertEquals(expectedTransaction.toString(), actualTransaction.toString());
+		}});		  
+		
+		// verify
+		context.assertIsSatisfied();
+	}
+	
+	@Test
+	public void getLastTransactionBySessionIdTest() throws Exception {	
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
+
+		// test
+		final TransactionLog expectedTransaction = getExpectedTransaction();
+		expectedTransaction.setTransactionId(-1);				
+		
+		final TransactionLog actualTransaction = transactionService.getLastTransactionBySessionId("ABC123");	
+
+		// expectations
+		context.checking(new Expectations() {{
+			assertEquals(expectedTransaction.toString(), actualTransaction.toString());
+		}});		  
+		
+		// verify
+		context.assertIsSatisfied();
+	}			
+	
+	@Test
+	@Transactional
+	public void setTransactionToConfirmedTest() throws Exception {	
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
+
+		// test		
+		transactionService.setTransactionToConfirmed(1234567890);
+		final TransactionLog actualTransaction = transactionService.getTransactionById(-1);
+
+		// expectations
+		context.checking(new Expectations() {{
+			assertEquals(true, actualTransaction.getConfirmed());
+		}});		  
+		
+		// verify
+		context.assertIsSatisfied();
+	}	
+	
+	@Test
+	@Transactional
+	public void updateMessageTest() throws Exception {	
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
+
+		// test
+		final TransactionLog expectedTransaction = getExpectedTransaction();	
+		transactionService.updateMessage(expectedTransaction, "test message");
+
+		// expectations
+		context.checking(new Expectations() {{
+			assertEquals("test message", expectedTransaction.getMessage());
+		}});		  
+		
+		// verify
+		context.assertIsSatisfied();
+	}		
 }

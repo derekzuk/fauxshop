@@ -96,17 +96,18 @@ public class TransactionDAOImpl implements TransactionDAO {
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
 
+    	try {
     	/*Create queries:*/
         String accountIdHql = "SELECT accountId FROM Cart WHERE cartId = :cartId";
         String orderQuantityHql = "SELECT quantity FROM Cart WHERE cartId = :cartId";
         String shipNameHql = "SELECT shipName FROM Account where accountId = :accountId";
         String shipAddressHql = "SELECT shipAddress from Account where accountId = :accountId";
         String shipAddress2Hql = "SELECT shipAddress2 from Account where accountId = :accountId";
-        String cityHql = "SELECT city from Account where accountId = :accountId";
-        String stateHql = "SELECT state from Account where accountId = :accountId";
-        String zipHql = "SELECT zip from Account where accountId = :accountId";
-        String countryHql = "SELECT country from Account where accountId = :accountId";
-        String phoneHql = "SELECT phoneNumber from Account where accountId = :accountId";
+        String cityHql = "SELECT shipCity from Account where accountId = :accountId";
+        String stateHql = "SELECT shipState from Account where accountId = :accountId";
+        String zipHql = "SELECT shipZip from Account where accountId = :accountId";
+        String countryHql = "SELECT shipCountry from Account where accountId = :accountId";
+        String phoneHql = "SELECT shipPhone from Account where accountId = :accountId";
         String shippingCostHql = "SELECT shippingCost from Cart where cartId = :cartId";
         String taxHql = "SELECT tax from Cart where cartId = :cartId";
         String orderEmailHql = "SELECT email from Account where accountId = :accountId";
@@ -189,12 +190,17 @@ public class TransactionDAOImpl implements TransactionDAO {
         
         session.save(transactionLog);
         tx.commit();
-    	session.close();
+	} catch (final HibernateError he) {
+		logger.error("Error in method: " + he);
+	} finally {
+        if (session.isOpen()){
+            session.close();
+        }
+	}
     }   
     
     /*@Override*/
     public void createTransactionFromSessionId(int cartId, String sessionId, long trackingNumber){
-    	logger.error("in createTransactionFromSessionId");
     	Session session = this.sessionFactory.openSession();
     	Transaction tx = session.beginTransaction();
     	Calendar calendar = Calendar.getInstance();
@@ -287,12 +293,14 @@ public class TransactionDAOImpl implements TransactionDAO {
         transactionLog.setOrderCost(orderCost);            	   
         
         session.save(transactionLog);
-        tx.commit();
-		
+        tx.commit();		
 	} catch (final HibernateError he) {
 		logger.error("Error in method: " + he);
+	} finally {
+        if (session.isOpen()){
+            session.close();
+        }
 	}
-    	session.close();
     }   
     
     
