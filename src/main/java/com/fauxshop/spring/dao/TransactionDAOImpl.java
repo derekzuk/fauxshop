@@ -80,12 +80,14 @@ public class TransactionDAOImpl implements TransactionDAO {
  
     /*@Override*/
     public void removeTransaction(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         TransactionLog t = (TransactionLog) session.load(TransactionLog.class, new Integer(id));
         if(null != t){
             session.delete(t);
         }
-        logger.info("Transaction deleted successfully, transaction details="+t);
+        tx.commit();
+        session.close();
     }
     
     /*@Override*/
@@ -97,9 +99,9 @@ public class TransactionDAOImpl implements TransactionDAO {
     	/*Create queries:*/
         String accountIdHql = "SELECT accountId FROM Cart WHERE cartId = :cartId";
         String orderQuantityHql = "SELECT quantity FROM Cart WHERE cartId = :cartId";
-        String shipNameHql = "SELECT CONCAT(firstName,' ',lastName) FROM Account where accountId = :accountId";
-        String shipAddressHql = "SELECT address from Account where accountId = :accountId";
-        String shipAddress2Hql = "SELECT address2 from Account where accountId = :accountId";
+        String shipNameHql = "SELECT shipName FROM Account where accountId = :accountId";
+        String shipAddressHql = "SELECT shipAddress from Account where accountId = :accountId";
+        String shipAddress2Hql = "SELECT shipAddress2 from Account where accountId = :accountId";
         String cityHql = "SELECT city from Account where accountId = :accountId";
         String stateHql = "SELECT state from Account where accountId = :accountId";
         String zipHql = "SELECT zip from Account where accountId = :accountId";

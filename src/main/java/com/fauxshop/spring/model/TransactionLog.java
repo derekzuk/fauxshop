@@ -278,6 +278,7 @@ public class TransactionLog implements Serializable {
     	this.confirmed = confirmed;
     }   
     
+//    The date element is commented out for the sake of the integration tests.
     @Override
     public String toString(){
         return "transactionId="+transactionId+
@@ -294,7 +295,7 @@ public class TransactionLog implements Serializable {
         		", phone="+phone+
         		", tax="+tax+
         		", orderEmail="+orderEmail+
-        		", date="+date+
+//        		", date="+date+
         		", shipped="+shipped+
         		", trackingNumber="+trackingNumber+
         		", inventoryDetailId="+inventoryDetailId+
