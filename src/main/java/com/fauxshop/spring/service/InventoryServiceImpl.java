@@ -47,4 +47,8 @@ public class InventoryServiceImpl implements InventoryService {
     	return this.inventoryDAO.getInventoryCategoryCode(inventoryCatCd);
     }
     
+    public List<Inventory> getBestSellerInventoryList() {
+    	return this.inventoryDAO.getBestSellerInventoryList();
+    }
+    
 }

@@ -46,8 +46,21 @@ import com.github.springtestdbunit.*;
 	TransactionalTestExecutionListener.class,
 	DbUnitTestExecutionListener.class })
 @Transactional
-public class PersonControllerTest {	
-
+public class ViewControllerTest {	
+//	Model views left to test:
+/*	"/", "index"
+	/account
+	/cart
+	/cartRemove/{cartId}
+	/categories/{inventoryCatCd}
+	/contact
+	/invoice
+	/login
+	/payment
+	/product_detail/{id}**
+	/product_detail/add/{inventoryId}
+	/shipping							*/
+	
 	Mockery context = new Mockery();
 
 	protected static IDataSet getDataSet() throws Exception {
@@ -79,7 +92,34 @@ public class PersonControllerTest {
 	private InventoryDetailService inventoryDetailService;
 
 	@Autowired
-	private PersonController personController;
+	private ViewController viewController;
+	
+	private Account getExpectedAccount() {
+		final Account account = new Account();
+		account.setAccountId(-1);
+		account.setAddress("addresstest");
+		account.setAddress2("address2test");
+		account.setCity("citytest");
+		account.setCountry("countrytest");
+		account.setEmail("emailtest@emailtest.com");
+		account.setEnabled(true);
+		account.setFirstName("firstnametest");
+		account.setLastName("lastnametest");
+		account.setPassword("passwordtest");
+		account.setPhoneNumber("phonenumbertest");
+		account.setState("statetest");
+		account.setUserLogin("userlogintest");
+		account.setZip("ziptest");
+		account.setShipAddress("shipaddresstest");
+		account.setShipAddress2("shipaddress2test");
+		account.setShipCity("shipcitytest");
+		account.setShipState("shipstatetest");
+		account.setShipCountry("shipcountrytest");
+		account.setShipName("shipnametest");
+		account.setShipPhone("shipphonetest");
+		account.setShipZip("shipziptest");
+		return account;
+	}
 
 	// This test would probably work if the test data was set up to handle it.
 	// Probably the smartest thing to do would be to change how the index page loads the inventory data, though.
@@ -152,30 +192,8 @@ public class PersonControllerTest {
 		securityContext.setAuthentication(authentication);
 		SecurityContextHolder.setContext(securityContext);
 
-		final Account account = new Account();
-		account.setAccountId(-1);
-		account.setAddress("addresstest");
-		account.setAddress2("address2test");
-		account.setCity("citytest");
-		account.setCountry("countrytest");
-		account.setEmail("emailtest@emailtest.com");
-		account.setEnabled(true);
-		account.setFirstName("firstnametest");
-		account.setLastName("lastnametest");
-		account.setPassword("passwordtest");
-		account.setPhoneNumber("phonenumbertest");
-		account.setState("statetest");
-		account.setUserLogin("userlogintest");
-		account.setZip("ziptest");
-		account.setShipAddress("shipaddresstest");
-		account.setShipAddress2("shipaddress2test");
-		account.setShipCity("shipcitytest");
-		account.setShipState("shipstatetest");
-		account.setShipCountry("shipcountrytest");
-		account.setShipName("shipnametest");
-		account.setShipPhone("shipphonetest");
-		account.setShipZip("shipziptest");
-
+		final Account account = getExpectedAccount();
+		
 		// execute
 		final ModelAndView modelAndView = handlerAdapter.handle(request, response, handler);
 
@@ -216,29 +234,7 @@ public class PersonControllerTest {
 		securityContext.setAuthentication(authentication);
 		SecurityContextHolder.setContext(securityContext);
 
-		final Account account = new Account();
-		account.setAccountId(-1);
-		account.setAddress("addresstest");
-		account.setAddress2("address2test");
-		account.setCity("citytest");
-		account.setCountry("countrytest");
-		account.setEmail("emailtest@emailtest.com");
-		account.setEnabled(true);
-		account.setFirstName("firstnametest");
-		account.setLastName("lastnametest");
-		account.setPassword("passwordtest");
-		account.setPhoneNumber("phonenumbertest");
-		account.setState("statetest");
-		account.setUserLogin("userlogintest");
-		account.setZip("ziptest");
-		account.setShipAddress("shipaddresstest");
-		account.setShipAddress2("shipaddress2test");
-		account.setShipCity("shipcitytest");
-		account.setShipState("shipstatetest");
-		account.setShipCountry("shipcountrytest");
-		account.setShipName("shipnametest");
-		account.setShipPhone("shipphonetest");
-		account.setShipZip("shipziptest");
+		final Account account = getExpectedAccount();
 
 		// execute
 		final ModelAndView modelAndView = handlerAdapter.handle(request, response, handler);

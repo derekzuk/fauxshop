@@ -13,5 +13,6 @@ public interface InventoryService {
     public Inventory getInventoryByInventoryDetailId(int inventoryDetailId);
     public List<Inventory> getInventoryListByInventoryCatCd(int inventoryCatCd);
     public InventoryCategoryCode getInventoryCategoryCode(int inventoryCatCd);
+    public List<Inventory> getBestSellerInventoryList();
      
 }

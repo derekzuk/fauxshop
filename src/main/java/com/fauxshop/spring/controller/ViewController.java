@@ -40,7 +40,7 @@ import com.fauxshop.spring.model.Cart;
 import com.fauxshop.spring.service.CartService;
  
 @Controller
-public class PersonController {
+public class ViewController {
 
     private InventoryService inventoryService;
     private InventoryDetailService inventoryDetailService;
@@ -48,7 +48,7 @@ public class PersonController {
     private CartService cartService;
     private TransactionService transactionService;
     
-	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ViewController.class);
     
     @Autowired(required=true)
     @Qualifier(value="inventoryService")
@@ -83,17 +83,18 @@ public class PersonController {
     /*Maps to welcome page*/
     @RequestMapping(value={"/", "index"}, method = RequestMethod.GET)
     public String listWelcomePage(Model model) {
+    	List<Inventory> bestSellerInventoryList = this.inventoryService.getBestSellerInventoryList();
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("listInventory", this.inventoryService.listInventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(-111));
-    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-111));
-    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(-112));
-    	model.addAttribute("pleatherShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-112));
-    	model.addAttribute("pleatherPants", this.inventoryService.getInventoryById(-113));
-    	model.addAttribute("pleatherPantsDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-113));
-    	model.addAttribute("hempShirt", this.inventoryService.getInventoryById(-114));  
-    	model.addAttribute("hempShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(-114));
+    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(bestSellerInventoryList.get(0).getInventoryId()));
+    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(0).getInventoryId()));
+    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(bestSellerInventoryList.get(1).getInventoryId()));
+    	model.addAttribute("pleatherShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(1).getInventoryId()));
+    	model.addAttribute("pleatherPants", this.inventoryService.getInventoryById(bestSellerInventoryList.get(2).getInventoryId()));
+    	model.addAttribute("pleatherPantsDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(2).getInventoryId()));
+    	model.addAttribute("hempShirt", this.inventoryService.getInventoryById(bestSellerInventoryList.get(3).getInventoryId()));  
+    	model.addAttribute("hempShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(3).getInventoryId()));
 
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {

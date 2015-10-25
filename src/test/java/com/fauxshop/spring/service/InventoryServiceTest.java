@@ -236,6 +236,24 @@ public class InventoryServiceTest {
 		}});		   
 		// verify
 		context.assertIsSatisfied();
+	}	
+	
+	@Test
+	@Transactional
+	public void getBestSellerInventoryListTest() throws Exception {
+		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();			
+
+		// execute
+		final List<Inventory> inventoryList = inventoryService.getBestSellerInventoryList();		
+
+		// expectations
+		context.checking(new Expectations() {{
+			assertTrue(!inventoryList.isEmpty());
+		}});		   
+		
+		// verify
+		context.assertIsSatisfied();
 	}			
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
  
+
 import com.fauxshop.spring.model.Inventory;
 import com.fauxshop.spring.model.InventoryCategoryCode;
 
@@ -105,6 +107,17 @@ public class InventoryDAOImpl implements InventoryDAO {
         session.close();
         logger.info("InventoryCategoryCode loaded successfully, InventoryCategoryCode details="+result);
         return result;
-    }       	
+    }
+    
+    // this query doesn't actually return the top sellers, it just limits the results to 4.
+	@SuppressWarnings("unchecked")
+    public List<Inventory> getBestSellerInventoryList() {
+    	Session session = this.sessionFactory.openSession();
+    	String hql = "FROM Inventory";
+    	Query query = session.createQuery(hql);
+    	query.setMaxResults(4);
+		List<Inventory> result = (List<Inventory>) query.list();
+    	return result;
+    }
     
 }
