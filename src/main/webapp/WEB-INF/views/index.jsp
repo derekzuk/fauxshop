@@ -165,86 +165,8 @@
       <!-- end:home-slider -->
 
       <!-- begin:best-seller -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="page-header">
-            <h2>Best Seller <small>Most sold product in this month</small></h2>
-          </div>
-        </div>
-      </div>
-
-      <div class="row product-container">
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail/${leatherJacket.inventoryId}?color=${leatherJacketDetail.get(0).getColor()}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
-            <div class="caption">
-              <h5>${leatherJacket.inventoryTxt}</h5>
-              <p>$${leatherJacket.priceUsd}</p>
-              <c:choose> 
-	            <c:when test="${leatherJacket.inStock}">
-				  <p>Available</p>
-				</c:when>
-              	<c:otherwise>
-            	  <p>Out of Stock</p>
-              	</c:otherwise>
-              </c:choose>                            
-            </div>
-            <div class="product-item-badge">New</div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherShirt.inventoryId}?color=${pleatherShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
-            <div class="caption">
-              <h5>${pleatherShirt.inventoryTxt}</h5>
-              <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
-              <c:choose> 
-	            <c:when test="${pleatherShirt.inStock}">
-				  <p>Available</p>
-				</c:when>
-              	<c:otherwise>
-            	  <p>Out of Stock</p>
-              	</c:otherwise>
-              </c:choose>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherPants.inventoryId}?color=${pleatherPantsDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
-            <div class="caption">
-              <h5>${pleatherPants.inventoryTxt}</h5>
-              <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
-              <c:choose> 
-	            <c:when test="${pleatherPants.inStock}">
-				  <p>Available</p>
-				</c:when>
-              	<c:otherwise>
-            	  <p>Out of Stock</p>
-              	</c:otherwise>
-              </c:choose>
-            </div>
-            <div class="product-item-badge badge-sale">Sale</div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
-            <a href="product_detail/${hempShirt.inventoryId}?color=${hempShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
-            <div class="caption">
-              <h5>${hempShirt.inventoryTxt}</h5>
-              <p>$${hempShirt.priceUsd}</p>
-              <c:choose> 
-	            <c:when test="${hempShirt.inStock}">
-				  <p>Available</p>
-				</c:when>
-              	<c:otherwise>
-            	  <p>Out of Stock</p>
-              	</c:otherwise>
-              </c:choose>
-            </div>
-          </div>
-        </div>
-      </div>
+		<!-- We pull the table from another view: -->
+		<jsp:include page="bestseller.jsp"/>
       <!-- end:best-seller -->
 
       <!-- begin:new-arrival -->

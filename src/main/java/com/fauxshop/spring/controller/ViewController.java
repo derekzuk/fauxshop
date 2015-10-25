@@ -85,6 +85,8 @@ public class ViewController {
     public String listWelcomePage(Model model) {
     	List<Inventory> bestSellerInventoryList = this.inventoryService.getBestSellerInventoryList();
     	model.addAttribute("cartService", this.cartService);
+    	model.addAttribute("inventoryService", this.inventoryService);
+    	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
     	model.addAttribute("listInventory", this.inventoryService.listInventory());
     	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(bestSellerInventoryList.get(0).getInventoryId()));
