@@ -56,7 +56,6 @@ public class AccountServiceTest {
 		}	*/
 	
 	protected static IDataSet getDataSet() throws Exception {
-		log.error("in getDataSet()");
 		   return new FlatXmlDataSetBuilder().build(new FileInputStream("account-dataset.xml"));
 		}	
 	

@@ -67,7 +67,6 @@ public class TransactionServiceTest {
 		}	*/
 
 	protected static IDataSet getDataSet() throws Exception {
-		log.error("in getDataSet()");
 		return new FlatXmlDataSetBuilder().build(new FileInputStream("transaction-dataset.xml"));
 	}	
 

@@ -113,9 +113,10 @@ public class PersonController {
     	model.addAttribute("cartService", this.cartService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
+    		
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
-    		model.addAttribute("account", new Account());
+//    		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");

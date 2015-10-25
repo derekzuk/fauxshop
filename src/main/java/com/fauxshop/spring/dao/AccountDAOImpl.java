@@ -115,9 +115,6 @@ public class AccountDAOImpl implements AccountDAO {
 		query.setParameter("username", name);
 		Account result = (Account) query.uniqueResult();
 		session.close();
-
-		logger.debug("getAccountByName query: " + query.toString());
-		logger.debug("getAccountByName query results (toString()): " + result.toString());
 		return result;
 	}    
 
