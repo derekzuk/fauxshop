@@ -252,9 +252,9 @@
               <div class="widget">
                 <h3><span>Contact Info</span></h3>
                 <address>
-                  No. 22, Bantul, Yogyakarta, Indonesia<br>
-                  Call Us : (0274) 4411005<br>
-                  Email : avriqq@gmail.com<br>
+                  123 Fake St., Richmond, VA<br>
+                  Call Us : (123) 456-7890<br>
+                  Email : admin@fauxshop.com<br>
                 </address>
               </div>
             </div>

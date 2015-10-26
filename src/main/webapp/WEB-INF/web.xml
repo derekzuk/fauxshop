@@ -6,7 +6,7 @@
 	<!-- Spring Security Configuration File -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/spring-security.xml</param-value>
+		<param-value>../resources/spring-security.xml</param-value>
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlet and Filters -->
@@ -38,7 +38,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-			/WEB-INF/spring/appServlet/servlet-context.xml
+			../resources/servlet-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -56,7 +56,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/mycart-servlet.xml</param-value>
+			<param-value>../resources/mycart-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
