@@ -181,12 +181,12 @@
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${leatherJacket.inventoryId}?color=${leatherJacketDetail.get(0).getColor()}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
+            <a href="product_detail/${inventory0.inventoryId}?color=${inventoryDetail0.get(0).getColor()}"><img alt="" src="<c:url value="${inventory0.img}"/>"></a>
             <div class="caption">
-              <h5>${leatherJacket.inventoryTxt}</h5>
-              <p>$${leatherJacket.priceUsd}</p>
+              <h5>${inventory0.inventoryTxt}</h5>
+              <p>$${inventory0.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${leatherJacket.inStock}">
+	            <c:when test="${inventory0.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -199,12 +199,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherShirt.inventoryId}?color=${pleatherShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <a href="product_detail/${inventory1.inventoryId}?color=${inventoryDetail1.get(0).getColor()}"><img alt="" src="<c:url value="${inventory1.img}"/>"></a>
             <div class="caption">
-              <h5>${pleatherShirt.inventoryTxt}</h5>
-              <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
+              <h5>${inventory1.inventoryTxt}</h5>
+              <p class="product-item-price">$${inventory1.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${pleatherShirt.inStock}">
+	            <c:when test="${inventory1.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -216,12 +216,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherPants.inventoryId}?color=${pleatherPantsDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
+            <a href="product_detail/${inventory2.inventoryId}?color=${inventoryDetail2.get(0).getColor()}"><img alt="" src="<c:url value="${inventory2.img}"/>"></a>
             <div class="caption">
-              <h5>${pleatherPants.inventoryTxt}</h5>
-              <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
+              <h5>${inventory2.inventoryTxt}</h5>
+              <p><del>$590.00</del> $${inventory2.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${pleatherPants.inStock}">
+	            <c:when test="${inventory2.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -234,12 +234,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${hempShirt.inventoryId}?color=${hempShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
+            <a href="product_detail/${inventory3.inventoryId}?color=${inventoryDetail3.get(0).getColor()}"><img alt="" src="<c:url value="${inventory3.img}"/>"></a>
             <div class="caption">
-              <h5>${hempShirt.inventoryTxt}</h5>
-              <p>$${hempShirt.priceUsd}</p>
+              <h5>${inventory3.inventoryTxt}</h5>
+              <p>$${inventory3.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${hempShirt.inStock}">
+	            <c:when test="${inventory3.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -264,12 +264,12 @@
       <div class="row product-container">
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${leatherJacket.inventoryId}?color=${leatherJacketDetail.get(0).getColor()}"><img alt="" src="<c:url value="${leatherJacket.img}"/>"></a>
+            <a href="product_detail/${inventory0.inventoryId}?color=${inventoryDetail0.get(0).getColor()}"><img alt="" src="<c:url value="${inventory0.img}"/>"></a>
             <div class="caption">
-              <h5>${leatherJacket.inventoryTxt}</h5>
-              <p>$${leatherJacket.priceUsd}</p>
+              <h5>${inventory0.inventoryTxt}</h5>
+              <p>$${inventory0.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${leatherJacket.inStock}">
+	            <c:when test="${inventory0.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -282,12 +282,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherShirt.inventoryId}?color=${pleatherShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherShirt.img}"/>"></a>
+            <a href="product_detail/${inventory1.inventoryId}?color=${inventoryDetail1.get(0).getColor()}"><img alt="" src="<c:url value="${inventory1.img}"/>"></a>
             <div class="caption">
-              <h5>${pleatherShirt.inventoryTxt}</h5>
-              <p class="product-item-price">$${pleatherShirt.priceUsd}</p>
+              <h5>${inventory1.inventoryTxt}</h5>
+              <p class="product-item-price">$${inventory1.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${pleatherShirt.inStock}">
+	            <c:when test="${inventory1.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -299,12 +299,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${pleatherPants.inventoryId}?color=${pleatherPantsDetail.get(0).getColor()}"><img alt="" src="<c:url value="${pleatherPants.img}"/>"></a>
+            <a href="product_detail/${inventory2.inventoryId}?color=${inventoryDetail2.get(0).getColor()}"><img alt="" src="<c:url value="${inventory2.img}"/>"></a>
             <div class="caption">
-              <h5>${pleatherPants.inventoryTxt}</h5>
-              <p><del>$590.00</del> $${pleatherPants.priceUsd}</p>
+              <h5>${inventory2.inventoryTxt}</h5>
+              <p><del>$590.00</del> $${inventory2.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${pleatherPants.inStock}">
+	            <c:when test="${inventory2.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>
@@ -317,12 +317,12 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail product-item">
-            <a href="product_detail/${hempShirt.inventoryId}?color=${hempShirtDetail.get(0).getColor()}"><img alt="" src="<c:url value="${hempShirt.img}"/>"></a>
+            <a href="product_detail/${inventory3.inventoryId}?color=${inventoryDetail3.get(0).getColor()}"><img alt="" src="<c:url value="${inventory3.img}"/>"></a>
             <div class="caption">
-              <h5>${hempShirt.inventoryTxt}</h5>
-              <p>$${hempShirt.priceUsd}</p>
+              <h5>${inventory3.inventoryTxt}</h5>
+              <p>$${inventory3.priceUsd}</p>
               <c:choose> 
-	            <c:when test="${hempShirt.inStock}">
+	            <c:when test="${inventory3.inStock}">
 				  <p>Available</p>
 				</c:when>
               	<c:otherwise>

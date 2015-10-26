@@ -121,11 +121,8 @@ public class ViewControllerTest {
 		return account;
 	}
 
-	// This test would probably work if the test data was set up to handle it.
-	// Probably the smartest thing to do would be to change how the index page loads the inventory data, though.
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
 	public void listWelcomePageTest() throws Exception {
 		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();	
@@ -159,7 +156,7 @@ public class ViewControllerTest {
 		// modelAndView and/or response asserts here
 		// expectations
 		context.checking(new Expectations() {{
-			assertEquals(modelAndView.getViewName(), "/");
+			assertEquals("index", modelAndView.getViewName());
 		}});		   		   	        	
 	}	
 

@@ -87,16 +87,15 @@ public class ViewController {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
-    	model.addAttribute("inventory", new Inventory());
-    	model.addAttribute("listInventory", this.inventoryService.listInventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(bestSellerInventoryList.get(0).getInventoryId()));
-    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(0).getInventoryId()));
-    	model.addAttribute("pleatherShirt", this.inventoryService.getInventoryById(bestSellerInventoryList.get(1).getInventoryId()));
-    	model.addAttribute("pleatherShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(1).getInventoryId()));
-    	model.addAttribute("pleatherPants", this.inventoryService.getInventoryById(bestSellerInventoryList.get(2).getInventoryId()));
-    	model.addAttribute("pleatherPantsDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(2).getInventoryId()));
-    	model.addAttribute("hempShirt", this.inventoryService.getInventoryById(bestSellerInventoryList.get(3).getInventoryId()));  
-    	model.addAttribute("hempShirtDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(3).getInventoryId()));
+    	model.addAttribute("inventory", new Inventory());    	
+    	for (int i = 0; i < bestSellerInventoryList.size(); i++) {
+    		String inventoryAttributeName = "inventory" + i;
+    		Inventory inventoryAttributeValue = this.inventoryService.getInventoryById(bestSellerInventoryList.get(i).getInventoryId());
+    		model.addAttribute(inventoryAttributeName,inventoryAttributeValue);
+    		String inventoryDetailAttributeName = "inventoryDetail" + i;
+    		List<InventoryDetail> inventoryDetailAttributeValue = this.inventoryDetailService.getInventoryDetailByInventoryId(bestSellerInventoryList.get(i).getInventoryId());
+    		model.addAttribute(inventoryDetailAttributeName,inventoryDetailAttributeValue);
+    	}
 
     	// If no user is logged in, then the view will display accordingly.
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
