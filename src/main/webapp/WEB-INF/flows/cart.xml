@@ -13,7 +13,12 @@
 		<evaluate expression="externalContext.nativeRequest.session.id" result="flowScope.currentSession"/>
 		<set name="requestScope.currentUser" value="currentUser"/>
 		<set name="requestScope.cartService" value="cartService"/>
-	</on-start>			
+	</on-start>
+	
+	<decision-state id="isUserLoggedIn">
+		<if test="accountService.isUserLoggedIn(currentUser)" then="cart"
+			else="cartSessionId" />
+	</decision-state>					
 	
 	<!-- By default, the first state is the start state. -->
 	<view-state id="cart" view="cart">
@@ -21,10 +26,22 @@
 			<set name="requestScope.cartService" value="cartService"/>	
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>
 		</on-render>							
 		<transition on="next" to="shipping"/>
 		<transition on="continueShopping" to="categoriesExit"/>
-	</view-state>		
+	</view-state>
+	
+	<view-state id="cartSessionId" view="cart">
+		<on-render>
+			<set name="requestScope.cartService" value="cartService"/>	
+			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>
+		</on-render>							
+		<transition on="next" to="shipping"/>
+		<transition on="continueShopping" to="categoriesExit"/>
+	</view-state>					
 	
 	<view-state id="shipping" view="shipping">
 		<on-render>
@@ -32,14 +49,21 @@
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>			
 		</on-render>		
-		<transition on="next" to="isUserLoggedIn"/>
+		<transition on="next" to="payment"/>
 	</view-state>
 	
-	<decision-state id="isUserLoggedIn">
-		<if test="accountService.isUserLoggedIn(currentUser)" then="payment"
-			else="paymentSessionId" />
-	</decision-state>	
+	<view-state id="shippingSessionId" view="shipping">
+		<on-render>
+			<set name="requestScope.currentUser" value="currentUser"/>
+			<set name="requestScope.cartService" value="cartService"/>
+			<set name="requestScope.inventoryService" value="inventoryService"/>
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
+			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>
+		</on-render>		
+		<transition on="next" to="paymentSessionId"/>
+	</view-state>	
 	
 	<view-state id="payment" view="payment" model="transactionLogValues">
 		<on-render>

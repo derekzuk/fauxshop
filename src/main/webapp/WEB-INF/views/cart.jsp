@@ -68,7 +68,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size()} Product(s)</strong></p>
+                  <p><strong>${cart.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -194,7 +194,7 @@
               <form role="form" method="post" action="${flowExecutionUrl}">
               <input type="submit" class="btn btn-default" name="_eventId_continueShopping" value="Continue Shopping" />
 			  <c:choose>
-              <c:when test="${cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername()).size() > 0 || cartService.getCartBySessionId(currentSession).size() > 0}">               
+              <c:when test="${cart.size() > 0}">               
               <input type="submit" class="btn btn-primary pull-right" name="_eventId_next" value="Next" />
               </c:when>
               </c:choose>

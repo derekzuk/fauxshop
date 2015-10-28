@@ -40,7 +40,7 @@ import com.fauxshop.spring.model.InventoryDetail;
 import com.fauxshop.spring.model.SessionAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/dbHibernate-context.xml")
+@ContextConfiguration("/META-INF/spring/applicationContext-hibernate.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,

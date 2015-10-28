@@ -5,17 +5,17 @@
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop
-		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/webflow-config
-		http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
 		http://www.springframework.org/schema/util
-		http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/tx 
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+        http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-autowire="byName">
 	
 		<!-- Error message configuration -->	
@@ -129,6 +129,6 @@
 	<!-- Database connection and Hibernate -->
 	<!-- ================================================================== -->
 	
-	<import resource="dbHibernate-context.xml"/>
+	<import resource="classpath:/META-INF/spring/applicationContext-hibernate.xml"/>
 
 </beans>

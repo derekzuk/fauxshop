@@ -69,6 +69,6 @@
 	<!-- Database connection and Hibernate -->
 	<!-- ================================================================== -->	
 	
-	<beans:import resource="dbHibernate-context.xml"/>
+	<beans:import resource="classpath:/META-INF/spring/applicationContext-hibernate.xml"/>
 	
 </beans:beans>

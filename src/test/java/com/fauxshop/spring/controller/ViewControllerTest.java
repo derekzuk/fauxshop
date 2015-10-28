@@ -40,7 +40,7 @@ import com.fauxshop.spring.service.InventoryService;
 import com.github.springtestdbunit.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/servlet-context.xml")
+@ContextConfiguration("/META-INF/spring/applicationContext-mvc.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,
