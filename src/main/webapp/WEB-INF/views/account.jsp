@@ -46,20 +46,13 @@
             <ul>
               <li id="your-account">
                 <div class="hidden-xs">
-                  <h4><a href="account">Your Account</a></h4>
-                  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">                  	
+                  <h4><a href="account">Your Account</a></h4>                  	
 					<p>Welcome, ${pageContext.request.userPrincipal.name}</p>
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
 						<a href="/j_spring_security_logout">Log Out</a>
 						</form>
-					</c:when>
-					<c:otherwise>										
-                  	<p><a href="login">Log in</a></p>
-                  </c:otherwise>
-                  </c:choose>  
                 </div>
                 <div class="visible-xs">
                   <a href="login" class="btn btn-primary"><i class="fa fa-user"></i></a>
@@ -68,7 +61,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
+                  <p><strong>${cart.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -199,79 +192,36 @@
               <hr />
               <form class="form-horizontal" method="post" action="${flowExecutionUrl}">
               <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
-              <c:choose>
-              <c:when test="${pageContext.request.userPrincipal.name != null}">
-              	<input type="hidden" name="accountId" id="accountId" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).accountId}"/>
+              	<input type="hidden" name="accountId" id="accountId" value="${account.accountId}"/>
               	<input type="hidden" name="enabled" id="enabled" value="1"/>            
-              </c:when>
-              <c:otherwise>
-              <!-- If no user is logged in, an accountId will be automatically generated. -->
-              </c:otherwise>
-              </c:choose>
               <div class="form-group">
                   <label class="col-sm-3 control-label">User Login</label>
                   <div class="col-sm-9">                  	                  	                  
-                  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).userLogin}" id=userLogin name=userLogin disabled>
-                  		<input type="hidden" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).userLogin}" id=userLogin name=userLogin>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${userLoginValue}" placeholder="User Login" id=userLogin name=userLogin>
-                  	</c:otherwise>    
-                  </c:choose>                  	                 
+                  		<input type="text" class="form-control" value="${account.userLogin}" id=userLogin name=userLogin>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">First Name</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).firstName}" id=firstName name=firstName>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${firstNameValue}" placeholder="First Name" id=firstName name=firstName>
-                  	</c:otherwise>    
-                  </c:choose>
+                  		<input type="text" class="form-control" value="${account.firstName}" id=firstName name=firstName>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Last Name</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).lastName}" id=lastName name=lastName>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${lastNameValue}" placeholder="Last Name" id=lastName name=lastName>
-                  	</c:otherwise>    
-                  </c:choose>                  
+                  		<input type="text" class="form-control" value="${account.lastName}" id=lastName name=lastName>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Email</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="email" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).email}" class="form-control" id=email name=email>
-                  	</c:when>  
-                  	<c:otherwise>
-                    <input type="email" value="${emailValue}" class="form-control" placeholder="Email" id=email name=email>
-                  	</c:otherwise>    
-                  </c:choose>                  
+                  		<input type="email" value="${account.email}" class="form-control" id=email name=email>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Password</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="password" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).password}" id=password name=password>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="password" class="form-control" value="${passwordValue}" placeholder="" id=password name=password>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                  		<input type="password" class="form-control" value="${account.password}" id=password name=password>
                   </div>
                 </div>
                 <div class="form-group">
@@ -307,104 +257,43 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Address</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address}" id=address name=address>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${addressValue}" placeholder="Address" id=address name=address>
-                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                    	<input type="text" class="form-control" value="${account.address}" id=address name=address>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Address (Line 2)</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address2}" id=address2 name=address2>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${address2Value}" placeholder="Address (Line 2)" id=address2 name=address2>
-                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
-                  	</c:otherwise>    
-                  </c:choose>                                                      
+                    	<input type="text" class="form-control" value="${account.address2}" id=address2 name=address2>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">City</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).city}" id=city name=city>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${cityValue}" placeholder="City" id=city name=city>
-                  	</c:otherwise>    
-                  </c:choose>                                          
+                  		<input type="text" class="form-control" value="${account.city}" id=city name=city>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Country</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).country}" id=country name=country>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<select class="form-control" id=country name=country>
-                    	<c:choose>
-                    		<c:when test="${null != countryValue}">
-								<option>${countryValue}
-							</c:when>   
-							<c:otherwise>                 
-                      			<option>United States</option>
-                      			<option>Canada</option>
-							</c:otherwise>  
-						</c:choose>                    
-                    	</select>                    
-                  	</c:otherwise>    
-                  </c:choose>                                                                              
+                  		<input type="text" class="form-control" value="${account.country}" id=country name=country>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">State</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).state}" id=state name=state>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${stateValue}" placeholder="State" id=state name=state>
-                  	</c:otherwise>    
-                  </c:choose>                                                            
+                  		<input type="text" class="form-control" value="${account.state}" id=state name=state>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Zip Code</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).zip}" id=zip name=zip>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${zipValue}" placeholder="#####" id=zip name=zip>
-                  	</c:otherwise>    
-                  </c:choose>                  
+                  		<input type="text" class="form-control" value="${account.zip}" id=zip name=zip>
                   </div>
                 </div>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Phone</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).phoneNumber}" id=phoneNumber name=phoneNumber>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${phoneNumberValue}" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                  		<input type="text" class="form-control" value="${account.phoneNumber}" id=phoneNumber name=phoneNumber>
                   </div>
                 </div>
                 
@@ -431,134 +320,57 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Name</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipName}" id=shipName name=shipName>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipNameValue}" placeholder="Ship Name" id=shipName name=shipName>
-                    	<span class="help-block">The name you would like to have packages shipped to.</span>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                    	<input type="text" class="form-control" value="${account.shipName}" id=shipName name=shipName>
                   </div>
                 </div>                    
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Address</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipAddress}" id=shipAddress name=shipAddress>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipAddressValue}" placeholder="Ship Address" id=shipAddress name=shipAddress>
-                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                    	<input type="text" class="form-control" value="${account.shipAddress}" id=shipAddress name=shipAddress>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Address (Line 2)</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                    	<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).address2}" id=shipAddress2 name=shipAddress2>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipAddress2Value}" placeholder="Ship Address (Line 2)" id=shipAddress2 name=shipAddress2>
-                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
-                  	</c:otherwise>    
-                  </c:choose>                                                      
+                    	<input type="text" class="form-control" value="${account.address2}" id=shipAddress2 name=shipAddress2>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping City</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipCity}" id=shipCity name=shipCity>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipCityValue}" placeholder="Ship City" id=shipCity name=shipCity>
-                  	</c:otherwise>    
-                  </c:choose>                                          
+                  		<input type="text" class="form-control" value="${account.shipCity}" id=shipCity name=shipCity>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Country</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipCountry}" id=shipCountry name=shipCountry>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<select class="form-control" id=shipCountry name=shipCountry>
-                    	<c:choose>
-                    		<c:when test="${null != countryValue}">
-								<option>${shipCountryValue}
-							</c:when>   
-							<c:otherwise>                 
-                      			<option>United States</option>
-                      			<option>Canada</option>
-							</c:otherwise>  
-						</c:choose>                    
-                    	</select>                    
-                  	</c:otherwise>    
-                  </c:choose>                                                                              
+                  		<input type="text" class="form-control" value="${account.shipCountry}" id=shipCountry name=shipCountry>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping State</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipState}" id=shipState name=shipState>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipStateValue}" placeholder="Ship State" id=shipState name=shipState>
-                  	</c:otherwise>    
-                  </c:choose>                                                            
+                  		<input type="text" class="form-control" value="${account.shipState}" id=shipState name=shipState>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Zip Code</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).zip}" id=shipZip name=shipZip>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipZipValue}" placeholder="#####" id=shipZip name=shipZip>
-                  	</c:otherwise>    
-                  </c:choose>                  
+                  		<input type="text" class="form-control" value="${account.zip}" id=shipZip name=shipZip>
                   </div>
                 </div>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Phone</label>
                   <div class="col-sm-9">
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
-                  		<input type="text" class="form-control" value="${accountService.getAccountByName(pageContext.request.userPrincipal.name).shipPhone}" id=shipPhone name=shipPhone>
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="text" class="form-control" value="${shipPhoneNumberValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone>
-                  	</c:otherwise>    
-                  </c:choose>                                    
+                  		<input type="text" class="form-control" value="${account.shipPhone}" id=shipPhone name=shipPhone>
                   </div>
                 </div>          
                 </div>        
                     
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">					
-				  <c:choose>
-                  	<c:when test="${pageContext.request.userPrincipal.name != null}">
                   		<input type="submit" class="btn btn-default" name="_eventId_editAccount" value="Save Changes" />
                   		<input type="submit" class="btn btn-primary" name="_eventId_ok" value="Cancel" />                  		
-                  	</c:when>  
-                  	<c:otherwise>
-                    	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
-                    	<input type="submit" class="btn btn-default" name="_eventId_cancel" value="Cancel" />
-                  	</c:otherwise>    
-                  </c:choose>  
                   </div>
                 </div>
               </form>

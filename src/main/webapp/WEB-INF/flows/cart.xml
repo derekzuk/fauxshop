@@ -39,7 +39,7 @@
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>
 		</on-render>							
-		<transition on="next" to="shipping"/>
+		<transition on="next" to="shippingSessionId"/>
 		<transition on="continueShopping" to="categoriesExit"/>
 	</view-state>					
 	

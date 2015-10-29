@@ -112,16 +112,18 @@ public class ViewController {
     
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String listAbout(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    
     	model.addAttribute("cartService", this.cartService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
     		
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
-//    		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	
         return "about";
     } 
@@ -173,6 +175,7 @@ public class ViewController {
     @RequestMapping(value = "/categories/{inventoryCatCd}", method = RequestMethod.GET)
     public String listCategories(@PathVariable("inventoryCatCd") int inventoryCatCd,
     		Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -185,14 +188,17 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "categories";
     }
     
     @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String listConfirm(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -202,14 +208,17 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "confirm";
     }
     
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String listContact(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    	
     	model.addAttribute("cartService", this.cartService);
     	
     	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() != "anonymousUser") {
@@ -217,14 +226,17 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "contact";
     }
     
     @RequestMapping(value = "/invoice", method = RequestMethod.GET)
     public String listInvoice(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -241,9 +253,10 @@ public class ViewController {
     		model.addAttribute("currentUser", currentUser);
         	model.addAttribute("lastTransaction", lastTransaction);
         	model.addAttribute("date", date);
-
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "invoice";
     }
@@ -255,6 +268,7 @@ public class ViewController {
     
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String listPayment(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -264,8 +278,10 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	            
         return "payment";
     }          
@@ -275,6 +291,7 @@ public class ViewController {
     		@ModelAttribute("InventoryDetail") InventoryDetail invdet,
     		Model model,
     		HttpServletRequest request) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();		
 		
 		String queryString = (String) request.getQueryString();
 	    String colorPath = queryString.replace("color=","");     	    
@@ -319,8 +336,10 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "product_detail";
     }       
@@ -411,6 +430,7 @@ public class ViewController {
     
     @RequestMapping(value = "/shipping", method = RequestMethod.GET)
     public String listShipping(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();    	
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
@@ -420,8 +440,10 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "shipping";
     }

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -27,11 +28,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.test.context.support.*;
 import org.springframework.test.context.transaction.*;
+
 import com.fauxshop.spring.model.Account;
 import com.fauxshop.spring.service.AccountService;
 import com.fauxshop.spring.service.CartService;
@@ -164,7 +169,7 @@ public class ViewControllerTest {
 	@Test
 	public void aboutTest() throws Exception {
 		databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
-		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();	
+		databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setMethod("GET");
@@ -173,6 +178,9 @@ public class ViewControllerTest {
 		Object handler = handlerMapping.getHandler(request).getHandler();		
 		final SecurityContext securityContext = context.mock(SecurityContext.class);
 		final Authentication authentication = context.mock(Authentication.class);
+				
+		RequestAttributes attributes = new ServletRequestAttributes(request);
+		RequestContextHolder.setRequestAttributes(attributes);
 		
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new GrantedAuthorityImpl("User"));		
@@ -215,6 +223,9 @@ public class ViewControllerTest {
 		Object handler = handlerMapping.getHandler(request).getHandler();		
 		final SecurityContext securityContext = context.mock(SecurityContext.class);
 		final Authentication authentication = context.mock(Authentication.class);
+		
+		RequestAttributes attributes = new ServletRequestAttributes(request);
+		RequestContextHolder.setRequestAttributes(attributes);		
 		
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new GrantedAuthorityImpl("User"));		

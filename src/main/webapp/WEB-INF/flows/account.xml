@@ -6,8 +6,18 @@
 
 	<var name="accountCredentials" class="com.fauxshop.spring.model.Account"/>
 	<var name="accountValidation" class="com.fauxshop.spring.swf.AccountValidation"/>
-
-	<view-state id="registration" view="account" model="accountCredentials">
+	
+	<on-start>	
+		<evaluate expression="externalContext.nativeRequest.session.id" result="flowScope.currentSession"/>
+		<set name="requestScope.currentUser" value="currentUser"/>
+	</on-start>	
+	
+	<decision-state id="isUserLoggedIn">
+		<if test="accountService.isUserLoggedIn(currentUser)" then="account"
+			else="accountRegistration" />
+	</decision-state>
+	
+	<view-state id="account" view="account" model="accountCredentials">
 		<on-render>
 			<!-- Carry cart from Spring app context to request scope -->
 			<set name="requestScope.cartService" value="cartService"/>
@@ -31,9 +41,42 @@
 			<set name="requestScope.shipPhoneValue" value="accountCredentials.shipPhone"/>
 			<set name="requestScope.shipCountryValue" value="accountCredentials.shipCountry"/>
 			<set name="requestScope.shipAddressValue" value="accountCredentials.shipAddress"/>
-			<set name="requestScope.shipAddress2Value" value="accountCredentials.shipAddress2"/>			
+			<set name="requestScope.shipAddress2Value" value="accountCredentials.shipAddress2"/>
+			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />
+			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>			
 		</on-render>	
-		<transition on="cancel" to="exitHome"/>
+		<transition on="ok" to="exitHome"/>
+		<transition on="editAccount" to="editAccount"/>
+	</view-state>			
+
+	<view-state id="accountRegistration" view="accountRegistration" model="accountCredentials">
+		<on-render>
+			<!-- Carry cart from Spring app context to request scope -->
+			<set name="requestScope.cartService" value="cartService"/>
+			<set name="requestScope.accountService" value="accountService"/>	
+			<set name="requestScope.userLoginValue" value="accountCredentials.userLogin"/>
+			<set name="requestScope.emailValue" value="accountCredentials.email"/>
+			<set name="requestScope.passwordValue" value="accountCredentials.password"/>
+			<set name="requestScope.firstNameValue" value="accountCredentials.firstName"/>
+			<set name="requestScope.lastNameValue" value="accountCredentials.lastName"/>
+			<set name="requestScope.cityValue" value="accountCredentials.city"/>
+			<set name="requestScope.stateValue" value="accountCredentials.state"/>
+			<set name="requestScope.zipValue" value="accountCredentials.zip"/>
+			<set name="requestScope.phoneNumberValue" value="accountCredentials.phoneNumber"/>
+			<set name="requestScope.countryValue" value="accountCredentials.country"/>
+			<set name="requestScope.addressValue" value="accountCredentials.address"/>
+			<set name="requestScope.address2Value" value="accountCredentials.address2"/>
+			<set name="requestScope.shipNameValue" value="accountCredentials.shipName"/>
+			<set name="requestScope.shipCityValue" value="accountCredentials.shipCity"/>
+			<set name="requestScope.shipStateValue" value="accountCredentials.shipState"/>
+			<set name="requestScope.shipZipValue" value="accountCredentials.shipZip"/>
+			<set name="requestScope.shipPhoneValue" value="accountCredentials.shipPhone"/>
+			<set name="requestScope.shipCountryValue" value="accountCredentials.shipCountry"/>
+			<set name="requestScope.shipAddressValue" value="accountCredentials.shipAddress"/>
+			<set name="requestScope.shipAddress2Value" value="accountCredentials.shipAddress2"/>		
+			<evaluate expression="accountService.getSessionAccountBySessionId(currentSession)" result="flowScope.account" />
+			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>							
+		</on-render>	
 		<transition on="login2register" to="newRegistration">
 		<!-- If the username is already registered, the account page will simply reload w/o an error message. There must be a way to fix this. -->
 			<evaluate expression="accountService.isUserLoginUnique(accountCredentials.userLogin)" result="flowScope.isUserLoginAlreadyRegistered">
@@ -62,8 +105,7 @@
 			isUserLoginAlreadyRegistered,
 			messageContext)"/>			
         </transition>	
-		<transition on="ok" to="exitHome"/>
-		<transition on="editAccount" to="editAccount"/>
+		<transition on="cancel" to="exitHome"/>        
 	</view-state>
 	
 	<action-state id="newRegistration">
@@ -76,7 +118,7 @@
 	
 	<action-state id="editAccount">
 		<evaluate expression="accountService.saveAccount(accountCredentials)"/>
-        <transition to="exitHome" />        
+        <transition to="account" />        
 	</action-state>
 	
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->

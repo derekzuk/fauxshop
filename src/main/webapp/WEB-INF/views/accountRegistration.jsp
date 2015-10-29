@@ -1,6 +1,4 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,7 +74,7 @@
           <div class="nav-menus">
             <ul class="nav nav-pills">
               <li class="active"><a href="index">Home</a></li>
-              <li><a href="#">Accessories</a></li>
+              <li><a href="#">Acessories</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Boy <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="menu1">
@@ -152,22 +150,29 @@
             </div>
           </div>
         </div>
-        <!-- end:sidebar -->                
+        <!-- end:sidebar -->
 
         <!-- begin:content -->
-			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>         
-        
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
                   <li><a href="#">Home</a></li>
-                  <li class="active">Payment</li>
+                  <li class="active">Account</li>
                 </ol>
             </div>
           </div>
-          
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="nav nav-tabs">
+                  <li><a href="cart">Cart</a></li>
+                  <li><a href="login">Login</a></li>
+                  <li class="active"><a href="account">Account</a></li>
+                  <li><a href="#">Shipping</a></li>
+                  <li><a href="#">Payment</a></li>
+                  <li><a href="#">Review Order</a></li>
+              </ul>
+              
 				<!-- Display error messages -->
 						<c:forEach var="message"
 							items="${flowRequestContext.messageContext.getMessagesBySource('account')}">
@@ -176,38 +181,148 @@
 								<span class="info"><font color="red">${message.text}</font></span>
 								<br>
 							</c:if>
-						</c:forEach>            
-          
-          <div class="row">
-            <div class="col-md-12">
-              <ul class="nav nav-tabs">
-                  <li><a href="cart">Cart</a></li>
-                  <li><a href="login">Login</a></li>
-                  <li><a href="account">Account</a></li>
-                  <li><a href="shipping">Shipping</a></li>
-                  <li class="active"><a href="payment">Payment</a></li>
-                  <li><a href="#">Review Order</a></li>
-              </ul>              
-                                              
-                <!-- Shipping Address -->
-                <h3>Shipping Address Information</h3>
-                <input type="hidden" value="${currentSession}" name="sessionId" id="sessionId"/>
-
+						</c:forEach>              
+              
+              <h3>Personal Information</h3>
+              <hr />
+              <form class="form-horizontal" method="post" action="${flowExecutionUrl}">
+              <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+              <input type="hidden" name="enabled" id="enabled" value="1"/>     
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">User Login</label>
+                  <div class="col-sm-9">                  	                  	                  
+                    	<input type="text" class="form-control" value="${userLoginValue}" placeholder="User Login" id=userLogin name=userLogin>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">First Name</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${firstNameValue}" placeholder="First Name" id=firstName name=firstName>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Last Name</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${lastNameValue}" placeholder="Last Name" id=lastName name=lastName>
+                  </div>
+                </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Email</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${email}" placeholder="Email address" id=email name=email>
-                    	<span class="help-block">The email address you would like a confirmation email delivered to. This is the email address we will use to contact you if there are any issues with your order.</span>
+                    <input type="email" value="${emailValue}" class="form-control" placeholder="Email" id=email name=email>
                   </div>
-                </div> 
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Password</label>
+                  <div class="col-sm-9">
+                    	<input type="password" class="form-control" value="${passwordValue}" placeholder="" id=password name=password>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Date of birth</label>
+                  <div class="col-sm-9">
+                    <div class="form-inline">
+                      <select class="form-control">
+                        <option>-</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>&nbsp;
+                      <select class="form-control">
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                      </select>&nbsp;
+                      <select class="form-control">
+                        <option>2012</option>
+                        <option>1991</option>
+                        <option>1990</option>
+                        <option>1989</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3>Billing Address Information</h3>
+                <hr />
+                
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Address</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${addressValue}" placeholder="Address" id=address name=address>
+                    	<span class="help-block">Street address, P.O. box, company name, c/o</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Address (Line 2)</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${address2Value}" placeholder="Address (Line 2)" id=address2 name=address2>
+                    	<span class="help-block">Apartment, suite, unit, building, floor, etc.</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">City</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${cityValue}" placeholder="City" id=city name=city>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Country</label>
+                  <div class="col-sm-9">
+                    	<select class="form-control" id=country name=country>
+                    	<c:choose>
+                    		<c:when test="${null != countryValue}">
+								<option>${countryValue}
+							</c:when>   
+							<c:otherwise>                 
+                      			<option>United States</option>
+                      			<option>Canada</option>
+							</c:otherwise>  
+						</c:choose>                    
+                    	</select>                    
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">State</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${stateValue}" placeholder="State" id=state name=state>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Zip Code</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${zipValue}" placeholder="#####" id=zip name=zip>
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Phone</label>
+                  <div class="col-sm-9">
+                    	<input type="text" class="form-control" value="${phoneNumberValue}" placeholder="(###)###-####" id=phoneNumber name=phoneNumber>
+                  </div>
+                </div>
+                
+                <!-- Shipping Address -->
+                <h3>Shipping Address Information</h3>
+                
+				<div class="checkbox">
+					<label>
+                        <input type="checkbox" value="shippingAddressCheckbox" name="shippingAddressCheckbox" id="shippingAddressCheckbox" checked/>
+                          Shipping address is the same as billing address                	
+                          <br>
+                          <br>
+                	</label>
+                </div>
+                   
+                <div id="shippingInfo" style="display:none;">     
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Name</label>
                   <div class="col-sm-9">
                     	<input type="text" class="form-control" value="${shipNameValue}" placeholder="Ship Name" id=shipName name=shipName>
                     	<span class="help-block">The name you would like to have packages shipped to.</span>
                   </div>
-                </div> 
-                <br>                   
+                </div>                    
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Address</label>
                   <div class="col-sm-9">
@@ -225,7 +340,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping City</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${shipCityValue}" placeholder="Ship City" id=shipCity name=shipCity><br>
+                    	<input type="text" class="form-control" value="${shipCityValue}" placeholder="Ship City" id=shipCity name=shipCity>
                   </div>
                 </div>
                 <div class="form-group">
@@ -241,45 +356,43 @@
                       			<option>Canada</option>
 							</c:otherwise>  
 						</c:choose>                    
-                    	</select>
-                    	<br>                    
+                    	</select>                    
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping State</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${shipStateValue}" placeholder="Ship State" id=shipState name=shipState><br>
+                    	<input type="text" class="form-control" value="${shipStateValue}" placeholder="Ship State" id=shipState name=shipState>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Zip Code</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${shipZipValue}" placeholder="#####" id=shipZip name=shipZip><br>
-                  </div>                  
+                    	<input type="text" class="form-control" value="${shipZipValue}" placeholder="#####" id=shipZip name=shipZip>
+                  </div>
                 </div>                
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Shipping Phone</label>
                   <div class="col-sm-9">
-                    	<input type="text" class="form-control" value="${shipPhoneValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone><br><br>
+                    	<input type="text" class="form-control" value="${shipPhoneNumberValue}" placeholder="(###)###-####" id=shipPhone name=shipPhone>
                   </div>
                 </div>          
-                </div>  
-						<!-- break -->
-												
-              <div class="row">
-                <div class="col-md-12">
-
-                   <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
+                </div>        
+                    
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">					
+                    	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
+                    	<input type="submit" class="btn btn-default" name="_eventId_cancel" value="Cancel" />
+                  </div>
                 </div>
-              </div>              
+              </form>
             </div>
           </div>
-          </form>
         </div>
         <!-- end:content -->
       </div>
       <!-- end:article -->
-      
+
       <!-- begin:footer -->
       <div class="row">
         <div class="col-md-12 footer">
@@ -355,6 +468,7 @@
       </div>
       <!-- end:copyright -->
 
+    </div>
     <!-- end:content -->
 
 
@@ -366,6 +480,20 @@
     <script src="<c:url value="/resources/js/masonry.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
+    
+    <script>
+    var checkbox = document.getElementById('shippingAddressCheckbox');
+    var shipping_div = document.getElementById('shippingInfo');
+    var showHiddenDiv = function(){
+       if(!checkbox.checked) {
+    	   shipping_div.style['display'] = 'block';
+       } else {
+    	   shipping_div.style['display'] = 'none';
+       } 
+    }
+    checkbox.onclick = showHiddenDiv;
+    showHiddenDiv();
+    </script>
 
   </body>
 </html>

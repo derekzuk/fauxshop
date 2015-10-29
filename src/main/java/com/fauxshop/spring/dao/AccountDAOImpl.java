@@ -57,28 +57,28 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		a.setEnabled(true);
-		if (null == a.getShipName()) {
+		if (a.getShipName().isEmpty()) {
 			a.setShipName((a.getFirstName() + " " + a.getLastName()));
 		}
-		if (null == a.getShipCity()){
+		if (a.getShipCity().isEmpty()){
 			a.setShipCity(a.getCity());	
 		}
-		if (null == a.getShipState()){
+		if (a.getShipState().isEmpty()){
 			a.setShipState(a.getState());	
 		}
-		if (null == a.getShipZip()) {
+		if (a.getShipZip().isEmpty()) {
 			a.setShipZip(a.getZip());
 		}		
-		if (null == a.getShipPhone()) {
+		if (a.getShipPhone().isEmpty()) {
 			a.setShipPhone(a.getPhoneNumber());
 		}
-		if (null == a.getShipCountry()) {
+		if (a.getShipCountry().isEmpty()) {
 			a.setShipCountry(a.getCountry());
 		}
-		if (null == a.getShipAddress()) {
+		if (a.getShipAddress().isEmpty()) {
 			a.setShipAddress(a.getAddress());
 		}
-		if (null == a.getShipAddress2()) {
+		if (a.getShipAddress2().isEmpty()) {
 			a.setShipAddress2(a.getAddress2());
 		}		
 		session.saveOrUpdate(a);  
@@ -135,7 +135,7 @@ public class AccountDAOImpl implements AccountDAO {
 		Roles roles = new Roles();
 		roles.setRole("User");
 		roles.setUserLogin(name);
-		session.save(roles);
+		session.saveOrUpdate(roles);
 		tx.commit();
 		session.close();
 	}        

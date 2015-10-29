@@ -1,6 +1,4 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,7 +81,7 @@
           <div class="nav-menus">
             <ul class="nav nav-pills">
               <li class="active"><a href="index">Home</a></li>
-              <li><a href="#">Accessories</a></li>
+              <li><a href="#">Acessories</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Boy <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="menu1">
@@ -161,13 +159,13 @@
         </div>
         <!-- end:sidebar -->
 
-        <!-- begin:content -->             
+        <!-- begin:content -->
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
                   <li><a href="#">Home</a></li>
-                  <li class="active">Payment</li>
+                  <li class="active">Shipping</li>
                 </ol>
             </div>
           </div>
@@ -177,78 +175,51 @@
                   <li><a href="cart">Cart</a></li>
                   <li><a href="login">Login</a></li>
                   <li><a href="account">Account</a></li>
-                  <li><a href="shipping">Shipping</a></li>
-                  <li class="active"><a href="payment">Payment</a></li>
+                  <li class="active"><a href="shipping">Shipping</a></li>
+                  <li><a href="#">Payment</a></li>
                   <li><a href="#">Review Order</a></li>
-              </ul>                           					
-									
-				
-				<h3>Billing and Shipping Address</h3>					
-			<form method="post" action="${flowExecutionUrl}">
-            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>  																		
-						<div class="row">
-							<div class="col-md-6 col-sm-6">
-								<div class="box">
-										<button type="submit" style="float: right" title="Edit"
-											name="_eventId_editAccount" class="btn btn-default">
-											<i class="fa fa-pencil"></i>
-										</button>									
-									<div class="box-head">
-										<h3>Billing Address</h3>
-									</div>
-									<div class="box-content">
-										<address>
-											<strong>${account.getFirstName()}
-											${account.getLastName()}</strong><br>
-											${account.getAddress()}<br>
-											${account.getAddress2()}<br>
-											${account.getCity()}, ${account.getState()} ${account.getZip()}<br>
-											${account.getCountry()}<br>
-											<abbr title="Phone">Phone :</abbr>
-											${account.getPhoneNumber()}
-										</address>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-6">
-								<div class="box">
-										<button type="submit" style="float: right" title="Edit"
-											name="_eventId_editAccount" class="btn btn-default">
-											<i class="fa fa-pencil"></i>
-										</button>	
-									<div class="box-head">
-										<h3>Shipping Address</h3>
-									</div>
-									<div class="box-content">
-										<address>
-											<strong>${account.getShipName()}</strong><br>
-											${account.getShipAddress()}<br>
-											${account.getShipAddress2()}<br>
-											${account.getShipCity()}, ${account.getShipState()} ${account.getShipZip()}<br> 
-											${account.getShipCountry()}<br>
-											<abbr title="Phone">Phone :</abbr>
-											${account.getShipPhone()}
-										</address>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- break -->
-												
+              </ul>
+              <h3>Shipping</h3>
+              <hr>
               <div class="row">
                 <div class="col-md-12">
-        
-                   <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
+                    <table class="table table-bordered table-striped">
+                       <thead>
+                        <tr>
+                            <th></th>
+                            <th>Shipping Option</th>
+                            <th>Shipping Details</th>
+                            <th>Price</th>
+                        </tr>
+                       </thead>
+                       <tbody>
+                        <tr>
+                            <td><input type="radio" name="radio1" checked="checked"></td>
+                            <td><strong>USPS</strong><p>Standard Shipping</p></td>
+                            <td><p>Ships approximately 5 days from date of purchase.</p></td>
+                            <td>$3.00</td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="radio1"></td>
+                            <td><strong>UPS/FedEx</strong><p>2 Day Shipping</p></td>
+                            <td><p>Ships 2 days from date of purchase.</p></td>
+                            <td>$10.00</td>
+                        </tr>
+                       </tbody>
+                   </table>
+                   <form method="post" action="${flowExecutionUrl}">
+<!--                    <a href="payment" class="btn btn-primary pull-right">Next</a> -->
+                   <input type="submit" class="btn btn-primary pull-right" name="_eventId_next" value="Next" />
+                   </form>
                 </div>
               </div>
-			</form>                          
+
+                
             </div>
           </div>
         </div>
-        <!-- end:content -->
-
       </div>
-      <!-- end:article -->         
+      <!-- end:article -->
       
       <!-- begin:footer -->
       <div class="row">
