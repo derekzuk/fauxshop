@@ -99,11 +99,12 @@ public class AccountDAOImpl implements AccountDAO {
 	@SuppressWarnings("unchecked")
 	/*@Override*/
 	public List<Account> listAccounts() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		List<Account> accountsList = session.createQuery("from Account").list();
 		for(Account a : accountsList){
 			logger.debug("Account List::"+a);
 		}
+		session.close();
 		return accountsList;
 	}
 
@@ -120,12 +121,13 @@ public class AccountDAOImpl implements AccountDAO {
 
 	/*@Override*/
 	public void removeAccount(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.openSession();
 		Account a = (Account) session.load(Account.class, new Integer(id));
 		if(null != a){
 			session.delete(a);
 		}
 		logger.debug("Account deleted successfully, account details="+a);
+		session.close();
 	}
 
 	/*@Override*/

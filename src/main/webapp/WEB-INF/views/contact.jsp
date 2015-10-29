@@ -63,7 +63,7 @@
               <li>
                 <div class="hidden-xs">
                   <h4><a href="cart">Cart</a></h4>
-                  <p><strong>${cartService.getCartByUserLogin(pageContext.request.userPrincipal.name).size()} Product(s)</strong></p>
+                  <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
                   <a href="cart" class="btn btn-primary"><span class="cart-item">3</span> <i class="fa fa-shopping-cart"></i></a>
@@ -140,14 +140,14 @@
               <div class="widget">
                 <h3>Customer Service</h3>
                 <address>
-                  <strong>Robert Adams</strong><br />
-                  226-240-8240<br />
-                  <a href="mailto:#">robertadams@Faux Shop.com</a>
+                  <strong>Derek Zuk</strong><br />
+                  123-456-7890<br />
+                  <a href="mailto:#">fauxshop@FauxShop.com</a>
                 </address>
                 <address>
-                  <strong>Reyno</strong><br />
-                  226-907-8810<br />
-                  <a href="mailto:#">reyno@Faux Shop.com</a>
+                  <strong>John McGilicutty</strong><br />
+                  012-345-6789<br />
+                  <a href="mailto:#">jfaux@FauxShop.com</a>
                 </address>
               </div>
             </div>

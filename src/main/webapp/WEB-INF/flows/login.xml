@@ -3,32 +3,90 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 		http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
-		
-	<var name="accountCredentials" class="com.fauxshop.spring.model.Account"/>
-	<var name="accountValidation" class="com.fauxshop.spring.swf.AccountValidation"/>
-	
-	<!-- By default, the first state is the start state. -->
-	<view-state id="login" view="login" model="accountCredentials">
+
+	<var name="accountCredentials" class="com.fauxshop.spring.model.Account" />
+	<var name="accountValidation" class="com.fauxshop.spring.swf.AccountValidation" />
+
+	<on-start>
+		<evaluate expression="externalContext.nativeRequest.session.id"
+			result="flowScope.currentSession" />
+		<set name="flowScope.currentUser" value="currentUser" />
+	</on-start>
+
+	<decision-state id="isUserLoggedIn">
+		<if test="accountService.isUserLoggedIn(currentUser)" then="loginAlreadyLoggedIn"
+			else="loginNotLoggedIn" />
+	</decision-state>
+
+	<view-state id="loginAlreadyLoggedIn" view="login" model="accountCredentials">
 		<on-render>
 			<!-- Carry cart from Spring app context to request scope -->
-			<set name="requestScope.cartService" value="cartService"/>
-		</on-render>	
+			<set name="requestScope.cartService" value="cartService" />
+			<set name="requestScope.inventoryService" value="inventoryService" />
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService" />
+		<evaluate
+			expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())"
+			result="flowScope.cart" />
+		<evaluate
+			expression="cartService.getCartItemCostByUserLogin(currentUser.getPrincipal().getUsername())"
+			result="flowScope.cartItemCost" />
+		<evaluate
+			expression="cartService.getCartShippingCostByUserLogin(currentUser.getPrincipal().getUsername())"
+			result="flowScope.cartShippingCost" />
+		<evaluate
+			expression="cartService.getCartTaxCostByUserLogin(currentUser.getPrincipal().getUsername())"
+			result="flowScope.cartTaxCost" />
+		<evaluate
+			expression="cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername())"
+			result="flowScope.cartTotalCost" />			
+		</on-render>
 		<transition on="submitRegistration" to="registration">
-			<set name="requestScope.emailValue" value="accountCredentials.email"/>
-			<evaluate expression="accountValidation.validateRegistrationEmail(accountCredentials.email, messageContext)"/>
-        </transition>		
-		<transition on="logIn" to="exitHome"/>		
+			<set name="requestScope.emailValue" value="accountCredentials.email" />
+			<evaluate
+				expression="accountValidation.validateRegistrationEmail(accountCredentials.email, messageContext)" />
+		</transition>
+		<transition on="logIn" to="exitHome" />
 	</view-state>
 	
-	<subflow-state id="registration" subflow="account">	
-		<transition on="cancel" to="exitHome"/>
-		<transition on="exitHome" to="exitHome"/>
-		<transition on="ok" to="exitHome"/>
+	<view-state id="loginNotLoggedIn" view="login" model="accountCredentials">
+		<on-render>
+			<!-- Carry cart from Spring app context to request scope -->
+			<set name="requestScope.cartService" value="cartService" />
+			<set name="requestScope.inventoryService" value="inventoryService" />
+			<set name="requestScope.inventoryDetailService" value="inventoryDetailService" />
+		<evaluate
+			expression="cartService.getCartBySessionId(currentSession)"
+			result="flowScope.cart" />
+		<evaluate
+			expression="cartService.getCartItemCostBySessionId(currentSession)"
+			result="flowScope.cartItemCost" />
+		<evaluate
+			expression="cartService.getCartShippingCostBySessionId(currentSession)"
+			result="flowScope.cartShippingCost" />
+		<evaluate
+			expression="cartService.getCartTaxCostBySessionId(currentSession)"
+			result="flowScope.cartTaxCost" />
+		<evaluate
+			expression="cartService.getCartTotalBySessionId(currentSession)"
+			result="flowScope.cartTotalCost" />			
+		</on-render>
+		<transition on="submitRegistration" to="registration">
+			<set name="requestScope.emailValue" value="accountCredentials.email" />
+			<evaluate
+				expression="accountValidation.validateRegistrationEmail(accountCredentials.email, messageContext)" />
+		</transition>
+		<transition on="logIn" to="exitHome" />
+	</view-state>	
+
+	<subflow-state id="registration" subflow="account">
+		<transition on="cancel" to="exitHome" />
+		<transition on="exitHome" to="exitHome" />
+		<transition on="ok" to="exitHome" />
 	</subflow-state>
-	
+
 	<!-- See http://forum.springframework.org/showthread.php?t=51240 -->
 	<!-- See also http://jira.springframework.org/browse/SWF-588 -->
 	<!-- View applies only when directly called; calling flows ignore it? -->
-	<end-state id="exitHome" view="externalRedirect:contextRelative:/login"/>
+	<end-state id="exitHome" view="externalRedirect:contextRelative:/login" />
 
 </flow>

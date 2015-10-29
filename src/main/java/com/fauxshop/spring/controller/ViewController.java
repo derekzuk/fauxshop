@@ -78,6 +78,7 @@ public class ViewController {
     /*Maps to welcome page*/
     @RequestMapping(value={"/", "index"}, method = RequestMethod.GET)
     public String listWelcomePage(Model model) {
+    	String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();  
     	List<Inventory> bestSellerInventoryList = this.inventoryService.getBestSellerInventoryList();
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
@@ -99,8 +100,10 @@ public class ViewController {
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
     	}
     	
     	return "index";

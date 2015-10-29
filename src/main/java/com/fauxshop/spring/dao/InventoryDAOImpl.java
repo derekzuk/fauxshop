@@ -51,25 +51,27 @@ public class InventoryDAOImpl implements InventoryDAO {
     @SuppressWarnings("unchecked")
     /*@Override*/
     public List<Inventory> listInventory() {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
         List<Inventory> inventoryList = session.createQuery("from Inventory").list();
         for(Inventory i : inventoryList){
             logger.info("Inventory List::"+i);
         }
+        session.close();
         return inventoryList;
     }
  
     /*@Override*/
     public Inventory getInventoryById(int inventoryId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         Inventory i = (Inventory) session.load(Inventory.class, new Integer(inventoryId));
         logger.info("Inventory loaded successfully, Inventory details="+i);
+        session.close();
         return i;
     }       
     
     /*@Override*/
     public Inventory getInventoryByInventoryDetailId(int inventoryDetailId) {        
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM Inventory WHERE inventoryId = ("
         		+ "SELECT inventoryId FROM InventoryDetail WHERE inventoryDetailId = :inventoryDetailId)";
         Query query = session.createQuery(hql);
@@ -77,7 +79,8 @@ public class InventoryDAOImpl implements InventoryDAO {
 		Inventory inventory = (Inventory) query.uniqueResult();
         
         logger.info("getInventoryByInventoryDetailId query: " + query.toString());
-        logger.info("getInventoryByInventoryDetailId query results (toString()): " + inventory.toString());        
+        logger.info("getInventoryByInventoryDetailId query results (toString()): " + inventory.toString()); 
+        session.close();
         return inventory;                
     }      
     
@@ -89,10 +92,10 @@ public class InventoryDAOImpl implements InventoryDAO {
         Query query = session.createQuery(hql);
         query.setParameter("inventoryCatCd", inventoryCatCd);
 		List<Inventory> inventoryList = (List<Inventory>) query.list();
-		session.close();
         
         logger.info("getInventoryListByInventoryTypeCd query: " + query.toString());
-        logger.info("getInventoryListByInventoryTypeCd query results (toString()): " + inventoryList.toString());        
+        logger.info("getInventoryListByInventoryTypeCd query results (toString()): " + inventoryList.toString());
+        session.close();
         return inventoryList;                
     }      
 	
@@ -117,7 +120,7 @@ public class InventoryDAOImpl implements InventoryDAO {
     	Query query = session.createQuery(hql);
     	query.setMaxResults(4);
 		List<Inventory> result = (List<Inventory>) query.list();
+		session.close();
     	return result;
-    }
-    
+    }    
 }

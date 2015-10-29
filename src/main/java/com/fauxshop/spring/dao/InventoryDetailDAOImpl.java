@@ -31,7 +31,7 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
     @SuppressWarnings("unchecked")    
     /*@Override*/
     public List<InventoryDetail> getInventoryDetailByInventoryId(int inventoryId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryId", inventoryId);
@@ -42,27 +42,29 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
         }
         
         logger.info("getInventoryDetailByInventoryId query: " + query.toString());
-        logger.info("getInventoryDetailByInventoryId query results (toString()): " + inventoryDetailList.toString());        
+        logger.info("getInventoryDetailByInventoryId query results (toString()): " + inventoryDetailList.toString());
+        session.close();
         return inventoryDetailList;               
     }    
        
     /*@Override*/
     public InventoryDetail getInventoryDetailByInventoryDetailId(int inventoryDetailId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM InventoryDetail WHERE inventoryDetailId = :inventoryDetailId";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryDetailId", inventoryDetailId);
 		InventoryDetail inventoryDetail = (InventoryDetail) query.uniqueResult();
         
         logger.info("getInventoryDetailByInventoryDetailId query: " + query.toString());
-        logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());        
+        logger.info("getInventoryDetailByInventoryDetailId query results (toString()): " + inventoryDetail.toString());
+        session.close();
         return inventoryDetail;               
     }         
     
     /*@Override*/
 	@SuppressWarnings("unchecked")
     public List<InventoryDetail> getInventoryDetailByIdColor(int inventoryId, String color) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId AND color = :color";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryId", inventoryId);
@@ -70,13 +72,14 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
 		List<InventoryDetail> inventoryDetailList = (List<InventoryDetail>) query.list();
         
         logger.info("getInventoryDetailByIdColor query: " + query.toString());
-        logger.info("getInventoryDetailByIdColor query results (toString()): " + inventoryDetailList.toString());        
+        logger.info("getInventoryDetailByIdColor query results (toString()): " + inventoryDetailList.toString());
+        session.close();
         return inventoryDetailList;               
     }      
 	
     /*@Override*/
     public InventoryDetail getInventoryDetailByIdColorSize(int inventoryId, String color, String size) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM InventoryDetail WHERE inventoryId = :inventoryId AND color = :color AND size = :size";
         Query query = session.createQuery(hql);
         query.setParameter("inventoryId", inventoryId);
@@ -85,7 +88,8 @@ public class InventoryDetailDAOImpl implements InventoryDetailDAO {
 		InventoryDetail inventoryDetail = (InventoryDetail) query.uniqueResult();
         
         logger.info("getInventoryDetailByIdColorSize query: " + query.toString());
-        logger.info("getInventoryDetailByIdColorSize query results (toString()): " + inventoryDetail.toString());        
+        logger.info("getInventoryDetailByIdCol/orSize query results (toString()): " + inventoryDetail.toString());
+        session.close();
         return inventoryDetail;               
     }   	
     

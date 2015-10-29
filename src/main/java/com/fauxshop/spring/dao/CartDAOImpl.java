@@ -165,7 +165,7 @@ public class CartDAOImpl implements CartDAO {
     
     /*@Override*/
     public BigDecimal getCartItemCostByUserLogin(String name) {
-        Session session = this.sessionFactory.getCurrentSession();      
+    	Session session = this.sessionFactory.openSession();       
         String hql = "SELECT quantity * SUM(pricePerItem) FROM Cart WHERE accountId = ("
         		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
         Query query = session.createQuery(hql);
@@ -173,13 +173,14 @@ public class CartDAOImpl implements CartDAO {
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
         logger.debug("getCartByUserLogin query: " + query.toString());
-        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);
+        session.close();
         return cartSum;        
     }
     
     /*@Override*/
     public BigDecimal getCartShippingCostByUserLogin(String name) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * SUM(shippingCost) FROM Cart WHERE accountId = ("
         		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
         Query query = session.createQuery(hql);
@@ -187,13 +188,14 @@ public class CartDAOImpl implements CartDAO {
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
         logger.debug("getCartByUserLogin query: " + query.toString());
-        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);
+        session.close();
         return cartSum;        
     }         
     
     /*@Override*/
     public BigDecimal getCartTaxCostByUserLogin(String name) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * SUM(tax) FROM Cart WHERE accountId = ("
         		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
         Query query = session.createQuery(hql);
@@ -207,7 +209,7 @@ public class CartDAOImpl implements CartDAO {
     
     /*@Override*/
     public BigDecimal getCartTotalByUserLogin(String name) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * (SUM(pricePerItem) + SUM(shippingCost) + SUM(tax)) FROM Cart WHERE accountId = ("
         		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
         Query query = session.createQuery(hql);
@@ -215,7 +217,8 @@ public class CartDAOImpl implements CartDAO {
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
 
         logger.debug("getCartByUserLogin query: " + query.toString());
-        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);        
+        logger.debug("getCartByUserLogin query results (toString()): " + cartSum);
+        session.close();
         return cartSum;        
     }
     
@@ -235,45 +238,49 @@ public class CartDAOImpl implements CartDAO {
     
     /*@Override*/
     public BigDecimal getCartItemCostBySessionId(String sessionId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * SUM(pricePerItem) FROM Cart WHERE sessionId = :sessionId";
         Query query = session.createQuery(hql);
         query.setParameter("sessionId", sessionId);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
         
+        session.close();
         return cartSum;        
     }
     
     /*@Override*/
     public BigDecimal getCartShippingCostBySessionId(String sessionId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * SUM(shippingCost) FROM Cart WHERE sessionId = :sessionId";
         Query query = session.createQuery(hql);
         query.setParameter("sessionId", sessionId);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
         
+        session.close();
         return cartSum;        
     }         
     
     /*@Override*/
     public BigDecimal getCartTaxCostBySessionId(String sessionId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * SUM(tax) FROM Cart WHERE sessionId = :sessionId";
         Query query = session.createQuery(hql);
         query.setParameter("sessionId", sessionId);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
    
+        session.close();
         return cartSum;        
     }      
     
     /*@Override*/
     public BigDecimal getCartTotalBySessionId(String sessionId) {
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "SELECT quantity * (SUM(pricePerItem) + SUM(shippingCost) + SUM(tax)) FROM Cart WHERE sessionId = :sessionId";
         Query query = session.createQuery(hql);
         query.setParameter("sessionId", sessionId);
         BigDecimal cartSum = (BigDecimal) query.uniqueResult();
         
+        session.close();
         return cartSum;        
     }          
     
