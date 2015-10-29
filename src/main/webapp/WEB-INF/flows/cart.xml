@@ -27,6 +27,10 @@
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
 			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>
+			<evaluate expression="cartService.getCartItemCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartItemCost"/>			
+			<evaluate expression="cartService.getCartShippingCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartShippingCost"/>
+			<evaluate expression="cartService.getCartTaxCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartTaxCost"/>
+			<evaluate expression="cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartTotalCost"/>
 		</on-render>							
 		<transition on="next" to="shipping"/>
 		<transition on="continueShopping" to="categoriesExit"/>
@@ -37,7 +41,11 @@
 			<set name="requestScope.cartService" value="cartService"/>	
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
-			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>
+			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cartSession"/>
+			<evaluate expression="cartService.getCartItemCostBySessionId(currentSession)" result="flowScope.cartItemCost"/>			
+			<evaluate expression="cartService.getCartShippingCostBySessionId(currentSession)" result="flowScope.cartShippingCost"/>
+			<evaluate expression="cartService.getCartTaxCostBySessionId(currentSession)" result="flowScope.cartTaxCost"/>
+			<evaluate expression="cartService.getCartTotalBySessionId(currentSession)" result="flowScope.cartTotalCost"/>			
 		</on-render>							
 		<transition on="next" to="shippingSessionId"/>
 		<transition on="continueShopping" to="categoriesExit"/>
@@ -49,18 +57,26 @@
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
-			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>			
+			<evaluate expression="cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cart"/>
+			<evaluate expression="cartService.getCartItemCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartItemList"/>
+			<evaluate expression="cartService.getCartShippingCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartShippingCost"/>
+			<evaluate expression="cartService.getCartTaxCostByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartTaxCost"/>
+			<evaluate expression="cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername())" result="flowScope.cartTotalCost"/>						
 		</on-render>		
 		<transition on="next" to="payment"/>
 	</view-state>
 	
-	<view-state id="shippingSessionId" view="shipping">
+	<view-state id="shippingSessionId" view="shippingSessionId">
 		<on-render>
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.cartService" value="cartService"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>
-			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cart"/>
+			<evaluate expression="cartService.getCartBySessionId(currentSession)" result="flowScope.cartSession"/>
+			<evaluate expression="cartService.getCartItemCostBySessionId(currentSession)" result="flowScope.cartItemList"/>
+			<evaluate expression="cartService.getCartShippingCostBySessionId(currentSession)" result="flowScope.cartShippingCost"/>
+			<evaluate expression="cartService.getCartTaxCostBySessionId(currentSession)" result="flowScope.cartTaxCost"/>
+			<evaluate expression="cartService.getCartTotalBySessionId(currentSession)" result="flowScope.cartTotalCost"/>			
 		</on-render>		
 		<transition on="next" to="paymentSessionId"/>
 	</view-state>	
@@ -72,7 +88,7 @@
 			<set name="requestScope.currentUser" value="currentUser"/>
 			<set name="requestScope.inventoryService" value="inventoryService"/>
 			<set name="requestScope.inventoryDetailService" value="inventoryDetailService"/>	
-			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />		
+			<evaluate expression="accountService.getAccountByName(currentUser.getPrincipal().getUsername())" result="flowScope.account" />					
 		</on-render>
 		<transition on="editAccount" to="editAccountFromPayment"/>
 		<transition on="next" to="createTransaction"/>

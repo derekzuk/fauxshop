@@ -101,8 +101,8 @@ public class InventoryServiceTest {
 		expectedInventory.setInventoryId(-111);
 		expectedInventory.setInventoryTypeCd(10);
 		expectedInventory.setInventoryCatCd(100);
-		expectedInventory.setInventoryTxt("Leather Jacket");
-		expectedInventory.setInventoryDescription("This is the description of the leather jacket.");
+		expectedInventory.setInventoryTxt("Pleather Jacket");
+		expectedInventory.setInventoryDescription("This is the description of the pleather jacket.");
 		expectedInventory.setInventoryCare("This is an explanation of how to care for the product.");
 		expectedInventory.setInventorySizeDesc("This is the inventory size description.");
 		expectedInventory.setBrand("Dereks Jackets and Clothing");
@@ -133,8 +133,8 @@ public class InventoryServiceTest {
 		expectedInventory.setInventoryId(-111);
 		expectedInventory.setInventoryTypeCd(10);
 		expectedInventory.setInventoryCatCd(100);
-		expectedInventory.setInventoryTxt("Leather Jacket");
-		expectedInventory.setInventoryDescription("This is the description of the leather jacket.");
+		expectedInventory.setInventoryTxt("Pleather Jacket");
+		expectedInventory.setInventoryDescription("This is the description of the pleather jacket.");
 		expectedInventory.setInventoryCare("This is an explanation of how to care for the product.");
 		expectedInventory.setInventorySizeDesc("This is the inventory size description.");
 		expectedInventory.setBrand("Dereks Jackets and Clothing");
@@ -164,8 +164,8 @@ public class InventoryServiceTest {
 		expectedInventory.setInventoryId(-111);
 		expectedInventory.setInventoryTypeCd(10);
 		expectedInventory.setInventoryCatCd(100);
-		expectedInventory.setInventoryTxt("Leather Jacket");
-		expectedInventory.setInventoryDescription("This is the description of the leather jacket.");
+		expectedInventory.setInventoryTxt("Pleather Jacket");
+		expectedInventory.setInventoryDescription("This is the description of the pleather jacket.");
 		expectedInventory.setInventoryCare("This is an explanation of how to care for the product.");
 		expectedInventory.setInventorySizeDesc("This is the inventory size description.");
 		expectedInventory.setBrand("Dereks Jackets and Clothing");
@@ -196,8 +196,8 @@ public class InventoryServiceTest {
 		expectedInventory.setInventoryId(-111);
 		expectedInventory.setInventoryTypeCd(10);
 		expectedInventory.setInventoryCatCd(100);
-		expectedInventory.setInventoryTxt("Leather Jacket");
-		expectedInventory.setInventoryDescription("This is the description of the leather jacket.");
+		expectedInventory.setInventoryTxt("Pleather Jacket");
+		expectedInventory.setInventoryDescription("This is the description of the pleather jacket.");
 		expectedInventory.setInventoryCare("This is an explanation of how to care for the product.");
 		expectedInventory.setInventorySizeDesc("This is the inventory size description.");
 		expectedInventory.setBrand("Dereks Jackets and Clothing");

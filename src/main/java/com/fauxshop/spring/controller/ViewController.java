@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,12 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
- 
-
-
-
-
-
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.fauxshop.spring.model.InventoryDetail;
@@ -87,6 +82,7 @@ public class ViewController {
     	model.addAttribute("cartService", this.cartService);
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
+    	model.addAttribute("bestSellerInventoryList", this.inventoryService.getBestSellerInventoryList());
     	model.addAttribute("inventory", new Inventory());    	
     	for (int i = 0; i < bestSellerInventoryList.size(); i++) {
     		String inventoryAttributeName = "inventory" + i;
@@ -120,10 +116,18 @@ public class ViewController {
     		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		String name = user.getUsername(); //get logged in username
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
-    		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cart", cartService.getCartByUserLogin(name));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));    		
     	}    	
         return "about";
     } 
@@ -191,7 +195,7 @@ public class ViewController {
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
     	}    	    	
         return "categories";
     }
@@ -209,9 +213,17 @@ public class ViewController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	    	
         return "confirm";
     }
@@ -227,9 +239,17 @@ public class ViewController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	    	
         return "contact";
     }
@@ -254,9 +274,17 @@ public class ViewController {
         	model.addAttribute("lastTransaction", lastTransaction);
         	model.addAttribute("date", date);
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	    	
         return "invoice";
     }
@@ -279,9 +307,17 @@ public class ViewController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	            
         return "payment";
     }          
@@ -326,8 +362,8 @@ public class ViewController {
     	model.addAttribute("inventoryService", this.inventoryService);
     	model.addAttribute("inventoryDetailService", this.inventoryDetailService);
     	model.addAttribute("inventory", new Inventory());
-    	model.addAttribute("leatherJacket", this.inventoryService.getInventoryById(id));
-    	model.addAttribute("leatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));
+    	model.addAttribute("pleatherJacket", this.inventoryService.getInventoryById(id));
+    	model.addAttribute("pleatherJacketDetail", this.inventoryDetailService.getInventoryDetailByInventoryId(id));
     	model.addAttribute("colorList", colorList);
     	model.addAttribute("sizeList", sizeList);
     	
@@ -337,9 +373,17 @@ public class ViewController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	    	
         return "product_detail";
     }       
@@ -441,9 +485,17 @@ public class ViewController {
     		model.addAttribute("account", new Account());
     		model.addAttribute("currentUser", this.accountService.getAccountByName(name));
     		model.addAttribute("cart", cartService.getCartByUserLogin(name));    		
+    		model.addAttribute("cartItemList", cartService.getCartItemCostByUserLogin(name));
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostByUserLogin(name));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostByUserLogin(name));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalByUserLogin(name));
     	} else {
     		model.addAttribute("currentUser", "No User Logged In");
-    		model.addAttribute("cart", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartSession", cartService.getCartBySessionId(sessionId));
+    		model.addAttribute("cartItemList", cartService.getCartItemCostBySessionId(sessionId));    		
+    		model.addAttribute("cartShippingCost", cartService.getCartShippingCostBySessionId(sessionId));
+    		model.addAttribute("cartTaxCost", cartService.getCartTaxCostBySessionId(sessionId));
+    		model.addAttribute("cartTotalCost", cartService.getCartTotalBySessionId(sessionId));
     	}    	    	
         return "shipping";
     }

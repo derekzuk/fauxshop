@@ -65,7 +65,7 @@
 
 				<!-- We look at the sessionId if the user is not logged in. -->
 				<c:forEach var="cartSession"
-					items="${cartService.getCartBySessionId(currentSession)}">
+					items="${cartSession}">
 					<input type="hidden" name="_flowExecutionKey"
 						value="${flowExecutionKey}" />
 					<input type="hidden" name="cartId" id="cartId"
@@ -107,56 +107,27 @@
 							* cartSession.quantity}</td>
 					</tr>
 				</c:forEach>
-
-				<c:choose>
-					<c:when test="${not empty cartService.getCartByUserLogin(currentUser.getPrincipal().getUsername())}">
 						<tr>
 							<td colspan="6">&nbsp;</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-right">Total Product</td>
-							<td>$${cartService.getCartItemCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
+							<td>$${cartItemCost}</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-right">Total Shipping</td>
-							<td>$${cartService.getCartShippingCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
+							<td>$${cartShippingCost}</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-right">Total Tax</td>
-							<td>$${cartService.getCartTaxCostByUserLogin(currentUser.getPrincipal().getUsername())}</td>
+							<td>$${cartTaxCost}</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="text-right"><strong>Total</strong></td>
-							<td>$${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername())}</td>
+							<td>$${cartTotalCost}</td>
 						</tr>
-					</c:when>
-					<c:otherwise>
-						<tr>
-							<td colspan="6">&nbsp;</td>
-						</tr>
-						<tr>
-							<td colspan="4" class="text-right">Total Product</td>
-							<td>$${cartService.getCartItemCostBySessionId(currentSession)}</td>
-						</tr>
-						<tr>
-							<td colspan="4" class="text-right">Total Shipping</td>
-							<td>$${cartService.getCartShippingCostBySessionId(currentSession)}</td>
-						</tr>
-						<tr>
-							<td colspan="4" class="text-right">Total Tax</td>
-							<td>$${cartService.getCartTaxCostBySessionId(currentSession)}</td>
-						</tr>
-						<tr>
-							<td colspan="4" class="text-right"><strong>Total</strong></td>
-							<td>$${cartService.getCartTotalBySessionId(currentSession)}</td>
-						</tr>
-					</c:otherwise>
-				</c:choose>
-
 
 			</tbody>
-
 		</table>
-
 	</c:otherwise>
 </c:choose>

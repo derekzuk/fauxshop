@@ -141,33 +141,25 @@ public class CartDAOImpl implements CartDAO {
     /*@Override*/
     @SuppressWarnings("unchecked")
 	public List<Cart> getCartByUserLogin(String name) {
-        Session session = this.sessionFactory.getCurrentSession();      
+    	Session session = this.sessionFactory.openSession();    	
         String hql = "FROM Cart WHERE accountId = ("
         		+ "SELECT accountId FROM Account where userLogin = :userLogin)";
         Query query = session.createQuery(hql);
         query.setParameter("userLogin", name);
         List<Cart> cartList = (List<Cart>) query.list();
-
-        for(Cart c : cartList){
-            logger.debug("Cart List::"+c);
-        }
-        
-        logger.debug("getCartByUserLogin query: " + query.toString());
-        logger.debug("getCartByUserLogin query results (toString()): " + cartList.toString());        
+        session.close();
         return cartList;        
     }
     
     /*@Override*/
     @SuppressWarnings("unchecked")
 	public List<Cart> getCartBySessionId(String sessionId) {
-    	logger.error("in getCartBySessionId");
-    	logger.error("sessionId: " + sessionId);
-        Session session = this.sessionFactory.getCurrentSession();      
+        Session session = this.sessionFactory.openSession();      
         String hql = "FROM Cart WHERE sessionId = :sessionId";
         Query query = session.createQuery(hql);
         query.setParameter("sessionId", sessionId);
         List<Cart> cartList = (List<Cart>) query.list();
-        logger.error("cartList: " + cartList);
+        session.close();
         return cartList;        
     }
     

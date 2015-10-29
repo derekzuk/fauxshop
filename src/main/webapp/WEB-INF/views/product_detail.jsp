@@ -179,7 +179,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="heading-title">
-                <h2><span>${leatherJacket.inventoryTxt}</span> <span class="text-yellow"></span></h2>
+                <h2><span>${pleatherJacket.inventoryTxt}</span> <span class="text-yellow"></span></h2>
               </div>
               <div class="row">
                 <!-- begin:product-image-slider -->
@@ -188,17 +188,17 @@
                     <div class="carousel-inner">
                       <div class="item active">
                         <div class="product-single">
-                          <img src="<c:url value="${leatherJacketDetail.get(0).thumbnail1}"/>" class="img-responsive">
+                          <img src="<c:url value="${pleatherJacketDetail.get(0).thumbnail1}"/>" class="img-responsive">
                         </div>
                       </div>
                       <div class="item">
                         <div class="product-single">
-                          <img src="<c:url value="${leatherJacketDetail.get(0).thumbnail2}"/>" class="img-responsive">
+                          <img src="<c:url value="${pleatherJacketDetail.get(0).thumbnail2}"/>" class="img-responsive">
                         </div>
                       </div>
                       <div class="item">
                         <div class="product-single">
-                          <img src="<c:url value="${leatherJacketDetail.get(0).thumbnail3}"/>" class="img-responsive">
+                          <img src="<c:url value="${pleatherJacketDetail.get(0).thumbnail3}"/>" class="img-responsive">
                         </div>
                       </div>
                     </div>
@@ -217,12 +217,12 @@
                 <div class="col-md-6 col-sm-6">
                   <div class="single-desc">
                   
-                  <c:url var="addAction" value="add/${leatherJacket.inventoryId}" ></c:url>
+                  <c:url var="addAction" value="add/${pleatherJacket.inventoryId}" ></c:url>
 				  <form:form action="${addAction}" commandName="InventoryDetail">
                     <%-- <form:form method="post" action="${flowExecutionUrl}" commandName="InventoryDetail"> --%>
                   
                       <span class="visible-xs">
-                          <strong>${leatherJacket.inventoryTxt} / <c:choose><c:when test="$leatherJacket.inStock">In Stock</c:when><c:otherwise>Out of Stock</c:otherwise></c:choose></strong>                                                  
+                          <strong>${pleatherJacket.inventoryTxt} / <c:choose><c:when test="$pleatherJacket.inStock">In Stock</c:when><c:otherwise>Out of Stock</c:otherwise></c:choose></strong>                                                  
                       </span>
 
                       <table>
@@ -230,18 +230,18 @@
                           <tr class="hidden-xs">
                               <td><strong>Brand</strong></td>
                               <td>:</td>
-                              <td>${leatherJacket.brand}</td>
+                              <td>${pleatherJacket.brand}</td>
                           </tr>
 						<%--<tr class="hidden-xs">
                               <td><strong>Product Code</strong></td>
                               <td>:</td>
-                              <td>${leatherJacketDetail.productCode}</td>
+                              <td>${pleatherJacketDetail.productCode}</td>
                           </tr> --%>
                           <tr class="hidden-xs">
                               <td><strong>Availability</strong></td>
                               <td>:</td>
                               <c:choose>
-                              <c:when test="${leatherJacket.inStock}">
+                              <c:when test="${pleatherJacket.inStock}">
                               <td>In Stock</td>
                               </c:when>
                               <c:otherwise>
@@ -256,7 +256,7 @@
                               <td><strong>Color</strong></td>
                               <td>:</td>
                               <td>
-                                <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${leatherJacket.inventoryId}?color=" + this.value;'>
+                                <form:select path="color" class="form-control" name="color" id="color" onChange='window.location="${pleatherJacket.inventoryId}?color=" + this.value;'>
 									<c:forEach items="${colorList}" var="item">								
    										<form:option value="${item}"></form:option>   								
 									</c:forEach>                                                     
@@ -269,7 +269,7 @@
                               <td>
                                 <form:select path="size" class="form-control" name="size" id="size">
 									<c:forEach items="${sizeList}" var="item">
-									<%-- <c:forEach items="${inventoryDetailService.getAvailableSizes(leatherJacket.inventoryId,color.value)}" var="item"> --%>
+									<%-- <c:forEach items="${inventoryDetailService.getAvailableSizes(pleatherJacket.inventoryId,color.value)}" var="item"> --%>
    										<form:option value="${item}"></form:option>   								   								
 									</c:forEach>                                                                                    
                                 </form:select>
@@ -307,13 +307,13 @@
 
                     <div id="myTabContent" class="tab-content">
                       <div class="tab-pane fade active in" id="desc">
-                        <p>${leatherJacket.inventoryDescription}</p>
+                        <p>${pleatherJacket.inventoryDescription}</p>
                       </div>
                       <div class="tab-pane fade" id="care">
-                        <p>${leatherJacket.inventoryCare}</p>
+                        <p>${pleatherJacket.inventoryCare}</p>
                       </div>
                       <div class="tab-pane fade" id="size">
-                        <p>${leatherJacket.inventorySizeDesc}</p>
+                        <p>${pleatherJacket.inventorySizeDesc}</p>
                         <table class="table table-striped table-bordered">
                           <tbody>
                             <tr>

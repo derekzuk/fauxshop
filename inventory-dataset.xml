@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-<inventory inventory_id="-111" inventory_type_cd="10" inventory_cat_cd="100" inventory_txt="Leather Jacket" inventory_description="This is the description of the leather jacket." inventory_care="This is an explanation of how to care for the product." inventory_size_desc="This is the inventory size description." brand="Dereks Jackets and Clothing" price_usd="500.00" in_stock="1" img="/resources/img/product1.jpg"/>
+<inventory inventory_id="-111" inventory_type_cd="10" inventory_cat_cd="100" inventory_txt="Pleather Jacket" inventory_description="This is the description of the pleather jacket." inventory_care="This is an explanation of how to care for the product." inventory_size_desc="This is the inventory size description." brand="Dereks Jackets and Clothing" price_usd="500.00" in_stock="1" img="/resources/img/product1.jpg"/>
 <inventory_category_code inventory_cat_cd="100" inventory_cat_txt="Jackets" inventory_cat_description="Inventory of the jackets that we sell at the FauxShop"/>
 <inventory_detail inventory_detail_id="-1" inventory_id="-111" product_code="ABP30203CX" stock_quantity="129" size="XS" color="Black" thumbnail1="/resources/img/product1.jpg" thumbnail2="/resources/img/product11.jpg" thumbnail3="/resources/img/product12.jpg"/>
 </dataset>
