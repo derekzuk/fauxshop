@@ -221,7 +221,7 @@
                       <input type="password" class="form-control" placeholder="Password" name='password'>
                     </div>
                     <a href="#">Forgot your password ?</a><br><br>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Log In" />                    
+                    <input type="submit" class="btn btn-primary" name="submit" id="logInSubmit" value="Log In" />                    
                   </form>
                 </div>
               </div>

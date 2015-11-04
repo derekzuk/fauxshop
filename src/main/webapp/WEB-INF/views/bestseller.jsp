@@ -11,9 +11,10 @@
       
       <div class="row product-container">      
 		<c:forEach var="inventory"
-			items="${bestSellerInventoryList}">
+			items="${bestSellerInventoryList}"
+			varStatus = "loop">
         <div class="col-md-3 col-sm-3 col-xs-6">
-          <div class="thumbnail product-item">
+          <div class="thumbnail product-item" id="bestSeller${loop.index}">
             <a href="product_detail/${inventory.inventoryId}?color=${inventoryDetailService.getInventoryDetailByInventoryId(inventory.getInventoryId()).get(0).getColor()}"><img alt="" src="<c:url value="${inventory.img}"/>"></a>
             <div class="caption">
               <h5>${inventory.inventoryTxt}</h5>
