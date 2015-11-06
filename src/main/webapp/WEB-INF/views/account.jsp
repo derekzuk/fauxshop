@@ -51,7 +51,7 @@
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
-						<a href="/j_spring_security_logout">Log Out</a>
+						<a href="/fauxshop/j_spring_security_logout">Log Out</a>
 						</form>
                 </div>
                 <div class="visible-xs">
@@ -369,8 +369,8 @@
                     
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">					
-                  		<input type="submit" class="btn btn-default" name="_eventId_editAccount" value="Save Changes" />
-                  		<input type="submit" class="btn btn-primary" name="_eventId_ok" value="Cancel" />                  		
+                  		<input type="submit" class="btn btn-default" name="_eventId_editAccount" id="editAccount" value="Save Changes" />
+                  		<input type="submit" class="btn btn-primary" name="_eventId_ok" id="cancel" value="Cancel" />                  		
                   </div>
                 </div>
               </form>
@@ -425,7 +425,7 @@
                 <h3><span>Get Our Newsletter</span></h3>
                 <p>Subscribe to our newsletter and get exclusive deals straight to your inbox!</p>
                 <form>
-                  <input type="email" class="form-control" name="email" placeholder="Your Email : "><br>
+                  <input type="email" class="form-control" name="emailNewsletter" placeholder="Your Email : "><br>
                   <input type="submit" class="btn btn-warning" value="Subscribe">
                 </form>
               </div>

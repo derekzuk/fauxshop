@@ -176,7 +176,7 @@
                 </ol>
             </div>
           </div>
-          <div class="row">
+          <div class="row" id="productRow">
             <div class="col-md-12">
               <div class="heading-title">
                 <h2><span>${pleatherJacket.inventoryTxt}</span> <span class="text-yellow"></span></h2>

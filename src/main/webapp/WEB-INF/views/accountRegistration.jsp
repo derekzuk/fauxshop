@@ -381,8 +381,8 @@
                     
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">					
-                    	<input type="submit" class="btn btn-primary" name="_eventId_login2register" value="Register" />
-                    	<input type="submit" class="btn btn-default" name="_eventId_cancel" value="Cancel" />
+                    	<input type="submit" class="btn btn-primary" name="_eventId_login2register" id="login2register" value="Register" />
+                    	<input type="submit" class="btn btn-default" name="_eventId_cancel" id="cancel" value="Cancel" />
                   </div>
                 </div>
               </form>
@@ -437,7 +437,7 @@
                 <h3><span>Get Our Newsletter</span></h3>
                 <p>Subscribe to our newsletter and get exclusive deals straight to your inbox!</p>
                 <form>
-                  <input type="email" class="form-control" name="email" placeholder="Your Email : "><br>
+                  <input type="email" class="form-control" name="emailNewsletter" placeholder="Your Email : "><br>
                   <input type="submit" class="btn btn-warning" value="Subscribe">
                 </form>
               </div>

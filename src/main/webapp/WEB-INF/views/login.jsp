@@ -202,7 +202,7 @@
                       <label for="email">Enter your email address</label>
                       <input type="email" value="me@domainname.com" class="form-control" placeholder="Email" id="email" name="email">
                     </div>                    
-                    <input type="submit" class="btn btn-default" name="_eventId_submitRegistration" value="Submit Registration" />
+                    <input type="submit" class="btn btn-default" name="_eventId_submitRegistration" id="submitRegistration" value="Submit Registration" />
                   </form>                                
                 </div>
 
@@ -277,7 +277,7 @@
                 <h3><span>Get Our Newsletter</span></h3>
                 <p>Subscribe to our newsletter and get exclusive deals straight to your inbox!</p>
                 <form>
-                  <input type="email" class="form-control" name="email" placeholder="Your Email : "><br>
+                  <input type="email" class="form-control" name="emailNewsletter" placeholder="Your Email : "><br>
                   <input type="submit" class="btn btn-warning" value="Subscribe">
                 </form>
               </div>
