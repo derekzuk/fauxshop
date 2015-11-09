@@ -57,7 +57,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cartService.getCartBySessionId(currentSession).size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
@@ -175,7 +175,7 @@
                   <li class="active"><a href="#">Review Order</a></li>
               </ul>              
               
-				<h3>Review Order</h3>
+				<h3 id="reviewOrderHeader">Review Order</h3>
 				
               		<!-- We pull the table from another view: -->
               		<jsp:include page="carttable.jsp"/>				

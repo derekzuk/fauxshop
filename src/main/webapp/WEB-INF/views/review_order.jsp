@@ -64,7 +64,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
@@ -182,7 +182,7 @@
                   <li class="active"><a href="#">Review Order</a></li>
               </ul>              
               
-				<h3>Review Order</h3>
+				<h3 id="reviewOrderHeader">Review Order</h3>
 				
 						
 	<form action="${flowExecutionUrl}" method="POST">
@@ -263,6 +263,7 @@
 							<!-- stripe checkout button -->
 				<script src="https://checkout.stripe.com/checkout.js"
 					class="stripe-button"
+					id="stripe-button"
 					data-key="pk_test_kZTn53XkpSdxD32MAPgFkMzB" data-amount="${cartService.getCartTotalByUserLogin(currentUser.getPrincipal().getUsername()) * 100}"
 					data-name="FauxShop" data-description="${cartService.getCartQuantityByUserLogin(currentUser.getPrincipal().getUsername())} items"
 					data-image="/128x128.png" data-locale="auto">										

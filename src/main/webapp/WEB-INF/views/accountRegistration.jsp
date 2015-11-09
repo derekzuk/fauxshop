@@ -55,7 +55,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">

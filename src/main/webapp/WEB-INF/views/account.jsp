@@ -51,7 +51,7 @@
 						<c:url var="logoutAction" value="/j_spring_security_logout"></c:url>	
 						<form action="${logoutAction}" method="post">
 						<!-- This obviously needs to be fixed: -->
-						<a href="/fauxshop/j_spring_security_logout">Log Out</a>
+						<a href="fauxshop/j_spring_security_logout" id="logOut">Log Out</a>
 						</form>
                 </div>
                 <div class="visible-xs">
@@ -60,7 +60,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">

@@ -62,7 +62,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
@@ -179,7 +179,7 @@
                   <li><a href="#">Payment</a></li>
                   <li><a href="#">Review Order</a></li>
               </ul>
-              <h3>Shipping</h3>
+              <h3 id="shippingHeader">Shipping</h3>
               <hr>
               <div class="row">
                 <div class="col-md-12">
@@ -208,8 +208,7 @@
                        </tbody>
                    </table>
                    <form method="post" action="${flowExecutionUrl}">
-<!--                    <a href="payment" class="btn btn-primary pull-right">Next</a> -->
-                   <input type="submit" class="btn btn-primary pull-right" name="_eventId_next" value="Next" />
+                   <input type="submit" class="btn btn-primary pull-right" name="_eventId_next" id="next" value="Next" />
                    </form>
                 </div>
               </div>

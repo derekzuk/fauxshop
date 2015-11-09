@@ -62,7 +62,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
@@ -180,7 +180,7 @@
                 <li class="active"><a href="#">Review Order</a></li>
               </ul>
               
-              <h3>Transaction Completed</h3>
+              <h3 id="invoiceHeader">Transaction Completed</h3>
               <hr />
 
               <div class="box">

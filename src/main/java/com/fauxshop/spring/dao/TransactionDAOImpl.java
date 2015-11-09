@@ -357,12 +357,14 @@ public class TransactionDAOImpl implements TransactionDAO {
     
     /*    @Override*/
     public void updateMessage(TransactionLog transaction, String message) {
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        transaction.setMessage(message);
-        session.saveOrUpdate(transaction);
-        tx.commit();
-        session.close();
+    	if (null != message) {    	
+    		Session session = this.sessionFactory.openSession();
+    		Transaction tx = session.beginTransaction();
+    		transaction.setMessage(message);
+    		session.saveOrUpdate(transaction);
+    		tx.commit();
+    		session.close();
+    	}
     }    
     
 }

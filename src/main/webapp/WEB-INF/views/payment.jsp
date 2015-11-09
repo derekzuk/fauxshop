@@ -64,7 +64,7 @@
               </li>
               <li>
                 <div class="hidden-xs">
-                  <h4><a href="cart">Cart</a></h4>
+                  <h4><a href="cart" id="cart">Cart</a></h4>
                   <p><strong>${cart.size()}${cartSession.size()} Product(s)</strong></p>
                 </div>
                 <div class="visible-xs">
@@ -151,7 +151,7 @@
               <!-- break -->
               <div class="widget">
                 <div class="widget-title">
-                  <h3>Payment Confirmation</h3>
+                  <h3 id="paymentHeader">Payment Confirmation</h3>
                 </div>
                 <p>Already make a payment ? please confirm your payment by filling <a href="confirm">this form</a></p>
               </div>
@@ -238,7 +238,7 @@
               <div class="row">
                 <div class="col-md-12">
         
-                   <input type="submit" class="btn btn-primary" name="_eventId_next" value="Review Order" />                    
+                   <input type="submit" class="btn btn-primary" name="_eventId_next" id="next" value="Review Order" />                    
                 </div>
               </div>
 			</form>                          
