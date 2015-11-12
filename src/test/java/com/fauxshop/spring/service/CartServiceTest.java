@@ -326,7 +326,7 @@ public class CartServiceTest {
 	   }	  	   
 	    
 	    @Test
-	    public void userLogginCartCostTests() throws Exception {
+	    public void userLoginCartCostTests() throws Exception {
 			   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 			   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 
@@ -353,7 +353,7 @@ public class CartServiceTest {
 	    }
 	    
 	    @Test
-	    public void userLogginCartCostSessionIdTests() throws Exception {
+	    public void userLoginCartCostSessionIdTests() throws Exception {
 			   databaseTester = new JdbcDatabaseTester("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/fauxleather","root", "pass");		   	
 			   databaseTester.setDataSet(getDataSet()); databaseTester.onSetup();
 

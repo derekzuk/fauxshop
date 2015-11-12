@@ -125,28 +125,20 @@
           <div class="row">
             <div class="col-md-12">
               <div class="widget">
-                <h3>Lorem ipsum</h3>
+                <h3>Fauxshop Mission</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                 Fusce varius quam elementum metus vulputate lacinia. Class aptent taciti sociosqu ad.</p>
               </div>
               
               <div class="widget">
-                <h3>Lorem ipsum dolor</h3>
+                <h3>Fauxshop Principles</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a lorem eget dui lacinia ullamcorper. Nunc a mi ipsum, at porta odio. Vivamus hendrerit, massa et molestie bibendum, lacus neque.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-md-9 col-sm-8 content">
-          <div class="row">
-            <div class="col-md-12">
-              <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">About</li>
-              </ol>
-            </div>
-          </div>
+        <div class="col-md-9 col-sm-8 content" id="pageContent">
           <div class="row">
             <div class="col-md-12">
               <div class="page-header">

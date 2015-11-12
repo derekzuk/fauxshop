@@ -157,14 +157,6 @@
         <div class="col-md-9 col-sm-8 content">
           <div class="row">
             <div class="col-md-12">
-              <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">About</li>
-              </ol>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
               <div class="page-header">
                   <h2>Contact Us <small>Subtext for header</small></h2>
               </div>
@@ -291,7 +283,6 @@
     <script src="<c:url value="/resources/js/masonry.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/imagesloaded.pkgd.min.js" />"></script>
     <script src="<c:url value="/resources/js/script.js" />"></script>
-    </script>
 
   </body>
 </html>
