@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="description" content="responsive clothing store template">
-    <meta name="author" content="afriq yasin ramadhan">
+    <meta name="author" content="derek zuk">
     <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png" />">
 
     <title>Faux Shop</title>
@@ -188,7 +188,7 @@
 							</c:if>
 						</c:forEach>              
               
-              <h3>Personal Information</h3>
+              <h3 id="personalInformation">Personal Information</h3>
               <hr />
               <form class="form-horizontal" method="post" action="${flowExecutionUrl}">
               <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>

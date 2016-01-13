@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="description" content="responsive clothing store template">
-    <meta name="author" content="afriq yasin ramadhan">
+    <meta name="author" content="derek zuk">
     <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png" />">
 
     <title>Faux Shop</title>
@@ -193,7 +193,7 @@
 
 						<div class="row">
                 <div class="col-md-6 col-sm-6">
-                  <h3>Create An Account</h3>
+                  <h3 id="createAnAccount">Create An Account</h3>
                   <hr />
                   <!-- <form role="form"> -->
                   <form role="form" method="post" action="${flowExecutionUrl}">

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="description" content="responsive clothing store template">
-    <meta name="author" content="afriq yasin ramadhan">
+    <meta name="author" content="derek zuk">
     <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.png" />">
 
     <title>Faux Shop</title>
@@ -151,7 +151,7 @@
               <!-- break -->
               <div class="widget">
                 <div class="widget-title">
-                  <h3 id="paymentHeader">Payment Confirmation</h3>
+                  <h3>Payment Confirmation</h3>
                 </div>
                 <p>Already make a payment ? please confirm your payment by filling <a href="confirm">this form</a></p>
               </div>
@@ -183,7 +183,7 @@
               </ul>                           					
 									
 				
-				<h3>Billing and Shipping Address</h3>					
+				<h3 id="paymentHeader">Billing and Shipping Address</h3>					
 			<form method="post" action="${flowExecutionUrl}">
             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>  																		
 						<div class="row">
